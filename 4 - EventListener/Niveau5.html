@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  class Consigne extends React.Component {
+    render() {
+
+      // Notez que la balise div est indispensable. Il ne faut renvoyer qu'un seul composant parent, ou bien utiliser un fragment
+      return (
+        <div>
+          <p><a href="https://fr.reactjs.org/docs/faq-functions.html">Documentation pour passer des fonctions à des
+            props </a></p>
+        </div>
+      )
+    }
+  }
+
+  // Création de composant en créant des classes
+  class Hello extends React.Component {
+
+    constructor() {
+      super();
+      this.state = {
+        textValue: "",
+        tasks: [
+          "Faire la vaisselle",
+          "Ne pas manger de chips",
+        ]
+      };
+
+      this.updateTextValue = this.updateTextValue.bind(this);
+    }
+
+    render() {
+      return (
+        <div>
+          <Consigne/>
+          <ul>
+            <li>Créer un composant PrimaryButton qui va prendre en props un texte à afficher et la fonction alertClick
+            </li>
+            <li>Depuis le composant PrimaryButton, lier la méthode reçue en props à son attribut onClick. Quand on
+              clique sur le bouton, l'alerte devrait s'afficher
+            </li>
+          </ul>
+          <ul>
+            <li>Dans le composant Hello, créer une méthode alertPress</li>
+            <li>Créer un composant SecondaryButton qui va prendre en props un texte à afficher et la nouvelle fonction
+              alertPress
+            </li>
+            <li>Depuis le composant SecondaryButton, lier la méthode reçue en props à son attribut onClick.</li>
+          </ul>
+          <ul>
+            <li>Dans le composant Hello il y a un state "textValue" et une méthode updateTextValue</li>
+            <li>Créer un compoant TextField qui va rendre un input, et lui envoyer comme props la textValue, ainsi que
+              la méthode updateTextValue
+            </li>
+            <li>Dans le composant TextField, attribuer la props textValue à la value de l'input</li>
+            <li>Dans le composant TextField, lier le déclencheur onChange à la méthode reçue en props de manière à lui
+              envoyer la valeur de cet input.
+            </li>
+            <li>Vérifier ici que la textValue se mette correctement à jour : {this.state.textValue}</li>
+          </ul>
+
+          <ul>
+            <li>Créer un composant CreateTask de manière à ce que quand on clique sur son bouton, une nouvelle tâche est créée dans le state de Hello</li>
+            {this.state.tasks.map(task => <li>{task}</li>)}
+          </ul>
+        </div>
+      )
+    }
+
+    /**
+     * Déclenche une alerte
+     */
+    alertClick() {
+      alert("Cliqué !");
+    }
+
+    /**
+     * Met à jour le state de textValue
+     */
+    updateTextValue(value) {
+      this.setState({
+        textValue: value
+      })
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <Hello/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  // Création de composant en créant des classes
+  class App extends React.Component {
+
+    render() {
+
+      const personne = {
+        name: "Charly",
+        age: 66,
+        job: {
+          name: "Styliste",
+          since: "29 Avril 2020",
+        }
+      };
+
+      const panierDeCourses = [
+        {
+          name: "Concombre",
+          type: "Legume"
+        },
+        {
+          name: "Courgette",
+          type: "Legume",
+        },
+        {
+          name: "Endive",
+          type: "Beurk",
+        },
+        {
+          name: "Steak",
+          type: "Frais",
+        },
+        {
+          name: "Sanglier",
+          type: null,
+        }
+      ];
+
+      const series = this.catalogueSeries();
+      console.log(series);
+
+      return (
+        <div className="App">
+          <div>
+            <p>Consulter la méthode cancelButton. En vous basant sur le même modèle, remplissez la méthode
+              validateButton</p>
+            <p>Appeler la fonction validateButton pour générer le bouton en dessous de ce paragraphe</p>
+            <p>{this.validateButton()}</p>
+            <p>Afficher toutes les propriétés de la variable personne </p>
+              <div>
+                  <p>
+                      <span>Nom : {personne.name} - {personne.age} Ans</span>
+                  </p>
+                  <p>
+                      <span>Job : {personne.job.name} - Depuis : {personne.job.since}</span>
+                  </p>
+              </div>
+            <p>Afficher toutes les propriétés du panier de courses</p>
+            {panierDeCourses.map((aliment, index) => (
+              <div key={index}>
+                  <p><span>{aliment.name} - {aliment.type || "Non renseigné"}</span></p>
+              </div>
+            ))}
+            <p>Afficher toutes les propriétés du catalogue de séries</p>
+            {series.map((serie, index) => (
+              <div key={index}>
+                  <p>{serie.name}</p>
+                  <p>{serie.episodes}</p>
+                  <p>{serie.note}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    /**
+     * Cette méthode renvoie un bouton Annuler au format JSX
+     */
+    cancelButton() {
+      return <button>Annuler</button>
+    }
+
+    /**
+     * Cette méthode renvoie un bouton Valider au format JSX
+     */
+    validateButton() {
+      return <button>Valider</button>
+    }
+
+    /*
+    * Cette méthode renvoie une liste des séries à regarder pendant le confinement
+    * */
+    catalogueSeries() {
+      return [
+        {
+          name: "One Sheep",
+          episodes: 999999,
+          note: 5,
+        },
+        {
+          name: "Vikongs",
+          episodes: 5,
+          note: 19,
+        },
+        {
+          name: "Spartakis, au bon lait de brebis",
+          episodes: 15,
+          note: 12,
+        }
+      ];
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    const ERROR_TOO_SHORT = "Mot de passe trop court, Il faut au moins 8 caractères, et vous en avez mis ";
+    const ERROR_NO_CAP = "Le mot de passe doit contenir au moins une majuscule";
+    const ERROR_NO_MIN = "Le mot de passe doit contenir au moins une minuscule";
+
+
+    // Création de composant en créant des classes
+    class App extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                password: "",
+                errorMessages: [],
+            };
+
+            this.updatePassword = this.updatePassword.bind(this);
+        }
+
+        /**
+         * Cette méthode est appelée dès qu'un setState est effectué.
+         * PrevState contient l'objet state de la classe avant le setState
+         * Pour rappel, pour accéder à l'état courant, utiliser this.state.
+         * PreviousProps n'est pas utilisé dans cet exercice
+         */
+        componentDidUpdate(previousProps, previousState) {
+        }
+
+
+        render() {
+            return (
+                <div className="App">
+                    <div>
+                        <a href="https://fr.reactjs.org/docs/react-component.html#componentdidupdate">Documentation sur
+                            les cycles
+                            de vie </a>
+                        <p>Voici un input qui va mettre à jour le champ password </p>
+                        <p>Mot de passe : {this.state.password}</p>
+                        <label>
+                            Password
+                            <input type="password" onChange={this.updatePassword}/>
+                        </label>
+
+                        <p>Afficher les messages d'erreur dans une liste ici</p>
+                        {this.state.errorMessages.map(message => <p style={{color: "red"}}>{message}</p>)}
+
+                        <p>Si le mot de passe mesure moins de 8 caractères de long et qu'il manque une majuscule, il
+                            faudra afficher les deux messages d'erreur</p>
+                        <p>Remplir la fonction componentDidUpdate de manière à ce que</p>
+                        <p>
+                            Si le mot de passe est inférieur à 8 caractères de long, mettre dans le tableau d'erreurs :
+                            "Mot de passe trop court, Il faut au moins 8 caractères, et vous en avez mis X"
+                            X désigne le nombre de caractères contenus dans l'état de password
+                        </p>
+                        <p>
+                            Si le mot de passe ne contient pas une majuscule, mettre dans le tableau d'erreurs
+                            "Le mot de passe doit contenir au moins une majuscule"
+                        </p>
+                        <p>
+                            Si le mot de passe ne contient pas de miniscule, mettre dans le tableau d'erreurs
+                            "Le mot de passe doit contenir au moins une majuscule"
+                        </p>
+                        <h4>Attention, si une erreur est résolue, il faut la retirer du tableau !</h4>
+                    </div>
+                </div>
+            )
+        }
+
+        /**
+         * Met à jour le state du password
+         */
+        updatePassword(event) {
+            this.setState({
+                password: event.target.value
+            })
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

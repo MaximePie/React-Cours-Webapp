@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  class Consigne extends React.Component {
+    render() {
+
+      // Notez que la balise div est indispensable. Il ne faut renvoyer qu'un seul composant parent.
+      return (
+        <div>
+          <div>
+            <p>Créez un composant PanierLegumes et passez-lui en props les legumes.</p>
+            <p>Dans le composant PanierLegumes, créer un composant Legume qui sera appelé autant de fois qu'il y a de
+              légumes dans les props</p>
+            <p>Dans le composant Legume, afficher le nom et le prix de chaque légume </p>
+          </div>
+          <div>
+            <p>Créer un composant Eleves et passez-lui en props les élèves.</p>
+            <p>Dans ce composant, créer un composant Eleve qui sera appelé autant de fois qu'il y a d'élève dans les
+              props </p>
+            <p>Dans le composant Eleve, afficher l'élève dans une balise de votre choix</p>
+          </div>
+        </div>
+      )
+    }
+  }
+
+  class TitleComponent extends React.Component {
+    render() {
+      return (
+        <h1>Ceci est un titre</h1>
+      )
+    }
+  }
+
+  class Legume extends React.Component {
+
+    render() {
+
+      const monLegume = this.props.legume;
+
+      return (
+        <div style={{border: "solid"}}>
+            <p>Nom : {monLegume.name}</p>
+            <p>Prix : {monLegume.prix}</p>
+        </div>
+      )
+    }
+  }
+
+  class Legumes extends React.Component {
+    render() {
+      return (
+        <div>
+            {this.props.panierLegumes.map((aliment, index) => (
+              <Legume key={index} legume={aliment}/>
+            ))}
+        </div>
+      )
+    }
+  }
+
+  class Eleve extends React.Component {
+    render() {
+      return (
+        <div>
+            <p>{this.props.eleve.name}</p>
+            <p>{this.props.eleve.age}</p>
+        </div>
+      )
+    }
+  }
+
+  class Eleves extends React.Component {
+    render() {
+      return (
+        <div>
+          {this.props.listeEleves.map((eleveActuel, index) => (
+            <Eleve key={index} eleve={eleveActuel}/>
+          ))}
+        </div>
+      )
+    }
+  }
+
+  // Création de composant en créant des classes
+  class Hello extends React.Component {
+
+    render() {
+
+      const legumes = listeLegumes();
+      const eleves = listeEleves();
+
+      return (
+        <div>
+          <TitleComponent/>
+          <Consigne/>
+          <Legumes panierLegumes={legumes}/>
+          <Eleves listeEleves={eleves}/>
+        </div>
+      );
+
+      /**
+       * Cette fonction génère une liste de légumes en brut
+       */
+      function listeLegumes() {
+        return [
+          {
+            name: "Topinambour",
+            prix: 15,
+          },
+          {
+            name: "Pois chiche",
+            prix: 2,
+          },
+          {
+            name: "Salade",
+            prix: 999,
+          },
+          {
+            name: "Courgette",
+            prix: 1,
+          },
+          {
+            name: "Oignon",
+            prix: 2,
+          },
+        ]
+      }
+
+      /**
+       * Cette fonction génère une liste d'élèves en brut
+       */
+      function listeEleves() {
+        return [
+          {
+            name: "Charly",
+            age: 15,
+          },
+          {
+            name: "Bobbybillybouba",
+            age: 12,
+          },
+          {
+            name: "JeanMichelDestroyer",
+            age: 16,
+          }
+        ]
+      }
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <Hello/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

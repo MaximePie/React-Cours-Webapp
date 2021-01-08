@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor(props) {
+            super(props);
+            this.state = {
+                animaux: [
+                    {
+                        name: "Trolilo",
+                        type: "troll"
+                    },
+                    {
+                        name: "Sheep sheep",
+                        type: "poisson"
+                    },
+                    {
+                        name: "Donald Trump",
+                        type: "orange"
+                    }
+                ],
+                newAnimalType: "",
+                newAnimalName: "",
+            }
+
+            this.handleAnimalNameChange = this.handleAnimalNameChange.bind(this);
+            this.handleAnimalTypeChange = this.handleAnimalTypeChange.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+        render() {
+            return (
+                <div>
+                    <ul>
+                        <li>
+                            Afficher la liste des animaux dans une boucle map. Pour chaque animal, afficher son nom, et
+                            son type
+                        </li>
+                        <li>
+                            Créer un input texte qui permet de saisir la valeur du state newAnimalType. Quand sa valeur
+                            change, la valeur de newAnimalType est mise à jour.
+                        </li>
+                        <li>
+                            Créer un autre input texte qui permet de saisir la valeur du state newAnimalName, avec le
+                            même fonctionnement
+                        </li>
+                        <li>
+                            Créer une méthode vide sauvegarderAnimal, et l'appeler depuis un bouton que vous créerez
+                            également
+                        </li>
+                        <li>
+                            Remplir la méthode sauvegarderAnimal tel que les valeurs newAnimalType et newAnimalName sont
+                            sauvegardées dans un nouvel animal,
+                            que la méthode mette le tableau des animaux à jour en ajoutant le nouvel animal à la fin
+                            et que une fois que l'animal a été créé, la méthode vide les champs newAnimalType et
+                            newAnimalName
+                        </li>
+                        <li>Bon courage !</li>
+                        <p>
+                            {this.state.newAnimalName}
+                        </p>
+                        <p>
+                            {this.state.newAnimalType}
+                        </p>
+                        <form onSubmit={this.handleSubmit}>
+                            <label>
+                                Nom de l'animal
+                                <input type="text" value={this.state.newAnimalName}
+                                       onChange={this.handleAnimalNameChange}/>
+                            </label>
+                            <label>
+                                Type de l'animal
+                                <input type="text" value={this.state.newAnimalType}
+                                       onChange={this.handleAnimalTypeChange}/>
+                            </label>
+                            <button>Sauvegarder</button>
+                        </form>
+                        {this.state.animaux.map((animal, index) => (
+                            <div key={index}>
+                                <p> {animal.name} - {animal.type}</p>
+                            </div>
+                        ))}
+                    </ul>
+                </div>
+            )
+        }
+
+        /**
+         * Mettre à jour le state avec la nouvelle valeur du nom de l'animal
+         */
+        handleAnimalNameChange(event) {
+            this.setState({
+                newAnimalName: event.target.value
+            })
+        }
+
+        /**
+         * Mettre à jour le state avec la nouvelle valeur du type de l'animal
+         * @param event Event contient la nouvelle valeur
+         */
+        handleAnimalTypeChange(event) {
+            this.setState({
+                newAnimalType: event.target.value
+            })
+        }
+
+        /**
+         * Afficher le contenu des deux champs
+         * @param event Event événement de soumission du formulaire
+         */
+        handleSubmit(event) {
+            event.preventDefault();
+            const animaux = this.state.animaux;
+
+            const name = this.state.newAnimalName;
+            const type = this.state.newAnimalType;
+            const newAnimal = {
+                name,
+                type,
+            };
+            animaux.push(newAnimal)
+
+            this.setState({
+                animaux,
+            })
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        let interval = null; // variable globale pour créer/supprimer le setInterval
+
+        const TIME_COUNTER = 1000;
+        const CONTAINER = document.getElementById('root');
+
+        const Counter = () => {
+            const [count, setCount] = React.useState(0);
+            const [active, setActive] = React.useState(false);
+
+            React.useEffect(() => {
+                console.log(active)
+                setCount(0);
+                clearInterval(interval);
+
+                if (active === true) {
+                    interval = setInterval(() => {
+                        setCount(count => count + 1)
+                        console.log(Math.random())
+                    
+                    }, TIME_COUNTER);
+
+                    return;
+                }
+
+            }, [active]);
+
+            // juste avant la destruction du composant Counter dans App 
+            // ne pas écouter de changement sur les states 
+            React.useEffect(() => {
+
+                return () => {
+                    clearInterval(interval);
+                }
+
+            }, [])
+
+            const startStop = () => {
+                setActive(!active);
+            }
+
+            return (
+                <React.Fragment>
+                    <div>Counter : {count} </div>
+                    <p>{active ? 'start' : 'stop'}</p>
+                    <div><button onClick={startStop}>Start/stop</button></div>
+                </React.Fragment>
+            );
+        }
+
+        const App = () => {
+            const [display, setDisplay] = React.useState(false);
+
+            const toggle = () => {
+                setDisplay(!display);
+            }
+
+            return (
+                <div>
+                    <p><button onClick={toggle}>Toggle counter</button></p>
+                    {display && <Counter />}
+                </div>
+            );
+        }
+
+        ReactDOM.render(
+            <App title="Hello React" message="Super les hooks" />,
+            CONTAINER
+        );
+    </script>
+</body>
+
+</html>

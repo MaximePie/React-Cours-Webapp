@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    class PrimaryButton extends React.Component {
+        render() {
+            return (
+                <div>
+                    <button onClick={this.props.onTrigger}>{this.props.text}</button>
+                </div>
+            )
+        }
+    }
+
+    class SecondaryButton extends React.Component {
+        render() {
+            return (
+                <button onClick={this.props.onTriggero}>{this.props.text}</button>
+            )
+        }
+    }
+
+    // Création de composant en créant des classes
+    class App extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                counter: 0,
+            };
+
+            this.triggerBlueAlert = this.triggerBlueAlert.bind(this);
+        }
+
+        render() {
+            return (
+                <div className="App">
+                    <p>Voici un composant PrimaryButton qui appelle la méthode triggerAlert de App</p>
+                    <p>Nous passons la méthode qu'il doit exécuter quand on clique dessus comme une prop. Cette prop est
+                        déclenchée depuis son onClick</p>
+                    <PrimaryButton onTrigger={this.triggerBlueAlert} text="Bonjour">Alerter</PrimaryButton>
+                    <div>
+                        <p>En vous basant sur l'exemple de PrimaryButton, générer une deuxième fois le composant
+                            PrimaryButton en lui passant this.triggerRedAlert cette fois-ci,
+                            de manière à ce que quand on clique sur le bouton, une alerte rouge est levée. </p>
+                    </div>
+                    <PrimaryButton onTrigger={this.triggerRedAlert} text="Bontou vert">Alerter</PrimaryButton>
+                    <div>
+                        <p>Créer un nouveau composant SecondaryButton qui va prendre en props un texte et une méthode à
+                        déclencher quand on clique dessus.
+                        </p>
+                        <p>Faire en sorte que quand on clique sur le SecondaryButton alors
+                            l'alerte <strong>bleue</strong> soit levée
+                        </p>
+                    </div>
+                    <SecondaryButton text="Baba" onTriggero={this.triggerBlueAlert}/>
+                    <div>
+                        <p>Générer un nouveau SecondaryButton et faire en sorte que quand on clique dessus
+                            une alerte <strong>rouge</strong> soit levée</p>
+                    </div>
+                    <SecondaryButton text="Baba" onTriggero={this.triggerRedAlert}/>
+                </div>
+            )
+        }
+
+        /**
+         * C'est une alerte bleue !
+         */
+        triggerBlueAlert() {
+            alert("Alerte bleue !");
+        }
+
+        /**
+         * C'est un alexandrin !
+         */
+        triggerRedAlert() {
+            alert("Alerte rouge !")
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

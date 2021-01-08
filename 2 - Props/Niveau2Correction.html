@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  class Consigne extends React.Component {
+    render() {
+
+      // Notez que la balise div est indispensable. Il ne faut renvoyer qu'un seul composant parent.
+      return (
+        <div>
+          <p>
+            <a href="https://fr.reactjs.org/docs/components-and-props.html">Documentation sur les composants et les
+              props
+            </a>
+          </p>
+
+          <p>
+            En vous basant sur l'exemple de Title, créer un composant Button qui prendra en props un texte, et qui sera
+            affiché à l'intérieur de ce bouton.
+          </p>
+          <p>Appeler ce bouton deux fois en lui envoyant pour props "Bubu", et "bababa"</p>
+          <p>Créer un composant Image qui va afficher une image, et qui prend une clé src en guise de props</p>
+          <p>Appeler cette image en lui envoyant cette adresse comme prop de src :
+            https://media.inmobalia.com/imgV1/B98Le8~d7M9k3DegigWkzHXQlgzMFGqGJJp6ZRUcpX033lqadFBp2i4GGW4X2J1jIJ9Pwc6GsJX5cPSaC8Y5L~JfyHds9HljFKbIihOkX3Hq5C9d69~GwVQAUJ3F~nk7fQh0UAqAYi7r3tGF4MzRyAahwYUUdBGcpIv62graeAG8w~8wUqYBXzLX2fvWEnUTQLuqRdONy5WACPmyO8uqKAHjHemV6z~5jgt8AQg7cew~6RB3PVf3qGWecjwBIeE1gPVvPLV3hrMoCZbpm9URzDnYisb5CD3BHYx3qe9hkFGi2MpOpzK2DLeQMSnujni41g--.jpg
+          </p>
+        </div>
+      )
+    }
+  }
+
+  class Title extends React.Component {
+    render() {
+      return (
+        <h1>{this.props.title}</h1>
+      )
+    }
+  }
+
+  class Button extends React.Component {
+    render() {
+      console.log(this.props)
+
+      return <button>{this.props.text}</button>
+    }
+  }
+
+  class Image extends React.Component {
+    render() {
+      console.log(this.props);
+
+      return <img src={this.props.src} alt=""/>
+    }
+  }
+
+  // Création de composant en créant des classes
+  class Hello extends React.Component {
+
+    render() {
+      return (
+        <div>
+          <Title title="Bonjour"/>
+          <Consigne/>
+          <Button text="Baba"/>
+          <Button text="Bububu" age={18}/>
+          <Image
+            src={"https://media.inmobalia.com/imgV1/B98Le8~d7M9k3DegigWkzHXQlgzMFGqGJJp6ZRUcpX033lqadFBp2i4GGW4X2J1jIJ9Pwc6GsJX5cPSaC8Y5L~JfyHds9HljFKbIihOkX3Hq5C9d69~GwVQAUJ3F~nk7fQh0UAqAYi7r3tGF4MzRyAahwYUUdBGcpIv62graeAG8w~8wUqYBXzLX2fvWEnUTQLuqRdONy5WACPmyO8uqKAHjHemV6z~5jgt8AQg7cew~6RB3PVf3qGWecjwBIeE1gPVvPLV3hrMoCZbpm9URzDnYisb5CD3BHYx3qe9hkFGi2MpOpzK2DLeQMSnujni41g--.jpg"}/>
+          <Image src={"Pérave"}/>
+        </div>
+      )
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <Hello/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .Form {
+            padding: 8px;
+            border: solid 1px grey;
+            border-radius: 4px;
+        }
+
+        span, input, button {
+            margin: 0 8px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    const REGEX_MAIL_FORMAT = /^[a-zA-Z0-9.!#$%&'*+/=?^_`/\{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+
+            this.state = {
+                mail: "",
+                firstname: "",
+                lastname: "",
+            };
+
+            // Regex de vérification de mail :
+
+            this.handleFieldChange = this.handleFieldChange.bind(this);
+            this.checkMail = this.checkMail.bind(this);
+        }
+
+        render() {
+
+            const isInvalid = !this.state.firstname || !this.state.lastname;
+
+            return (
+                <div>
+                    <div>
+                        <p>
+                            <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/RegExp">
+                                Documentation sur l'utilisation des expressions régulières pour comparer des chaînes de
+                                caractères
+                            </a>
+                        </p>
+                        <p>Créer un formulaire qui permet de saisir une adresse email, et dont la valeur est liée à un
+                            state mail</p>
+                        <p>Quand on soumet le formulaire, déclencher une fonction qui compare la valeur du state mail
+                            pour vérifier si son format est bien un format de mail</p>
+                        <p><a>Documentation pour vérifier qu'une chaîne de caractère soit bien une adresse e-mail</a>
+                        </p>
+                        <p><i>Vous pouvez utiliser cette regex : <pre> (Voir les commentaires dans le constructor)</pre>
+                        </i></p>
+                    </div>
+                    <form onSubmit={this.checkMail}>
+                        <label>
+                            Mail
+                            <input
+                                type="text"
+                                value={this.state.mail}
+                                onChange={this.handleFieldChange}
+                                name="mail"
+                            />
+                        </label>
+                        <button>Sauvegarder</button>
+                    </form>
+
+                    <div>
+                        <p>Créer un formulaire qui permet de rentrer un nom et un prénom.</p>
+                        <p>Créer un state lastname et un state firstname et les lier aux champs du formulaire</p>
+                        <p>Créer un bouton "Enregistrer" qui permet d'afficher les deux valeurs. </p>
+                        <p>Le bouton doit être désactivé tant qu'au moins une des deux valeurs est vide. </p>
+                        <a href="https://stackoverflow.com/questions/41488715/how-to-disable-button-in-react-js">Documentation
+                            pour désactiver un bouton de manière conditionnelle</a>
+                    </div>
+                    <form onSubmit={(event) => { event.preventDefault() }}>
+                        <label>
+                            Firstname
+                            <input
+                                type="text"
+                                value={this.state.firstname}
+                                onChange={this.handleFieldChange}
+                                name="firstname"
+                            />
+                        </label>
+                        <label>
+                            Lastname
+                            <input
+                                type="text"
+                                value={this.state.lastname}
+                                onChange={this.handleFieldChange}
+                                name="lastname"
+                            />
+                        </label>
+                        <button disabled={isInvalid}>Sauvegarder</button>
+                    </form>
+                </div>
+            )
+        }
+
+        /**
+         * Vérifier si le mail du state est bien au format mail
+         */
+        checkMail(event) {
+            event.preventDefault();
+            console.log(
+                REGEX_MAIL_FORMAT.test(this.state.mail)
+                    ? "Le mail est valide."
+                    : "Le mail est invalide."
+            );
+        }
+
+        /*
+        * Mettre à jour le state avec la valeur reçue en paramètre
+         */
+        handleFieldChange(event) {
+            this.setState({
+                [event.target.name]: event.target.value
+            })
+        }
+
+
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello message="Hello React" subtitle="Enjoy ! "/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .note {
+            color: red;
+        }
+
+        .firstname {
+            color: yellow;
+        }
+
+        .age {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  // Création de composant en créant des classes
+  class App extends React.Component {
+
+    render() {
+      const notes = [0, 4, 10, 20, 15];
+
+      const personne = {
+        firstname: "Boulette",
+        lastname: "Fromage",
+        age: 15,
+      };
+
+      const actionsList = (
+        <div>
+          <button>Modifier</button>
+          <button>Annuler</button>
+        </div>
+      );
+
+      return (
+        <div className="App">
+          <div>
+            <p>
+              Afficher le contenu du tableau notes sous forme de liste
+              <a href="https://fr.reactjs.org/docs/lists-and-keys.html">Documentation sur l'affichage des listes</a>
+            </p>
+            <p>Afficher le contenu de la constante personne sous la forme personne.valeur</p>
+            <p className="firstname">{personne.firstname}</p>
+            <p>{personne.lastname}</p>
+            <p className="age">{personne.age}</p>
+            <p>Afficher le contenu de la constante actionsList</p>
+            <div>
+              {actionsList}
+            </div>
+          </div>
+        </div>
+      )
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

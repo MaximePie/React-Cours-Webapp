@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  // Création de composant en créant des classes
+  class Hello extends React.Component {
+
+    constructor(props) {
+      super(props);
+      this.state = {
+        nom: "Matthieu",
+        chat: {
+          name: "Benjamin",
+          age: 18,
+        },
+      }
+    }
+
+    render() {
+
+
+
+      return (
+        <div className="heading">
+          <p>Afficher la propriété nom du state</p>
+          <p>Afficher la propriété chat du state avec ses attributs</p>
+          <div>
+            <h2>Le chat est là </h2>
+          </div>
+          <p>Créer une propriété song dans le state, donnez-lui la valeur de votre choix, et affichez-là ici.</p>
+          <p>Créer une propriété nombreDeBananes dans le state, donnez-lui la valeur de votre choix, et affichez-le
+            ici.</p>
+        </div>
+      )
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <Hello/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    class CounterFromClass extends React.Component {
+        constructor() {
+            super();
+            this.state = {
+                counter: 0,
+                isMajorMessageDisplayed: false
+            };
+
+            this.incrementCounter = this.incrementCounter.bind(this);
+        }
+
+        componentDidUpdate() {
+            if (this.state.counter >= 10 && !this.state.isMajorMessageDisplayed) {
+                this.setState({
+                    isMajorMessageDisplayed: true
+                });
+            }
+        }
+
+        render() {
+            return (
+                <div style={{border: "solid", padding: "8px", margin: "8px 0"}}>
+                    <h2>Compteur de classe: {this.state.counter}</h2>
+                    <button onClick={this.incrementCounter}>Ajouter</button>
+                    {this.state.isMajorMessageDisplayed && <p>Woaw, vous êtes on FIRE !</p>}
+                </div>
+            );
+        }
+
+        /**
+         * Updates the states and increments the counter.
+         */
+        incrementCounter() {
+            this.setState({
+                counter: this.state.counter + 1
+            });
+        }
+    }
+
+    function CounterFromFunction(props) {
+
+        const [counter, setCounter] = React.useState(5);
+        const [isMessageDisplayed, setMessageDisplayState] = React.useState(false);
+
+        // let message = null;
+        //
+        // if (isMessageDisplayed) {
+        //     message = <p>Wow vous êtes on fire</p>
+        // }
+
+        // let message = isMessageDisplayed ? <p>Wow vous êtes on fire</p> : null;
+
+        React.useEffect(function(){
+            if (counter >= 10 && !isMessageDisplayed) {
+                setMessageDisplayState(true);
+            }
+        }, [counter]);
+
+
+        return (
+            <div style={{border: "solid", padding: "8px", margin: "8px 0"}}>
+                {/* message */}
+                {/* isMessageDisplayed ? <p>Wow vous êtes on fire</p> : null */}
+                {isMessageDisplayed && <p>Wow vous êtes on fire</p>}
+                <h2>Counter : {counter}</h2>
+                <button onClick={incrementCounter}>Augmenter</button>
+            </div>
+        );
+
+        /**
+         * Mettre à jour le state de counter, avec setCounter
+         */
+        function incrementCounter() {
+            setCounter(counter + 1);
+        }
+    }
+
+
+    class App extends React.Component {
+        render() {
+            return (
+                <div className="App">
+                    <CounterFromClass title={"Class"} />
+                    <CounterFromFunction title={"Fonction"}/>
+                </div>
+            );
+        }
+    }
+
+    const rootElement = document.getElementById("root");
+    ReactDOM.render(
+        <React.StrictMode>
+            <App/>
+        </React.StrictMode>,
+        rootElement
+    );
+</script>
+</body>
+
+</html>

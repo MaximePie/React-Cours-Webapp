@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .Form {
+            padding: 8px;
+            border: solid 1px grey;
+            border-radius: 4px;
+        }
+
+        span, input, button {
+            margin: 0 8px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+        }
+
+        render() {
+            return (
+                <div>
+                    <p>Créer un formulaire qui se remplit en trois étapes, une seule étape peut être affichée à la fois.
+                        Il est possible d'accéder à la prochaine étape en cliquant sur le bouton Next
+                    </p>
+                    <p>Le formulaire devra conserver en mémoire dans le state toutes les données saisies et les afficher
+                        une fois qu'il sera complété dans un composant FormResults
+                    </p>
+                    <p>Les étapes sont détaillées comme ceci :</p>
+                    <div>
+                        <p>Etape 1 : </p>
+                        <p>Un champ texte pour le nom</p>
+                        <p>Un champ texte pour le prénom</p>
+                        <p>Un champ number pour l'âge</p>
+                        <p>L'âge ne peut pas être inférieur à 18. </p>
+                        <p>Si l'âge est inférieur à 18, alors afficher le contenu du champ en rouge</p>
+                        <p>Le bouton Next est désactivé pour une des raisons suivantes : </p>
+                        <ul>
+                            <li>Le champ du nom est vide</li>
+                            <li>Le champ du prénom est vide</li>
+                            <li>L'âge est inférieur à 18</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p>Etape 2 :</p>
+                        <p>Un champ de type select pour sélectionner sa pizza préférée. Il doit contenir une option
+                            vide </p>
+                        <p>Plusieurs checkbox pour enregistrer les garnitures de votre choix (4 au minimum)</p>
+                        <p>Le bouton Next est désactivé pour une des raisons suivantes : </p>
+                        <ul>
+                            <li>Aucune pizza n'est sélectionnée</li>
+                            <li>Moins de 4 ingrédients sont sélectionnés</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p>Etape 3 :</p>
+                        <p>Un champ d'email qui doit être au format email (utiliser une regex pour vérifier)</p>
+                        <p>
+                            Un champ mot de passe. Le mot de passe est valide s'il remplit les conditions suivantes
+                            :
+                        </p>
+                        <ul>
+                            <li>Le mot de passe contient au moins 8 caractères</li>
+                            <li>Le mot de passe contient au moins 1 chiffre</li>
+                            <li>Le mot de passe contient au moins une lettre en majuscule</li>
+                        </ul>
+                        <p>
+                            à chaque fois que le mot de passe change, vérifier qu'il soit valide. S'il n'est pas valide,
+                            afficher un message depuis un state errorMessage pour détailler le problème sur la page.
+                        </p>
+                        <p>Un champ de confirmation de mot de passe</p>
+                        <p>Le bouton Enregistrer est désactivé pour les raisons suivantes : </p>
+                        <ul>
+                            <li>Les mots de passe ne sont pas identiques</li>
+                            <li>L'adresse e-mail n'est pas valide</li>
+                            <li>Le mot de passe n'est pas valide</li>
+                        </ul>
+
+                        <p>
+                            Lorsque l'on clique sur le bouton, le formulaire est caché, et on affiche un composant
+                            FormResults qui prend en props les données saisies dans le formulaire
+                        </p>
+                        <p>Le composant FormResults affiche les données dans des balises de votre choix. </p>
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello message="Hello React" subtitle="Enjoy ! "/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

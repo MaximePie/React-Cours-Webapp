@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    class Compteur extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                counter: 0,
+            }
+
+            this.incrementCounter = this.incrementCounter.bind(this);
+            // this.handleTrigger = this.handleTrigger.bind(this);
+        }
+
+        render() {
+            return (
+                <div>
+                    <p>
+                        Compteur : {this.state.counter}
+                    </p>
+                    <button onClick={this.incrementCounter}>Increment Counter</button>
+                    <button onClick={() => this.props.onTrigger(this.state.counter)}>Trigger</button>
+                </div>
+            )
+        }
+
+        // handleTrigger() {
+        //     this.props.onTrigger("Paramètre");
+        // }
+
+        /**
+         * Augmente de 1 le state du counter
+         */
+        incrementCounter() {
+            this.setState({
+                counter: this.state.counter + 1,
+            })
+        }
+    }
+
+    class Score extends React.Component {
+        render() {
+            return (
+                <h2>Score : {this.props.score}</h2>
+            )
+        }
+    }
+
+    class App extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                compteur: 0,
+            }
+
+            this.updateCounter = this.updateCounter.bind(this);
+        }
+        render() {
+            return (
+                <div className="App">
+                    <h2>Coucou {this.state.compteur}</h2>
+                    <Compteur onTrigger={this.updateCounter}/>
+                    <Score score={this.state.compteur}/>
+                </div>
+            );
+        }
+
+        triggerAlert(text) {
+            alert(text);
+        }
+
+        updateCounter(newCount) {
+            this.setState({
+                compteur: newCount
+            })
+        }
+    }
+
+    const rootElement = document.getElementById("root");
+    ReactDOM.render(
+        <React.StrictMode>
+            <App />
+        </React.StrictMode>,
+        rootElement
+    );
+</script>
+</body>
+
+</html>

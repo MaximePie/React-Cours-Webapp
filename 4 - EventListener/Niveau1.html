@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+        }
+
+        render() {
+            return (
+                <div>
+                    <div>
+                        <p>Voici un bouton qui appelle une méthode "Bonjour"</p>
+                        <button onClick={this.bonjour}>Appeler Bonjour</button>
+                    </div>
+                    <div>
+                        <p>En vous basant sur l'exemple du bouton "bonjour", créer une autre fonction salut qui va
+                            déclencher une alerte "salut"</p>
+                        <p>Créer un nouveau bouton "Salut" qui va appeler cette méthode salut lorsque l'on clique
+                            dessus</p>
+                    </div>
+                    <div>
+                        <ul>
+                            <li>Créer un bouton "salut2" qui va aussi appeler la méthode salut lorsque l'on clique
+                                dessus
+                            </li>
+                            <li>Créer un span "salut3" qui va appeler la méthode salut lorsque l'on clique dessus. (Oui,
+                                c'est aussi possible de mettre un attribut onClick sur un span. Essayez !)
+                            </li>
+                            <li>Créer un input de type texte qui va appeler la méthode salut lorsque sa valeur change
+                            </li>
+                            <li>Créer un input de type checkbox qui va également appeler la méthode salut lorsque son
+                                état change
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            )
+        }
+
+
+        /**
+         * Cette méthode alerte "Bonjour"
+         */
+        bonjour() {
+            alert("Bonjour");
+        }
+
+        /**
+         * Cette méthode alerte "Salut"
+         */
+        salut() {
+            alert("Salut");
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

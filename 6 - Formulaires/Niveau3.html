@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .Form {
+            padding: 8px;
+            border: solid 1px grey;
+            border-radius: 4px;
+        }
+
+        span, input, button {
+            margin: 0 8px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+        }
+
+        render() {
+            return (
+                <div>
+                    <div>
+                        <p>Créer un formulaire qui permettra de saisir un nom, un prénom, une adresse, une adresse
+                            e-mail, un mot de passe</p>
+                        <p>Pour chaque champ du formulaire, créer des states correspondant (un state nom, un state
+                            prénom, ... etc), et les lier aux différents input de manière à ce que quand ils changent,
+                            la data se mette à jour.</p>
+                        <div>
+                            <p>Afficher en direct toutes les données saisies ici</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p>Créer un formulaire avec un champ de mot de passe, et un champ de confirmation de mot de
+                            passe. </p>
+                        <p>Créer une méthode checkPassword qui vérifie si les deux mots de passe sont identiques, et qui
+                            déclenche une alerte si ce n'est pas le cas. </p>
+                        <p>Appeler la méthode checkPassword quand on soumet le formulaire.</p>
+                    </div>
+
+                    <div>
+                        <p>Créer un formulaire avec un champ de mot de passe.</p>
+                        <p>Créer un state errorMessage qui contiendra le message d'erreur, et l'afficher sous le
+                            formulaire</p>
+                        <p>Le mot de passe doit au moins contenir 8 caractères</p>
+                        <p>Si le mot de passe contient moins de 8 caracètres, alors régler le message d'erreur sur "Le
+                            mot de passe ne peut pas contenir moins de 8 caractères" </p>
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello message="Hello React" subtitle="Enjoy ! "/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

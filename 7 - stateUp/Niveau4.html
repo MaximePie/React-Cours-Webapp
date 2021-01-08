@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    class PrimaryButton extends React.Component {
+        render() {
+            return (
+                <div>
+                    <button onClick={this.props.onTrigger}>{this.props.text}</button>
+                </div>
+            )
+        }
+    }
+
+    // Création de composant en créant des classes
+    class App extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                tasks: [
+                    "Nourrir Ronron",
+                    "Préparer des babas",
+                    "Danser la Macarena",
+                ],
+
+                types: [
+                    "jaune",
+                    "vert"
+                ],
+
+                paniersLegumes: [
+                    {
+                        name: "Tiponambour",
+                        type: "jaune"
+                    },
+                    {
+                        name: "Poivron",
+                        type: "jaune"
+                    },
+                    {
+                        name: "Tomate cerise",
+                        type: "vert"
+                    },
+                ],
+            };
+        }
+
+        render() {
+            return (
+                <div className="App">
+                    <div>
+                        <p>Créer un composant TaskForm qui contiendra : </p>
+                        <ul>
+                            <li>Un label "Nouvelle tâche"</li>
+                            <li>Un input de type texte qui contiendra la nouvelle tâche</li>
+                            <li>Un bouton "submit"</li>
+                            <li>Un form qui englobe le tout.</li>
+                        </ul>
+                        <p>Dans App, créer une méthode permettant d'ajouter une nouvelle tâche</p>
+                        <p>Quand le form est soumis, appeler une méthode passée par les props qui permet de créer la
+                            nouvelle tâche
+                            dans la classe parente App.
+                        </p>
+                        <p>
+                            Si la nouvelle task est déjà présente dans le formulaire, ne pas l'inclure, et alerter("Déjà
+                            dans le
+                            formulaire")
+                        </p>
+                    </div>
+                    <div>
+                        <p>Créer un composant LegumesForm qui contiendra : </p>
+                        <ul>
+                            <li>Un label "Nom"</li>
+                            <li>Un input de type texte qui contiendra le nom du légume</li>
+                            <li>Un label "Type"</li>
+                            <li>Un input de type select qui prendra comme options une liste de types passée en props (il
+                                y a une liste
+                                de types dans le state de App
+                            </li>
+                            <li>Un bouton "submit"</li>
+                            <li>Un form qui englobe le tout.</li>
+                        </ul>
+                        <p>Dans App, créer une méthode permettant d'ajouter un nouveau légume</p>
+                        <p>Quand le form est soumis, appeler une méthode passée par les props qui permet de créer le
+                            nouveau légume
+                            dans la classe parente App.
+                        </p>
+                        <p>
+                            S'il y a au moins 6 légumes dans le panier, ne plus afficher le formulaire pour créer ses
+                            légumes
+                        </p>
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

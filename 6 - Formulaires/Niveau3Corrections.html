@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .Form {
+            padding: 8px;
+            border: solid 1px grey;
+            border-radius: 4px;
+        }
+
+        span, input, button {
+            margin: 0 8px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    const ERROR_PASSWORD_TOO_SHORT = "Le mot de passe ne peut pas contenir moins de 8 caractères";
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+
+            this.state = {
+                firstName: "",
+                lastName: "",
+                address: "",
+                mail: "",
+                password: "", // Exercice 1
+                newPassword: "", // Exercice 2
+                newPasswordConfirm: "", // Exercice 2
+                superPassword: "", // Exercice 3
+                errorMessage: "", // Exercice 3
+            };
+
+            this.handleFieldChange = this.handleFieldChange.bind(this);
+            this.checkPassword = this.checkPassword.bind(this);
+        }
+
+        componentDidUpdate() {
+            if (this.state.superPassword.length < 8 && this.state.errorMessage !== ERROR_PASSWORD_TOO_SHORT) {
+                this.setState({
+                    errorMessage: ERROR_PASSWORD_TOO_SHORT
+                })
+            }
+            else if (this.state.superPassword.length >= 8 && this.state.errorMessage !== "") {
+                this.setState({
+                    errorMessage: "",
+                })
+            }
+        }
+
+        render() {
+            return (
+                <div>
+                    <div>
+                        <p>Créer un formulaire qui permettra de saisir un nom, un prénom, une adresse, une adresse
+                            e-mail, un mot de passe</p>
+                        <p>Pour chaque champ du formulaire, créer des states correspondant (un state nom, un state
+                            prénom, ... etc), et les lier aux différents input de manière à ce que quand ils changent,
+                            la data se mette à jour.</p>
+                        <form onSubmit={this.handleUserSubmit}>
+                            <label>
+                                Prénom
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    value={this.state.firstName}
+                                    onChange={this.handleFieldChange}
+                                />
+                            </label>
+                            <label>
+                                Nom
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    value={this.state.lastName}
+                                    onChange={this.handleFieldChange}
+                                />
+                            </label>
+                            <label>
+                                Adresse
+                                <input
+                                    type="text"
+                                    name="address"
+                                    value={this.state.address}
+                                    onChange={this.handleFieldChange}
+                                />
+                            </label>
+                            <label>
+                                Mail
+                                <input
+                                    type="text"
+                                    name="mail"
+                                    value={this.state.mail}
+                                    onChange={this.handleFieldChange}
+                                />
+                            </label>
+                            <label>
+                                Mot de passe
+                                <input
+                                    type="password"
+                                    name="password"
+                                    value={this.state.pass}
+                                    onChange={this.handleFieldChange}
+                                />
+                            </label>
+                            <button>Enregistrer</button>
+                        </form>
+                        <div>
+                            <p>Afficher en direct toutes les données saisies ici</p>
+                            <p>{this.state.firstName}</p>
+                            <p>{this.state.lastName}</p>
+                            <p>{this.state.address}</p>
+                            <p>{this.state.mail}</p>
+                            <p>{this.state.pass}</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p>Créer un formulaire avec un champ de mot de passe, et un champ de confirmation de mot de
+                            passe. </p>
+                        <p>Créer une méthode checkPassword qui vérifie si les deux mots de passe sont identiques, et qui
+                            déclenche une alerte si ce n'est pas le cas. </p>
+                        <p>Appeler la méthode checkPassword quand on soumet le formulaire.</p>
+                    </div>
+                    <form onSubmit={this.checkPassword}>
+                        <label>
+                            Mot de passe
+                            <input
+                                type="text"
+                                name="newPassword"
+                                value={this.state.newPassword}
+                                onChange={this.handleFieldChange}
+                            />
+                        </label>
+                        <label>
+                            Mot de passe confirmation
+                            <input
+                                type="text"
+                                name="newPasswordConfirm"
+                                value={this.state.newPasswordConfirm}
+                                onChange={this.handleFieldChange}
+                            />
+                        </label>
+                        <button>rengistererer</button>
+                    </form>
+
+                    <form>
+                        <label>
+                            Super mot de passe
+                            <input
+                                type="text"
+                                name="superPassword"
+                                value={this.state.superPassword}
+                                onChange={this.handleFieldChange}
+                            />
+                        </label>
+                        {this.state.errorMessage}
+                    </form>
+
+                    <div>
+                        <p>Créer un formulaire avec un champ de mot de passe.</p>
+                        <p>Créer un state errorMessage qui contiendra le message d'erreur, et l'afficher sous le
+                            formulaire</p>
+                        <p>Le mot de passe doit au moins contenir 8 caractères</p>
+                        <p>Si le mot de passe contient moins de 8 caracètres, alors régler le message d'erreur sur "Le
+                            mot de passe ne peut pas contenir moins de 8 caractères" </p>
+                    </div>
+                </div>
+            )
+        }
+
+        /**
+         * Comparer newPassword et newPasswordConfirm et alerter s'ils sont différents
+         */
+        checkPassword(event) {
+            event.preventDefault();
+            if (this.state.newPassword !== this.state.newPasswordConfirm) {
+                alert("Les deux password ne sont pas identiques")
+            }
+        }
+
+        /**
+         * Empêche l'exécution normale de l'événement de soumission
+         */
+        handleUserSubmit(event) {
+            event.preventDefault();
+        }
+
+        /**
+         * Mettre à jour le state du champ reçu en name du target, avec sa valeur
+         */
+        handleFieldChange(event) {
+            this.setState({
+                [event.target.name]: event.target.value
+            })
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello message="Hello React" subtitle="Enjoy ! "/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

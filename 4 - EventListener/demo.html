@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                counter: 0,
+                text: "",
+            }
+
+            this.incrementCounter = this.incrementCounter.bind(this);
+            this.hasChanged = this.hasChanged.bind(this);
+        }
+        // https://fr.reactjs.org/docs/events.html Liste des évenements
+        render() {
+            return (
+                <div>
+                    <h1>Event Listeners {this.state.counter}</h1>
+                    <button onClick={this.incrementCounter}>Cliquez-moi</button>
+                    <input type="text" onChange={this.hasChanged} value={this.state.text}/>
+                    <input type="text" onFocus={this.incrementCounter} onBlur={this.incrementCounter} value={this.state.text}/>
+                </div>
+            )
+        }
+
+        /**
+         * Mettre à jour le state de counter à + 1
+         */
+        incrementCounter() {
+            this.setState({
+                counter: this.state.counter + 1,
+            })
+        }
+
+        /**
+         * Mettre à jour le state de text
+         */
+        hasChanged(event) {
+            // console.log(event)
+            // console.log(event.target)
+            // console.log(event.target.value)
+
+            if (event.target.value.length >= 8) {
+                console.log("C'est trop")
+            }
+            else {
+                this.setState({
+                    text: event.target.value
+                })
+            }
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

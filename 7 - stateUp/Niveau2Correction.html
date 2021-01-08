@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    class Counter extends React.Component {
+        render() {
+            return (
+                <div>
+                    <button onClick={this.props.onIncrement}> + 1</button>
+                    <button onClick={this.props.onDecrement}> - 1</button>
+                    <button onClick={this.props.onReset}> Reset </button>
+                </div>
+            )
+        }
+    }
+
+    // Création de composant en créant des classes
+    class App extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                counter: 0,
+            };
+
+            this.incrementCounter = this.incrementCounter.bind(this);
+            this.decrementCounter = this.decrementCounter.bind(this);
+            this.resetCounter = this.resetCounter.bind(this);
+        }
+
+        render() {
+            return (
+                <div className="App">
+                    <div>
+                        <h2>Voici la valeur du counter {this.state.counter}</h2>
+                        <Counter
+                            onIncrement={this.incrementCounter}
+                            onDecrement={this.decrementCounter}
+                            onReset={this.resetCounter}
+                        />
+                        <p>Dans le composant App, créer une méthode decrementCounter qui va diminuer la valeur du
+                            counter de 1</p>
+                        <p>Passer cette méthode en props au composant Counter.</p>
+                        <p>Dans le composant Counter, créer un bouton "-1" qui va déclencher cette props au onClick</p>
+                        <p>En vous basant sur l'exemple, créer un mécanisme qui permet de remettre le compteur à 0
+                            depuis le composant Counter</p>
+                    </div>
+                </div>
+            )
+        }
+
+        incrementCounter() {
+            this.setState({
+                counter: this.state.counter + 1,
+            })
+        }
+
+        /**
+         * Mettre à jour le state en décrémentant la valeur de counter 
+         */
+        decrementCounter() {
+            this.setState({
+                counter: this.state.counter - 1,
+            })
+        }
+
+        /**
+         * Remettre à jour le state
+         */
+        resetCounter() {
+            this.setState({
+                counter: 0,
+            })
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

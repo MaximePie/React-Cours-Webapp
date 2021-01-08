@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    class PrimaryButton extends React.Component {
+        render() {
+            return (
+                <div>
+                    <button onClick={this.props.onTrigger}>{this.props.text}</button>
+                </div>
+            )
+        }
+    }
+
+    class TaskForm extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                newTask: "",
+            };
+
+            this.handleTaskChange = this.handleTaskChange.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+        render() {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Nouvelle tâche
+                        <input type="text" onChange={this.handleTaskChange} value={this.state.newTask}/>
+                    </label>
+                    <button>Sauvegarder</button>
+                </form>
+            )
+        }
+
+        /**
+         * Traiter les données et appeler la fonction de création de tâche
+         */
+        handleSubmit(event) {
+            event.preventDefault();
+            this.props.onAdd(this.state.newTask);
+            this.setState({
+                newTask: "",
+            })
+        }
+
+        /**
+         * Mettre à jour le state avec la nouvelle valeur de la nouvelle tâche
+         */
+        handleTaskChange(event) {
+            this.setState({
+                newTask: event.target.value,
+            })
+        }
+    }
+
+    class LegumesForm extends React.Component {
+        constructor() {
+            super();
+            this.state = {
+                name: "",
+                type: "",
+            };
+
+            this.handleFieldChange = this.handleFieldChange.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+        render() {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <label>
+                        Nom légume
+                        <input
+                            type="text"
+                            onChange={this.handleFieldChange}
+                            value={this.state.name}
+                            name="name"
+                        />
+                    </label>
+                    <label>
+                        Type
+                        <select onChange={this.handleFieldChange} name="type">
+                            <option value={null}> -- </option>
+                            {this.props.types.map((type, index) => (
+                                <option key={index} value={type}>{type}</option>
+                            ))}
+                        </select>
+                    </label>
+                    <button>Sauvegarder</button>
+                </form>
+            )
+        }
+
+
+        /**
+         * Traiter les données et appeler la fonction de création de légume
+         */
+        handleSubmit(event) {
+            event.preventDefault();
+            this.props.onAdd(this.state.name, this.state.type);
+            this.setState({
+                name: "",
+                type: "",
+            })
+        }
+
+        /**
+         * Mettre à jour le state en fonction de la valeur reçue dans le target de l'évent
+         */
+        handleFieldChange(event) {
+            this.setState({
+                [event.target.name]: event.target.value,
+            })
+        }
+    }
+
+    // Création de composant en créant des classes
+    class App extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                tasks: [
+                    "Nourrir Ronron",
+                    "Préparer des babas",
+                    "Danser la Macarena",
+                ],
+
+                types: [
+                    "jaune",
+                    "vert"
+                ],
+
+                paniersLegumes: [
+                    {
+                        name: "Tiponambour",
+                        type: "jaune"
+                    },
+                    {
+                        name: "Poivron",
+                        type: "jaune"
+                    },
+                    {
+                        name: "Tomate cerise",
+                        type: "vert"
+                    },
+                ],
+            };
+
+            this.addNewTask = this.addNewTask.bind(this);
+            this.createLegume = this.createLegume.bind(this);
+        }
+
+        render() {
+            return (
+                <div className="App">
+                    <div>
+                        <h2>Tâches</h2>
+                        <ul>
+                            {this.state.tasks.map((task, index) => (
+                                <li key={index}>{task}</li>
+                            ))}
+                        </ul>
+                        <TaskForm onAdd={this.addNewTask}/>
+                    </div>
+                    <div>
+                        <h2>Les légumes</h2>
+                        {this.state.paniersLegumes.map((legume, index) => {
+                            return (<p key={index}>{legume.name} - {legume.type}</p>)
+                        })}
+                        <LegumesForm types={this.state.types} onAdd={this.createLegume}/>
+                        <button onClick={() => this.createLegume("Poulet", "bleu")}>Ajouter un poulet bleu</button>
+                        <button onClick={() => this.createLegume("Poulet", "jaune")}>Ajouter un poulet bleu</button>
+                    </div>
+                    <div>
+                        <p>Créer un composant TaskForm qui contiendra : </p>
+                        <ul>
+                            <li>Un label "Nouvelle tâche"</li>
+                            <li>Un input de type texte qui contiendra la nouvelle tâche</li>
+                            <li>Un bouton "submit"</li>
+                            <li>Un form qui englobe le tout.</li>
+                        </ul>
+                        <p>Dans App, créer une méthode permettant d'ajouter une nouvelle tâche</p>
+                        <p>Quand le form est soumis, appeler une méthode passée par les props qui permet de créer la
+                            nouvelle tâche
+                            dans la classe parente App.
+                        </p>
+                        <p>
+                            Si la nouvelle task est déjà présente dans le formulaire, ne pas l'inclure, et alerter("Déjà
+                            dans le
+                            formulaire")
+                        </p>
+                    </div>
+                    <div>
+                        <p>Créer un composant LegumesForm qui contiendra : </p>
+                        <ul>
+                            <li>Un label "Nom"</li>
+                            <li>Un input de type texte qui contiendra le nom du légume</li>
+                            <li>Un label "Type"</li>
+                            <li>Un input de type select qui prendra comme options une liste de types passée en props (il
+                                y a une liste de types dans le state de App
+                            </li>
+                            <li>Un bouton "submit"</li>
+                            <li>Un form qui englobe le tout.</li>
+                        </ul>
+                        <p>Dans App, créer une méthode permettant d'ajouter un nouveau légume</p>
+                        <p>Quand le form est soumis, appeler une méthode passée par les props qui permet de créer le
+                            nouveau légume
+                            dans la classe parente App.
+                        </p>
+                        <p>
+                            S'il y a au moins 6 légumes dans le panier, ne plus afficher le formulaire pour créer ses
+                            légumes
+                        </p>
+                    </div>
+                </div>
+            )
+        }
+
+        /**
+         * Crée un nouveau légume et l'insère dans le state du panier de légumes
+         */
+        createLegume(name, type) {
+            const panierLegumes = this.state.paniersLegumes;
+
+            if (this.state.types.includes(type)) {
+                console.log(type);
+            }
+            else {
+                console.log("Pas trouvé");
+                return
+            }
+
+            const newLegume = {
+                name,
+                type
+            };
+
+            panierLegumes.push(newLegume)
+
+            this.setState({
+                panierLegumes
+            })
+        }
+
+        /**
+         * Mettre à jour le state pour ajouter une nouvelle tâche au tableau
+         * @param task String le nom de la nouvelle tâche
+         */
+        addNewTask(task) {
+            const tasks = this.state.tasks;
+
+            tasks.push(task);
+
+            this.setState({
+                tasks,
+            })
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

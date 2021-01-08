@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class App extends React.Component {
+
+        constructor() {
+            super();
+
+            this.state = {
+                password: "",
+                errorMessage: "",
+            };
+
+            this.updatePassword = this.updatePassword.bind(this);
+        }
+
+        /**
+         * Cette méthode est appelée dès qu'un setState est effectué.
+         * PrevState contient l'objet state de la classe avant le setState
+         * Pour rappel, pour accéder à l'état courant, utiliser this.state.
+         * PreviousProps n'est pas utilisé dans cet exercice
+         * https://fr.reactjs.org/docs/state-and-lifecycle.html
+         */
+        componentDidUpdate(previousProps, previousState) {
+            if (this.state.password.length < 8 && this.state.errorMessage !== "Mot de passe trop court !") {
+                this.setState({
+                    errorMessage: "Mot de passe trop court !",
+                })
+            }
+
+            if (this.state.password.length >= 8 && this.state.errorMessage !== "") {
+                this.setState({
+                    errorMessage: "",
+                })
+            }
+        }
+
+        render() {
+            return (
+                <div className="App">
+                    <h2>Mot de passe {this.state.password}</h2>
+                    <h2>{this.state.errorMessage}</h2>
+                    <label>
+                        Mot de passe
+                        <input type="text" value={this.state.password} onChange={this.updatePassword}/>
+                    </label>
+                </div>
+            )
+        }
+
+        /**
+         * Met à jour le password dans le state
+         */
+        updatePassword(event) {
+            this.setState({
+                password: event.target.value
+            })
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

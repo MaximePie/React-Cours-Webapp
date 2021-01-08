@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  // Création de composant en créant des classes
+  class Hello extends React.Component {
+
+    constructor() {
+      super();
+
+      this.state = {
+        oiseaux: [
+          {
+            name: "Pingouin",
+            age: 18,
+            color: "Noir",
+            isColorDisplayed: true,
+          },
+          {
+            name: "Manchot",
+            age: 15,
+            color: "Blanc",
+            isColorDisplayed: false,
+          },
+          {
+            name: "Autruche",
+            age: 8555,
+            color: "Blanc",
+            isColorDisplayed: false,
+          },
+          {
+            name: "Colibri",
+            age: 85,
+            color: "Bleu",
+            isColorDisplayed: true,
+          },
+        ]
+      }
+    }
+
+    render() {
+      return (
+        <div>
+            <ul>
+                <li>Afficher chaque oiseau dans une boucle map</li>
+            </ul>
+            <h2>Pour chaque oiseau</h2>
+            <ul>
+                <li>Afficher son age, son nom, sa couleur</li>
+                <li>Si sa propriété isColorDisplayed n'est pas égale à true, ne pas afficher sa couleur</li>
+            </ul>
+            <ul>
+                <li>Créer un mécanisme qui permette d'ajouter un oiseau en utilisant un formulaire et des states</li>
+                <li>Créer un mécanisme qui permette de supprimer un oiseau en utilisant un bouton supprimer</li>
+                <li>Créer un mécanisme qui permette de modifier la couleur d'un oiseau en utilisant un input texte</li>
+            </ul>
+            <p>Dans le mécanisme d'ajout, ajouter des conditions qui empêchent la sauvegarde de l'oiseau</p>
+            <ul>
+                <li>Si son nom mesure moins de 4 caractères de long, ou plus de 12 caractères de long, alerter "Veuillez entrer un nom entre 4 et 12 caractères"</li>
+                <li>Si sa couleur n'est ni "bleu", ni "noir", ni "blanc", alerter "Veuillez entrer une de ces trois couleurs : bleu, noir, blanc" </li>
+            </ul>
+        </div>
+      )
+    }
+
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <Hello/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  // Un composant horloge qui fonctionne avec des states
+  class HorlogeState extends React.Component {
+
+    constructor() {
+      super();
+
+      this.state = {
+        currentTime: new Date,
+      };
+      this.updateTime = this.updateTime.bind(this);
+
+      setInterval(this.updateTime, 2000);
+    }
+
+    render() {
+      return (
+        <h2>Horloge state : {this.state.currentTime.toTimeString()}</h2>
+      )
+    }
+
+    // https://www.w3schools.com/jsref/met_win_setinterval.asp
+    updateTime() {
+      this.setState({
+        currentTime: new Date
+      })
+    }
+  }
+
+  // Un composant horloge qui marche avec des props
+  class HorlogeProps extends React.Component {
+    render() {
+      // toLocaleTimeString sert à afficher l'heure sous forme de chaîne de caractère
+      return (
+        <div>
+            Horloge props : {this.props.baba.toLocaleTimeString()}
+        </div>
+      )
+    }
+  }
+
+  // Création de composant en créant des classes
+  class Hello extends React.Component {
+    render() {
+      // Date Javascript : https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Date
+      const currentDate = new Date;
+      // console.log(currentDate.toTimeString());
+      return (
+        <div>
+            <HorlogeProps baba={currentDate}/>
+            <HorlogeState/>
+        </div>
+      )
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <Hello/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

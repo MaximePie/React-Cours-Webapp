@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class App extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                counter: 0,
+            };
+
+        }
+
+        render() {
+            return (
+                <div className="App">
+                    <div>
+                        <p>Créer un composant PrimaryButton qui va déclencher la méthode triggerAlert via une props.</p>
+                        <p>En déclenchant triggerAlert, donner un paramètre text depuis PrimaryButton de manière à ce
+                            que l'alerte
+                            affiche "Bababababa"</p>
+                    </div>
+                    <div>
+                        <p>
+                            Créer un composant TextField qui contiendra un input de type texte, et qui va déclencher la
+                            méthode displayText via une props à chaque fois que sa
+                            valeur change
+                        </p>
+                        <p>
+                            En déclanchant displayText, envoyer un paramètre text depuis TextField qui sera égal à la
+                            valeur de
+                            l'input.
+                        </p>
+                    </div>
+                </div>
+            )
+        }
+
+        /**
+         *
+         * @param text
+         */
+        triggerAlert(text) {
+            alert(text)
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

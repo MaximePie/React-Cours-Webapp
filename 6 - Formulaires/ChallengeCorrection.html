@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .Form {
+            padding: 8px;
+            border: solid 1px grey;
+            border-radius: 4px;
+        }
+
+        span, input, button {
+            margin: 0 8px;
+        }
+
+        .age--mineur {
+            color: red !important;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    const REGEX_MAIL_FORMAT = /^[a-zA-Z0-9.!#$%&'*+/=?^_`/\{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+
+    const ERROR_MAIL_FORMAT = "L'email n'est pas au bon format"
+
+    const ERROR_TOO_SHORT = "Mot de passe trop court, Il faut au moins 8 caractères, et vous en avez mis ";
+    const ERROR_NO_CAP = "Le mot de passe doit contenir au moins une majuscule";
+    const ERROR_NO_MIN = "Le mot de passe doit contenir au moins une minuscule";
+    const ERROR_PASSWORD_CONFIRM = "Erreur, le mot de passe doit être le même que celui de la confirmation";
+
+
+    class FormResults extends React.Component {
+        render() {
+            return (
+                <div>
+                    Afficher les data
+                    {this.props.data.map((info, index) => <p key={index}>{info.label}: {info.value}</p>)}
+                </div>
+            )
+        }
+    }
+
+    class NextButton extends React.Component {
+        render() {
+            return (
+                <button disabled={this.props.isDisabled} onClick={this.props.onClick}>Next</button>
+            )
+        }
+    }
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                currentStep: 0,
+                nom: "",
+                prenom: "",
+                age: "",
+                pizza: "",
+                garnitures: [],
+                mail: "",
+                pass: "",
+                passwordConfirm: "",
+                errors: [],
+            };
+
+            this.nextStep = this.nextStep.bind(this);
+            this.handleFieldChange = this.handleFieldChange.bind(this);
+            this.isStepValid = this.isStepValid.bind(this);
+            this.handleGarnitureChange = this.handleGarnitureChange.bind(this);
+            this.formatFields = this.formatFields.bind(this);
+        }
+
+        componentDidMount() {
+            this.setState({
+                currentStep: 1,
+            })
+        }
+
+        componentDidUpdate(prevProps, prevStates) {
+
+            const errors = [];
+
+            if (!REGEX_MAIL_FORMAT.test(this.state.mail)) {
+                errors.push(ERROR_MAIL_FORMAT)
+            }
+
+            if (this.state.pass.length < 8) {
+                errors.push(ERROR_TOO_SHORT)
+            }
+
+            if (!/[A-Z]/.test(this.state.pass)) {
+                errors.push(ERROR_NO_CAP)
+            }
+
+            if (!/[a-z]/.test(this.state.pass)) {
+                errors.push(ERROR_NO_MIN)
+            }
+
+            if (this.state.pass !== this.state.passwordConfirm ) {
+                errors.push(ERROR_PASSWORD_CONFIRM)
+            }
+
+            if (this.areDifferentArrays(prevStates.errors, errors)) {
+                this.setState({
+                    errors
+                })
+            }
+        }
+
+        /**
+         * Comparer deux tableaux et renvoyer s'ils sont identiques ou pas
+         */
+        areDifferentArrays(array1, array2) {
+            if (array1.length !== array2.length) {
+                return true;
+            }
+
+            for (let i = 0; i < array1.length; i++) {
+                if (array1[i] !== array2[i]) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        render() {
+            return (
+                <div>
+
+                    <form className="Form">
+                        {this.state.currentStep === 1 && (
+                            <div className="step">
+                                <h2>{this.state.currentStep}</h2>
+
+                                <label>
+                                    Nom
+                                    <input
+                                        type="text"
+                                        name="nom"
+                                        value={this.state.nom}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                </label>
+                                <label>
+                                    Prénom
+                                    <input
+                                        type="text"
+                                        name="prenom"
+                                        value={this.state.prenom}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                </label>
+                                <label>
+                                    Age
+                                    <input
+                                        type="text"
+                                        name="age"
+                                        value={this.state.age}
+                                        onChange={this.handleFieldChange}
+                                        className={`age${this.state.age < 18 && '--mineur'}`}
+                                    />
+                                </label>
+                                <NextButton
+                                    isDisabled = {!this.isStepValid()}
+                                    onClick={this.nextStep}
+                                />
+                            </div>
+                        )}
+                        {this.state.currentStep === 2 && (
+                            <div className="step">
+                                <h2>{this.state.currentStep}</h2>
+                                <label>
+                                    Pizza préférée
+                                    <select
+                                        name="pizza"
+                                        value={this.state.pizza}
+                                        onChange={this.handleFieldChange}
+                                    >
+                                        <option value=""> -- </option>
+                                        <option value="Ananas">Ananas</option>
+                                        <option value="Anchois">Anchois</option>
+                                        <option value="Paprika">Paprika</option>
+                                        <option value="Radiateur de Renault 5">Radiateur</option>
+                                    </select>
+                                </label>
+                                <div>
+                                    <label>
+                                        Fromage
+                                        <input
+                                            type="checkbox"
+                                            value="Fromage"
+                                            onChange={this.handleGarnitureChange}
+                                        />
+                                    </label>
+                                    <label>
+                                        Jambon
+                                        <input
+                                            type="checkbox"
+                                            value="Jambon"
+                                            onChange={this.handleGarnitureChange}
+                                        />
+                                    </label>
+                                    <label>
+                                        Nutella
+                                        <input
+                                            type="checkbox"
+                                            value="Nutella"
+                                            onChange={this.handleGarnitureChange}
+                                        />
+                                    </label>
+                                    <label>
+                                        Croustille
+                                        <input
+                                            type="checkbox"
+                                            value="Croustille"
+                                            onChange={this.handleGarnitureChange}
+                                        />
+                                    </label>
+                                    <label>
+                                        CrunchyRoll
+                                        <input
+                                            type="checkbox"
+                                            value="CrunchyRoll"
+                                            onChange={this.handleGarnitureChange}
+                                        />
+                                    </label>
+                                </div>
+                                <div>
+                                    {this.state.garnitures.map((ingredient, index) =>
+                                        <span key={index}>{`${ingredient} `}</span>
+                                    )}
+                                </div>
+                                <NextButton
+                                    isDisabled = {!this.isStepValid()}
+                                    onClick={this.nextStep}
+                                />
+                            </div>
+                        )}
+                        {this.state.currentStep === 3 && (
+                            <div className="step">
+                                <h2>{this.state.currentStep}</h2>
+                                {this.state.errors.map((error, index) => <p key={index}>{error}</p>)}
+                                <label>
+                                    Mail
+                                    <input
+                                        type="text"
+                                        name="mail"
+                                        value={this.state.mail}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                </label>
+                                <label>
+                                    Mot de passe
+                                    <input
+                                        type="password"
+                                        name="pass"
+                                        value={this.state.pass}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                </label>
+                                <label>
+                                    Mot de passe Confirmation
+                                    <input
+                                        type="password"
+                                        name="passwordConfirm"
+                                        value={this.state.passwordConfirm}
+                                        onChange={this.handleFieldChange}
+                                    />
+                                </label>
+
+                                <NextButton
+                                    isDisabled = {!this.isStepValid()}
+                                    onClick={this.nextStep}
+                                />
+                            </div>
+                        )}
+                        {this.state.currentStep > 3 && (
+                            <FormResults data={this.formatFields()}/>
+                        )}
+                    </form>
+
+
+
+                    <p>Créer un formulaire qui se remplit en trois étapes, une seule étape peut être affichée à la fois.
+                        Il est possible d'accéder à la prochaine étape en cliquant sur le bouton Next
+                    </p>
+                    <p>Le formulaire devra conserver en mémoire dans le state toutes les données saisies et les afficher
+                        une fois qu'il sera complété dans un composant FormResults
+                    </p>
+                    <p>Les étapes sont détaillées comme ceci :</p>
+                    <div>
+                        <p>Etape 1 : </p>
+                        <p>Un champ texte pour le nom</p>
+                        <p>Un champ texte pour le prénom</p>
+                        <p>Un champ number pour l'âge</p>
+                        <p>L'âge ne peut pas être inférieur à 18. </p>
+                        <p>Si l'âge est inférieur à 18, alors afficher le contenu du champ en rouge</p>
+                        <p>Le bouton Next est désactivé pour une des raisons suivantes : </p>
+                        <ul>
+                            <li>Le champ du nom est vide</li>
+                            <li>Le champ du prénom est vide</li>
+                            <li>L'âge est inférieur à 18</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p>Etape 2 :</p>
+                        <p>Un champ de type select pour sélectionner sa pizza préférée. Il doit contenir une option
+                            vide </p>
+                        <p>Plusieurs checkbox pour enregistrer les garnitures de votre choix (4 au minimum)</p>
+                        <p>Le bouton Next est désactivé pour une des raisons suivantes : </p>
+                        <ul>
+                            <li>Aucune pizza n'est sélectionnée</li>
+                            <li>Moins de 4 ingrédients sont sélectionnés</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p>Etape 3 :</p>
+                        <p>Un champ d'email qui doit être au format email (utiliser une regex pour vérifier)</p>
+                        <p>
+                            Un champ mot de passe. Le mot de passe est valide s'il remplit les conditions suivantes
+                            :
+                        </p>
+                        <ul>
+                            <li>Le mot de passe contient au moins 8 caractères</li>
+                            <li>Le mot de passe contient au moins 1 chiffre</li>
+                            <li>Le mot de passe contient au moins une lettre en majuscule</li>
+                        </ul>
+                        <p>
+                            à chaque fois que le mot de passe change, vérifier qu'il soit valide. S'il n'est pas valide,
+                            afficher un message depuis un state errorMessage pour détailler le problème sur la page.
+                        </p>
+                        <p>Un champ de confirmation de mot de passe</p>
+                        <p>Le bouton Enregistrer est désactivé pour les raisons suivantes : </p>
+                        <ul>
+                            <li>Les mots de passe ne sont pas identiques</li>
+                            <li>L'adresse e-mail n'est pas valide</li>
+                            <li>Le mot de passe n'est pas valide</li>
+                        </ul>
+
+                        <p>
+                            Lorsque l'on clique sur le bouton, le formulaire est caché, et on affiche un composant
+                            FormResults qui prend en props les données saisies dans le formulaire
+                        </p>
+                        <p>Le composant FormResults affiche les données dans des balises de votre choix. </p>
+                    </div>
+                </div>
+            )
+        }
+
+        /**
+         * Vérifie si le current Step est valide ou non
+         */
+        isStepValid() {
+            switch(this.state.currentStep) {
+                case 1:
+                    return !!this.state.nom && !!this.state.prenom && this.state.age >= 18
+                case 2:
+                    return !!this.state.pizza && this.state.garnitures.length >= 4
+                case 3:
+                    return this.state.errors.length === 0
+            }
+        }
+
+        /**
+         * Met à jour le state du nom du target de l'évent avec la valeur reçue dans le target de l'évent
+         */
+        handleFieldChange(event) {
+            this.setState({
+                [event.target.name]: event.target.value,
+            })
+        }
+
+        /**
+         * Incrementer le state de l'étape courante
+         */
+        nextStep() {
+            this.setState({
+                currentStep: this.state.currentStep + 1,
+            })
+        }
+
+        /**
+         * Mettre à jour le state avec la nouvelle garniture
+         * En se basant sur la valeur reçue en paramètre
+         */
+        handleGarnitureChange(event) {
+            let updatedGarniture = this.state.garnitures;
+            const { checked } = event.target;
+            const garniture = event.target.value;
+
+            if (checked) {
+                updatedGarniture.push(garniture);
+            }
+            else {
+                updatedGarniture = this.state.garnitures.filter(ingredient => ingredient !== garniture)
+            }
+
+            this.setState({
+                garnitures: updatedGarniture,
+            })
+        }
+
+        /**
+         * Formater les résultats de manière à mieux les afficher
+         */
+        formatFields() {
+            return [
+                {
+                    label: "Nom",
+                    value: this.state.nom
+                },
+                {
+                    label: "Prénom",
+                    value: this.state.prenom
+                },
+                {
+                    label: "Age",
+                    value: this.state.age
+                },
+                {
+                    label: "Pizza",
+                    value: this.state.pizza
+                },
+                {
+                    label: "Garniture",
+                    value: this.state.garnitures
+                },
+                {
+                    label: "Adresse E-mail",
+                    value: this.state.mail
+                },
+                {
+                    label: "Mot de passe",
+                    value: this.state.pass
+                },
+                {
+                    label: "Confirmation de mot de passe",
+                    value: this.state.passwordConfirm
+                },
+            ]
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello message="Hello React" subtitle="Enjoy ! "/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

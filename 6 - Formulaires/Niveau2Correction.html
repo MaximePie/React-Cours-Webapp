@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .Form {
+            padding: 8px;
+            border: solid 1px grey;
+            border-radius: 4px;
+        }
+
+        span, input, button {
+            margin: 0 8px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    const ACCEPTED_NAME = "Charly";
+    const ERROR_NO_BOBBY = "Mais tu n'es pas " + ACCEPTED_NAME
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                animal: "",
+                age: "",
+                nom: "",
+                pizza: "",
+            };
+
+            this.showAnimal = this.showAnimal.bind(this);
+            this.handleAnimalNameChange = this.handleAnimalNameChange.bind(this);
+            this.handleFieldChange = this.handleFieldChange.bind(this);
+            this.handleAgeSubmit = this.handleAgeSubmit.bind(this);
+            this.handleNameSubmit = this.handleNameSubmit.bind(this);
+            this.handlePizzaSubmit = this.handlePizzaSubmit.bind(this);
+        }
+
+        render() {
+            return (
+                <div>
+                    <div>
+                        <p><a href="https://fr.reactjs.org/docs/forms.html">Documentation sur l'utilisation des
+                            Formulaires en React</a></p>
+                        <p>Voici un formulaire pour entrer un nom d'animal, qui affiche dans la console "trop long" si
+                            le nom fait plus de 8 caractères de long</p>
+                        <form onSubmit={this.showAnimal} className="Form">
+                            <label>
+                                <span>Nom de l'animal</span>
+                                <input type="text" value={this.state.animal} onChange={this.handleAnimalNameChange}/>
+                            </label>
+                            <button>Envoyer</button>
+                        </form>
+                    </div>
+                    <div>
+                        <p>Créer un formulaire pour saisir un age. Quand on le soumet, afficher une alerte "Interdit aux
+                            mineurs" si l'âge est inférieur à 18.</p>
+                        <form onSubmit={this.handleAgeSubmit}>
+                            <label>
+                                Age
+                                <input
+                                    type="text"
+                                    value={this.state.age}
+                                    name="age"
+                                    onChange={this.handleFieldChange}
+                                />
+                            </label>
+                            <button>Envoyer</button>
+                        </form>
+                    </div>
+                    <div>
+                        <p>Créer un formulaire pour saisir un nom. Quand on le soumet, Si le nom est différent de Bobby,
+                            alors afficher une alerte "Mais tu n'es pas Bobby !".</p>
+
+                        <form onSubmit={this.handleNameSubmit}>
+                            <label>
+                                Nom
+                                <input
+                                    type="text"
+                                    value={this.state.nom}
+                                    name="nom"
+                                    onChange={this.handleFieldChange}
+                                />
+                            </label>
+                            <button>Envoyer</button>
+                        </form>
+                    </div>
+                    <div>
+                        <p>Créer un formulaire avec un input de type select qui permet de choisir parmi les pizzas
+                            suivantes : "Ananas, Sushis, Anchois, et Nutella". </p>
+                        <p>Lorsque l'on clique sur le bouton d'envoi du formulaire, afficher dans la console le nom de
+                            la pizza choisie. </p>
+                        <form onSubmit={this.handlePizzaSubmit}>
+                            <label>
+                                Pizza
+                                <select name="pizza" onChange={this.handleFieldChange}>
+                                    <option value="Ananas">Ananas</option>
+                                    <option value="Sushis">Sushis</option>
+                                    <option value="Anchois">Anchois</option>
+                                    <option value="Nutella">Nutella</option>
+                                </select>
+                            </label>
+                            <button>Sauvegarder</button>
+                        </form>
+                    </div>
+                </div>
+            )
+        }
+
+
+        /**
+         * Affiche "Mais tu n'es pas Bobby" si le nom est différent de Bobby
+         */
+        handlePizzaSubmit(event) {
+            event.preventDefault();
+            console.log(this.state.pizza)
+        }
+
+
+        /**
+         * Affiche "Mais tu n'es pas Bobby" si le nom est différent de Bobby
+         */
+        handleNameSubmit(event) {
+            event.preventDefault();
+
+            if (this.state.nom !== ACCEPTED_NAME) {
+                alert(ERROR_NO_BOBBY);
+            }
+        }
+
+
+        /**
+         * Affiche "interdit aux mineurs si l'âge est inférieur à 18"
+         */
+        handleAgeSubmit(event) {
+            event.preventDefault();
+
+            if (this.state.age < 18) {
+                alert("Interdit aux mineurs")
+            }
+        }
+
+        /**
+         * Mettre à jour le state reçu avec le name du target de l'event
+         */
+        handleFieldChange(event) {
+            this.setState({
+                [event.target.name]: event.target.value
+            })
+        }
+
+
+        /**
+         * Affiche "Trop long" si l'animal du state fait plus de 8 caractères de long
+         */
+        showAnimal(event) {
+            event.preventDefault(); // Empêche le formulaire d'avoir un comportement normal, c'est-à-dire qu'on empêche qu'il s'actualise
+            if (this.state.animal.length > 8) {
+                console.log("Trop long !");
+            }
+        }
+
+        /**
+         * Met à jour la valeur de animal avec la valeur courante de l'input animal
+         * @param event
+         */
+        handleAnimalNameChange(event) {
+            this.setState({
+                animal: event.target.value
+            })
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello message="Hello React" subtitle="Enjoy ! "/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    function Clicker(props) {
+        const [isClicked, setIsClickedState] = React.useState(false); // False est la valeur par défaut du state isClicked
+        let displayedText = "Cliquez-moi !";
+
+        if (isClicked) {
+            displayedText = props.text;
+        }
+
+        /**
+         * Update the state isClicked and set it to true
+         */
+        function handleButtonClick() {
+            setIsClickedState(true); // True est la nouvelle valeur du state isClicked
+        }
+
+        return (
+            <div style={{border: "solid", padding: "8px", margin: "8px 0"}}>
+                <button onClick={handleButtonClick}>
+                    {displayedText}
+                </button>
+            </div>
+        )
+    }
+
+    /**
+     * Dispose d'un state User utilisant le hook d'état, avec null comme valeur par défaut
+     * User est un objet avec deux propriétés : firstname, et mail
+     * User est mis à jour à travers une méthode setUser
+     * Le composant affiche les informations de l'utilisateur et un formulaire
+     * Le formulaire propose de changer les informations de l'utilisateur (firstname et mail).
+     */
+    function EditProfile() {
+        const [user, setUser] = React.useState(null);
+    }
+
+    /**
+     * Dispose d'un state animals mis à jour avec setAnimals
+     * animals est un tableau de chaîne de caractères, vide par défaut
+     * Le composant affiche la liste des animaux et un formulaire.
+     * Devant chaque animal, afficher un bouton "Supprimer" qui permettra de supprimer un animal
+     * Le formulaire propose d'ajouter un nouvel animal à la liste
+     */
+    function AnimalsList() {
+
+    }
+
+
+    /**
+     * Dispose d'un state notes, mis à jour avec setNotes
+     * notes est un tableau d'entiers positifs, vide par défaut
+     * Le composant affiche la liste des notes, ainsi que la moyenne des notes, et un formulaire
+     * Le formulaire propose d'ajouter une nouvelle note à la liste en utilisant setNotes
+     */
+    function Notes() {
+
+    }
+
+    // Création de composant en créant des classes
+    class App extends React.Component {
+        render() {
+            return (
+                <div className="App">
+                    <div>
+                        <p>Remplir le composant EditProfile</p>
+                        <p>Remplir le composant AnimalsList</p>
+                        <p>Remplir le composant Notes</p>
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .Form {
+            padding: 8px;
+            border: solid 1px grey;
+            border-radius: 4px;
+        }
+
+        span, input, button {
+            margin: 0 8px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                animal: "",
+            }
+
+            this.showAnimal = this.showAnimal.bind(this);
+            this.handleAnimalNameChange = this.handleAnimalNameChange.bind(this);
+        }
+
+        render() {
+            return (
+                <div>
+                    <div>
+                        <p><a href="https://fr.reactjs.org/docs/forms.html">Documentation sur l'utilisation des
+                            Formulaires en React</a></p>
+                        <p>Voici un formulaire pour entrer un nom d'animal, qui affiche dans la console "trop long" si
+                            le nom fait plus de 8 caractères de long</p>
+                        <form onSubmit={this.showAnimal} className="Form">
+                            <label>
+                                <span>Nom de l'animal</span>
+                                <input type="text" value={this.state.animal} onChange={this.handleAnimalNameChange}/>
+                            </label>
+                            <button>Envoyer</button>
+                        </form>
+                    </div>
+                    <div>
+                        <p>Créer un formulaire pour saisir un age. Quand on le soumet, afficher une alerte "Interdit aux
+                            mineurs" si l'âge est inférieur à 18.</p>
+                    </div>
+                    <div>
+                        <p>Créer un formulaire pour saisir un nom. Quand on le soumet, Si le nom est différent de Bobby,
+                            alors afficher une alerte "Mais tu n'es pas Bobby !".</p>
+                    </div>
+                    <div>
+                        <p>Créer un formulaire avec un input de type select qui permet de choisir parmi les pizzas
+                            suivantes : "Ananas, Sushis, Anchois, et Nutella". </p>
+                        <p>Lorsque l'on clique sur le bouton d'envoi du formulaire, afficher dans la console le nom de
+                            la pizza choisie. </p>
+                    </div>
+                </div>
+            )
+        }
+
+        /**
+         * Affiche "Trop long" si l'animal du state fait plus de 8 caractères de long
+         */
+        showAnimal(event) {
+            event.preventDefault() // Empêche le formulaire d'avoir un comportement normal, c'est-à-dire qu'on empêche qu'il s'actualise
+            if (this.state.animal.length > 8) {
+                console.log("Trop long !");
+            }
+        }
+
+        /**
+         * Met à jour la valeur de animal avec la valeur courante de l'input animal
+         * @param event
+         */
+        handleAnimalNameChange(event) {
+            this.setState({
+                animal: event.target.value
+            })
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello message="Hello React" subtitle="Enjoy ! "/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

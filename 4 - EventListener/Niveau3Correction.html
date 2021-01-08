@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+
+            this.state = {
+                animal: "Ronron",
+                notes: [1, 10, 15, 19, 20],
+                isDisplayed: false,
+            };
+
+            this.removeLastNote = this.removeLastNote.bind(this);
+            this.changeImageDisplay = this.changeImageDisplay.bind(this);
+        }
+
+        render() {
+            return (
+                <div>
+                    <div>
+                        <p>Créer une méthode afficheTexte qui prend en paramètre une chaîne de caractère</p>
+                        <p>Créer un bouton qui envoie la valeur de state de animal en paramètre, et qui appelle la
+                            méthode afficheTexte</p>
+                        <button onClick={() => this.afficheText(this.state.animal)}>Envoyer l'animal</button>
+                    </div>
+                    <div>
+                        <p>Créer un bouton qui va retirer le dernier élément de la liste des notes</p>
+                        <p>Il faut que le bouton appelle une méthode removeLastElement, qui va retirer le dernier
+                            élément des notes.</p>
+                        <button onClick={this.removeLastNote}>Retirer la dernière note</button>
+                        {this.state.notes.map((note, index) => <p key={index}>{note}</p>)}
+                    </div>
+                    <div>
+                        <p>Créer un bouton qui va afficher ou non cette image en changeant la valeur de isDisplayed </p>
+                        <p>Il faut que le bouton appelle une méthode changeImageDisplay, qui va changer le state de
+                            isDisplayed</p>
+                        <button onClick={this.changeImageDisplay}>Afficher image</button>
+                        {this.state.isDisplayed && <img src="https://picsum.photos/200" alt="rbnb"/>}
+                    </div>
+                </div>
+            )
+        }
+
+        /**
+         * Cette méthode affiche un texte reçu en paramètre
+         * @param texte String | Number la donnée à afficher
+         */
+        afficheText(texte) {
+            console.log(texte);
+        }
+
+        /**
+         * Retirer le dernier élément du tableau de notes
+         * Documentation de pop https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Array/pop
+         *
+         */
+        removeLastNote() {
+            const notes = this.state.notes;
+            notes.pop();
+            this.setState({
+                notes
+            })
+        }
+
+        /**
+         * Inverser l'état de isDisplayed
+         */
+        changeImageDisplay() {
+            this.setState({
+                isDisplayed: !this.state.isDisplayed
+            })
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+    /**
+     * Dispose d'un state isErrorMessageDisplayed mis à jour avec setErrorMessageDisplayState
+     * isErrorMessageDisplay est un booléen
+     * Dispose d'un state pseudo mis à jour avec setPseudo
+     * pseudo est une chaîne de caractère
+     * Le composant affiche le pseudo, un formulaire pour changer le pseudo, et un message d'erreur s'il fait plus de
+     * 8 caractères
+     * Le composant dispose d'un effet permettant d'afficher le message d'erreur si le nouveau pseudo change et fait
+     * plus de 8 caractères de long.
+     */
+    function PseudoField() {
+
+        const [pseudo, setPseudo] = React.useState(''); // State pseudo, mis à jour avec setPseudo, et une valeur '' par défaut
+        const [isErrorMessageDisplayed, setErrorMessageDisplayState] = React.useState(false);
+        // State isErrorMessageDisplayed, mis à jour avec setErrorMessageDisplayState, valeur par défaut : false.
+
+        // Quand pseudo change, ...
+        React.useEffect(function () {
+            if (pseudo.length > 8) { // Si le pseudo mesure plus de 8 caractères de long
+                setErrorMessageDisplayState(true); // Afficher le message d'erreur
+            }
+            else {
+                setErrorMessageDisplayState(false); // Sinon ne pas l'afficher
+            }
+        }, [pseudo]); // Ici on indique qu'on veut déclencher la fonction seulement quand pseudo change.
+        // On peut en mettre plusieurs si on le souhaite !
+
+        return (
+            <form>
+                <h2>Pseudo actuel : {pseudo}</h2>
+                {isErrorMessageDisplayed && ( // Affichage du message d'erreur si le message est censé être affiché
+                    <p>Aaaah, c'est trop long là, ça va pas du tout !</p>
+                )}
+                <label>
+                    Pseudo :
+                    <input type="text" onChange={updatePseudo}/>
+                </label>
+            </form>
+        );
+
+        /**
+         * Mettre à jour le state de pseudo
+         */
+        function updatePseudo(event) {
+            setPseudo(event.target.value);
+        }
+    }
+
+    /**
+     * Dispose d'un state mail mis à jour avec setMail
+     * mail est une chaîne de caractères
+     *
+     * Dispose d'un state permettant de gérer l'affichage ou non du message d'erreur "Le mail n'a pas un format valide"
+     *
+     * Affiche une erreur si le mail n'a pas de format mail
+     * Affiche un formulaire permettant de mettre le mail à jour.
+     */
+    function MailField() {
+
+    }
+
+
+    /**
+     * State : age, mis à jour avec setAge
+     * Affiche l'âge et un formulaire permettant de changer l'âge
+     * Si l'âge est supérieur à 18, afficher "Wow, interdit aux mineurs ici !".
+     */
+    function AgeField() {
+
+    }
+
+    // Création de composant en créant des classes
+    class App extends React.Component {
+        render() {
+            return (
+                <div className="App">
+                    <div>
+                        <p>
+                            Voici un composant PseudoField qui permet de saisir un pseudo et afficher une erreur s'il
+                            est trop long.
+                            <PseudoField/>
+                        </p>
+                    </div>
+                    <div>
+                        <p>En vous inspirant du dernier exemple, remplir le composant MailField</p>
+                        <p>En vous inspirant du dernier exemple, Remplir le composant AgeField</p>
+                    </div>
+                </div>
+            )
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

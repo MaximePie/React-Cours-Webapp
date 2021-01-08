@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+
+            this.state = {
+                animal: "Ronron",
+                notes: [1, 10, 15, 19, 20],
+                isDisplayed: false,
+            };
+        }
+
+        render() {
+            return (
+                <div>
+                    <div>
+                        <p>Créer une méthode afficheTexte qui prend en paramètre une chaîne de caractère</p>
+                        <p>Créer un bouton qui envoie la valeur de state de animal en paramètre, et qui appelle la
+                            méthode afficheTexte</p>
+                    </div>
+                    <div>
+                        <p>Créer un bouton qui va retirer le dernier élément de la liste des notes</p>
+                        <p>Il faut que le bouton appelle une méthode removeLastElement, qui va retirer le dernier
+                            élément des notes.</p>
+                        {this.state.notes.map((note, index) => <p key={index}>{note}</p>)}
+                    </div>
+                    <div>
+                        <p>Créer un bouton qui va afficher ou non cette image en changeant la valeur de isDisplayed </p>
+                        <p>Il faut que le bouton appelle une méthode changeImageDisplay, qui va changer le state de
+                            isDisplayed</p>
+                        <img
+                            src="https://lh3.googleusercontent.com/proxy/6ZzAsy8-EM4v_htV-_LZc1C8_aek5qC3Vq7xvCaWF3tdrIIfe8p0mR9d6vh3bzxf4YmSu2g1-imJlOqJlBzyH1QZFBLvErNXBw" alt="rbnb"/>
+                    </div>
+                </div>
+            )
+        }
+
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

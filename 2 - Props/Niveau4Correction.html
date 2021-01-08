@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        .Card {
+            border: solid #d0d0d0 1px;
+            padding: 8px;
+            margin: 8px;
+            border-radius: 8px;
+            width: 400px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .Footer {
+            background-color: grey;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  class Consigne extends React.Component {
+    render() {
+
+      // Notez que la balise div est indispensable. Il ne faut renvoyer qu'un seul composant parent, ou bien utiliser un fragment
+      return (
+        <div>
+          <p>
+            <a href="https://fr.reactjs.org/docs/composition-vs-inheritance.html">
+              Documentation sur la délégation via les props
+            </a>
+          </p>
+          <p>
+            Le component TitleComponent prend des enfants à l'intérieur de sa balise.
+            En vous basant sur TitleComponent, créer un composant Card qui prendra en enfant un titre h2, un paragraphe,
+            et un bouton.
+          </p>
+          <p>
+            Depuis votre composant Card, générer les enfants de ce composant via les props comme dans
+            TitleComponent
+          </p>
+          <p>Créer un composant Footer qui sera appelé à la fin de notre composant App.</p>
+          <p>Donner à ce composant des balises enfant donc un paragraphe, et une liste.</p>
+          <p>Dans le composant Footer, générer ces enfants via les props.</p>
+        </div>
+      )
+    }
+  }
+
+  class Footer extends React.Component {
+    render() {
+      return (
+        <div className="Footer">{this.props.children}</div>
+      )
+    }
+  }
+
+  class TitleComponent extends React.Component {
+    render() {
+      return ( // Tous les éléments contenus dans children sont rendus ici
+        <h1>{this.props.children}</h1>
+      )
+    }
+  }
+
+  class Card extends React.Component {
+    render() {
+      return (
+        <div className="Card">{this.props.children}</div>
+      )
+    }
+  }
+
+  // Création de composant en créant des classes
+  class Hello extends React.Component {
+
+    render() {
+      return (
+        <div>
+          <TitleComponent>
+            Je suis un children de titleComponent
+          </TitleComponent>
+          <TitleComponent>
+            <span>Nous sommes des children</span>
+            <span>De Title Component</span>
+          </TitleComponent>
+          <Consigne/>
+          <Card>
+            <h2>Mon titre</h2>
+            <p>Mon paragraphe</p>
+            <button>Mon bouton</button>
+          </Card>
+          <Card>
+            <h2>Mon titre</h2>
+          </Card>
+          <Footer>
+              <p>Coucou paragraphe</p>
+              <ul>
+                  <li>Premier élément</li>
+                  <li>Deuxième élément</li>
+              </ul>
+          </Footer>
+        </div>
+      )
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <Hello/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

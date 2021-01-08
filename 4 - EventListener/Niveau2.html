@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+
+            this.state = {
+                currentText: "Pop",
+                personne: {
+                    name: "LouisFilou",
+                    age: 51
+                },
+            };
+
+            this.afficheAge = this.afficheAge.bind(this);
+            this.changeText = this.changeText.bind(this);
+        }
+
+        render() {
+            return (
+                <div>
+                    <a href="https://stackoverflow.com/questions/29810914/react-js-onclick-cant-pass-value-to-method">Documentation
+                        pour envoyer des paramètres à une méthode</a>
+                    <ul>
+                        <li>Créer une méthode afficheAge qui affiche l'âge dans la console de la personne contenue dans
+                            le state
+                        </li>
+                        <li>Créer un bouton qui appelle cette méthode lorsque l'on clique dessus.</li>
+                    </ul>
+                    <p>Voici un bouton qui envoie comme paramètre "hello" à la méthode "afficher"</p>
+                    <button onClick={() => this.afficher("hello")}>Dire Hello</button>
+                    <ul>
+                        <li>Créer un bouton qui appelle la méthode "afficher" en lui envoyant comme paramètre "Tu es de
+                            la guimauve"
+                        </li>
+                    </ul>
+
+                    <p>Ici on affiche le contenu de currentText : {this.state.currentText}</p>
+                    <ul>
+                        <li>Créer une méthode changeText qui reçoit un texte en paramètre, et qui va le mettre dans le
+                            state currentText
+                        </li>
+                        <li>Créer un bouton qui appelle la méthode changeText, et lui passer en paramètre la chaîne de
+                            caractères suivante : "C'est une belle journée pour sauver des vies"
+                        </li>
+                    </ul>
+                </div>
+            )
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

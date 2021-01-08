@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .app_btn {
+            margin: 2rem;
+        }
+
+        .app__center {
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .red {
+            background-color: red !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  const container = document.getElementById('root');
+
+  class Counter extends React.Component {
+    constructor() {
+      super();
+
+      this.state = {
+        counter: 0,
+        isActive: false,
+      };
+
+      this.interval = null;
+
+      this.start = this.start.bind(this);
+      this.stop = this.stop.bind(this);
+      this.reset = this.reset.bind(this);
+    }
+
+    /**
+     * Démarrer le compteur dans une fonction setInterval de 1 seconde
+     */
+    start() {
+      this.interval = setInterval(() => {
+        this.setState({
+          counter: this.state.counter + this.props.step,
+          isActive: true,
+        })
+      }, this.props.frequency)
+      console.log("Compteur démarré")
+    }
+
+    /**
+     * Arrête le compteur et vide l'intervale courante
+     */
+    stop() {
+      clearInterval(this.interval);
+      this.setState({
+        isActive: false,
+      });
+      console.log("Compteur arrêté")
+    }
+
+    /**
+     * Remet le compteur à zéro et arrête le compte
+     */
+    reset() {
+      clearInterval(this.interval);
+      this.setState({
+        counter: 0,
+        isActive: false,
+      })
+    }
+
+    render() {
+
+      let buttonClass = "";
+
+      if (this.state.counter > 5) {
+        buttonClass = "red";
+      }
+
+      return (
+        <div>
+            Counter;
+            <p>
+              {this.state.counter}
+            </p>
+            <button onClick={this.start} className={"btn btn-primary app-btn " + buttonClass}>
+                Démarrer
+            </button>
+            <button disabled={!this.state.isActive} onClick={this.stop} className="btn btn-primary app-btn">
+                Arrêter
+            </button>
+            {
+              /*
+              * On voudrait afficher le bouton reset seulement si le counter est supérieur à 0
+              * Sinon, on ne veut pas l'afficher
+              *
+              * C'est équivalent à
+              * if (this.state.counter > 0) {
+              *     afficher le bouton
+              * }
+              * else {
+              *     afficher null
+              * }
+              * */
+            }
+            {this.state.counter > 0 ? (
+                <button onClick={this.reset} className="btn btn-primary app-btn">
+                    Reset
+                </button>
+            ) : null}
+        </div>
+      )
+    }
+  }
+
+  class App extends React.Component {
+
+    render() {
+
+      return (
+        <div>
+          <Counter step={1} frequency={500}/>
+          <Counter step={10} frequency={2000}/>
+        </div>
+      )
+    }
+  }
+
+  ReactDOM.render(
+    <App />,
+    container
+  );
+
+
+</script>
+</body>
+
+</html>

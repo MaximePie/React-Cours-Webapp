@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>App React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  class CompteurPopcorn extends React.Component {
+    
+    constructor() {
+      super();
+      
+      this.state = {
+        nombrePopcorn: 25,
+      };
+
+      this.addPopcorn = this.addPopcorn.bind(this);
+    }
+    
+    render() {
+      // Mauvaise manière de faire
+      // this.state.nombrePopcorn = 15;
+      return (
+        <div>
+          <h2>Nombre popcorns : {this.state.nombrePopcorn}</h2>
+          <button onClick={this.addPopcorn}>Ajouter mon popcorn</button>
+        </div>
+      )
+    }
+
+    /**
+     * Mettre à jour le compteur de popcorn en lui en ajoutant un
+     */
+    addPopcorn() {
+      this.setState({
+        nombrePopcorn: this.state.nombrePopcorn + 1
+      })
+    }
+  }
+
+  // Création de composant en créant des classes
+  class App extends React.Component {
+
+    render() {
+      return (
+        <div>
+          <h1>Présentation des states</h1>
+          <p><a href="https://fr.reactjs.org/docs/state-and-lifecycle.html">Documentation sur les states</a></p>
+          <CompteurPopcorn/>
+        </div>
+      )
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>
