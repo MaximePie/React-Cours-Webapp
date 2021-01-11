@@ -10,6 +10,9 @@ avec les idées claires, parce que vous l'avez bien méritée !
     - [useEffect](#useEffect)
     - [useContext](#useContext)
 - [Router](#Router)
+    - [Structure de base](#Structure de base)
+    - [Router avec historique](#Utiliser l'historique)
+    - [Utiliser les paramètres](#Utiliser des paramètres)
 
 
 ## Hooks 
