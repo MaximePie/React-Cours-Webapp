@@ -3,6 +3,8 @@
 Attention, Avant de poursvuire la lecture, n'oubliez pas de prendre une pause pour consulter ce fichier 
 avec les idées claires, parce que vous l'avez bien méritée !
 
+N'oubliez pas que vous pouvez consulter les **vidéos** de correction détaillée [ici](https://youtube.com/playlist?list=PLxPhnioBp0U15Q3HOkrvgpU_e2aL3PAh3)
+
 ## Sommaire 
 
 - [EventListeners](#EventListeners)
