@@ -55,7 +55,6 @@
       ];
 
       const series = this.catalogueSeries();
-      console.log(series);
 
       return (
         <div className="App">
@@ -65,28 +64,8 @@
             <p>Appeler la fonction validateButton pour générer le bouton en dessous de ce paragraphe</p>
             <p>{this.validateButton()}</p>
             <p>Afficher toutes les propriétés de la variable personne </p>
-              <div>
-                  <p>
-                      <span>Nom : {personne.name} - {personne.age} Ans</span>
-                  </p>
-                  <p>
-                      <span>Job : {personne.job.name} - Depuis : {personne.job.since}</span>
-                  </p>
-              </div>
             <p>Afficher toutes les propriétés du panier de courses</p>
-            {panierDeCourses.map((aliment, index) => (
-              <div key={index}>
-                  <p><span>{aliment.name} - {aliment.type || "Non renseigné"}</span></p>
-              </div>
-            ))}
             <p>Afficher toutes les propriétés du catalogue de séries</p>
-            {series.map((serie, index) => (
-              <div key={index}>
-                  <p>{serie.name}</p>
-                  <p>{serie.episodes}</p>
-                  <p>{serie.note}</p>
-              </div>
-            ))}
           </div>
         </div>
       )

@@ -11,26 +11,6 @@
 
     <!-- babel => compilation du JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-    <style>
-        .Card {
-            border: solid #d0d0d0 1px;
-            padding: 8px;
-            margin: 8px;
-            border-radius: 8px;
-            width: 400px;
-
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .Footer {
-            background-color: grey;
-            padding: 8px;
-        }
-    </style>
 </head>
 
 <body>
@@ -40,51 +20,80 @@
   class Consigne extends React.Component {
     render() {
 
-      // Notez que la balise div est indispensable. Il ne faut renvoyer qu'un seul composant parent, ou bien utiliser un fragment
+      // Notez que la balise div est indispensable. Il ne faut renvoyer qu'un seul composant parent.
       return (
         <div>
-          <p>
-            <a href="https://fr.reactjs.org/docs/composition-vs-inheritance.html">
-              Documentation sur la délégation via les props
-            </a>
-          </p>
-          <p>
-            Le component TitleComponent prend des enfants à l'intérieur de sa balise.
-            En vous basant sur TitleComponent, créer un composant Card qui prendra en enfant un titre h2, un paragraphe,
-            et un bouton.
-          </p>
-          <p>
-            Depuis votre composant Card, générer les enfants de ce composant via les props comme dans
-            TitleComponent
-          </p>
-          <p>Créer un composant Footer qui sera appelé à la fin de notre composant App.</p>
-          <p>Donner à ce composant des balises enfant donc un paragraphe, et une liste.</p>
-          <p>Dans le composant Footer, générer ces enfants via les props.</p>
+          <div>
+            <p>Créez un composant PanierLegumes et passez-lui en props les legumes.</p>
+            <p>Dans le composant PanierLegumes, créer un composant Legume qui sera appelé autant de fois qu'il y a de
+              légumes dans les props</p>
+            <p>Dans le composant Legume, afficher le nom et le prix de chaque légume </p>
+          </div>
+          <div>
+            <p>Créer un composant Eleves et passez-lui en props les élèves.</p>
+            <p>Dans ce composant, créer un composant Eleve qui sera appelé autant de fois qu'il y a d'élève dans les
+              props </p>
+            <p>Dans le composant Eleve, afficher l'élève dans une balise de votre choix</p>
+          </div>
         </div>
-      )
-    }
-  }
-
-  class Footer extends React.Component {
-    render() {
-      return (
-        <div className="Footer">{this.props.children}</div>
       )
     }
   }
 
   class TitleComponent extends React.Component {
     render() {
-      return ( // Tous les éléments contenus dans children sont rendus ici
-        <h1>{this.props.children}</h1>
+      return (
+        <h1>Ceci est un titre</h1>
       )
     }
   }
 
-  class Card extends React.Component {
+  class Legume extends React.Component {
+
+    render() {
+
+      const monLegume = this.props.legume;
+
+      return (
+        <div style={{border: "solid"}}>
+            <p>Nom : {monLegume.name}</p>
+            <p>Prix : {monLegume.prix}</p>
+        </div>
+      )
+    }
+  }
+
+  class Legumes extends React.Component {
     render() {
       return (
-        <div className="Card">{this.props.children}</div>
+        <div>
+            {this.props.panierLegumes.map((aliment, index) => (
+              <Legume key={index} legume={aliment}/>
+            ))}
+        </div>
+      )
+    }
+  }
+
+  class Eleve extends React.Component {
+    render() {
+      return (
+        <div>
+            <p>{this.props.eleve.name}</p>
+            <p>{this.props.eleve.age}</p>
+        </div>
+      )
+    }
+  }
+
+  class Eleves extends React.Component {
+    render() {
+      return (
+        <div>
+          {this.props.listeEleves.map((eleveActuel, index) => (
+            <Eleve key={index} eleve={eleveActuel}/>
+          ))}
+        </div>
       )
     }
   }
@@ -93,33 +102,66 @@
   class Hello extends React.Component {
 
     render() {
+
+      const legumes = listeLegumes();
+      const eleves = listeEleves();
+
       return (
         <div>
-          <TitleComponent>
-            Je suis un children de titleComponent
-          </TitleComponent>
-          <TitleComponent>
-            <span>Nous sommes des children</span>
-            <span>De Title Component</span>
-          </TitleComponent>
+          <TitleComponent/>
           <Consigne/>
-          <Card>
-            <h2>Mon titre</h2>
-            <p>Mon paragraphe</p>
-            <button>Mon bouton</button>
-          </Card>
-          <Card>
-            <h2>Mon titre</h2>
-          </Card>
-          <Footer>
-              <p>Coucou paragraphe</p>
-              <ul>
-                  <li>Premier élément</li>
-                  <li>Deuxième élément</li>
-              </ul>
-          </Footer>
+          <Legumes panierLegumes={legumes}/>
+          <Eleves listeEleves={eleves}/>
         </div>
-      )
+      );
+
+      /**
+       * Cette fonction génère une liste de légumes en brut
+       */
+      function listeLegumes() {
+        return [
+          {
+            name: "Topinambour",
+            prix: 15,
+          },
+          {
+            name: "Pois chiche",
+            prix: 2,
+          },
+          {
+            name: "Salade",
+            prix: 999,
+          },
+          {
+            name: "Courgette",
+            prix: 1,
+          },
+          {
+            name: "Oignon",
+            prix: 2,
+          },
+        ]
+      }
+
+      /**
+       * Cette fonction génère une liste d'élèves en brut
+       */
+      function listeEleves() {
+        return [
+          {
+            name: "Charly",
+            age: 15,
+          },
+          {
+            name: "Bobbybillybouba",
+            age: 12,
+          },
+          {
+            name: "JeanMichelDestroyer",
+            age: 16,
+          }
+        ]
+      }
     }
   }
 

@@ -22,147 +22,74 @@
 <div id="root"></div>
 <script type="text/babel">
 
-  class Consigne extends React.Component {
-    render() {
-
-      // Notez que la balise div est indispensable. Il ne faut renvoyer qu'un seul composant parent.
-      return (
-        <div>
-          <div>
-            <p>Créez un composant PanierLegumes et passez-lui en props les legumes.</p>
-            <p>Dans le composant PanierLegumes, créer un composant Legume qui sera appelé autant de fois qu'il y a de
-              légumes dans les props</p>
-            <p>Dans le composant Legume, afficher le nom et le prix de chaque légume </p>
-          </div>
-          <div>
-            <p>Créer un composant Eleves et passez-lui en props les élèves.</p>
-            <p>Dans ce composant, créer un composant Eleve qui sera appelé autant de fois qu'il y a d'élève dans les
-              props </p>
-            <p>Dans le composant Eleve, afficher l'élève dans une balise de votre choix</p>
-          </div>
-        </div>
-      )
+    class Profile extends React.Component {
+        render() {
+            return (
+                <div>
+                    <p>Ceci est un faux profil, attention ! Et il génère un composant PrimaryButton !</p>
+                    <PrimaryButton text="Signaler"/>
+                </div>
+            )
+        }
     }
-  }
 
-  class TitleComponent extends React.Component {
-    render() {
-      return (
-        <h1>Ceci est un titre</h1>
-      )
+    class Consigne extends React.Component {
+        render() {
+            return (
+                <div>
+                    <p>Consultez le composant Profile pour découvrir comment inclure un composant dans un autre</p>
+                    <p>
+                        Dans le composant Form, inclure le composant PrimaryButton en lui passant la valeur
+                        "Valider" comme props de text.
+                    </p>
+                    <p>
+                        Créer un composant FormHeader qui affichera un h2 contenant un texte passé en props
+                    </p>
+                    <p>
+                        Dans le composant Form, générer le composant FormHeader en lui passant un titre de formulaire en
+                        props de text.
+                    </p>
+                </div>
+            )
+        }
     }
-  }
 
-  class Legume extends React.Component {
-    render() {
-      return <p>{this.props.article.name} - {this.props.article.prix}</p>
+    class Form extends React.Component {
+        render() {
+            return (
+                <div>
+                    {/* Remplir ici */}
+                </div>
+            )
+        }
     }
-  }
 
-  class PanierLegumes extends React.Component {
-    render() {
-      const legumes = this.props.listeLegumes;
-
-      return (
-        <div>
-          {legumes.map((legume, index) => (
-            <Legume key={index} article={legume}/>
-          ))}
-        </div>
-      )
+    class PrimaryButton extends React.Component {
+        render() {
+            return (
+                <button>{this.props.text}</button>
+            )
+        }
     }
-  }
 
-  class Eleve extends React.Component {
-    render () {
-      return (
-        <p>{this.props.eleve.name} - {this.props.eleve.age}</p>
-      )
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        render() {
+            return (
+                <div>
+                    <Consigne/>
+                    <Profile/>
+                </div>
+            );
+        }
     }
-  }
 
-  class Eleves extends React.Component{
-    render() {
-      return (
-        <div>
-          {this.props.listeEleves.map((eleve, index) => <Eleve key={index} eleve={eleve}/>)}
-        </div>
-      )
-    }
-  }
-
-  // Création de composant en créant des classes
-  class Hello extends React.Component {
-
-    render() {
-
-      const legumes = listeLegumes();
-      const eleves = listeEleves();
-
-      return (
-        <div>
-          <TitleComponent/>
-          <Consigne/>
-          <PanierLegumes listeLegumes={legumes}/>
-          <Eleves listeEleves={eleves} />
-        </div>
-      );
-
-      /**
-       * Cette fonction génère une liste de légumes en brut
-       */
-      function listeLegumes() {
-        return [
-          {
-            name: "Topinambour",
-            prix: 15,
-          },
-          {
-            name: "Pois chiche",
-            prix: 2,
-          },
-          {
-            name: "Salade",
-            prix: 999,
-          },
-          {
-            name: "Courgette",
-            prix: 1,
-          },
-          {
-            name: "Oignon",
-            prix: 2,
-          },
-        ]
-      }
-
-      /**
-       * Cette fonction génère une liste d'élèves en brut
-       */
-      function listeEleves() {
-        return [
-          {
-            name: "Charly",
-            age: 15,
-          },
-          {
-            name: "Bobbybillybouba",
-            age: 12,
-          },
-          {
-            name: "JeanMichelDestroyer",
-            age: 16,
-          }
-        ]
-      }
-    }
-  }
-
-  // Rendu dans le DOM
-  ReactDOM.render(
-    <Hello/>,
-    document.getElementById('root')
-  );
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello/>,
+        document.getElementById('root')
+    );
 </script>
 </body>
 

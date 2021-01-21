@@ -17,136 +17,130 @@
 <div id="root"></div>
 <script type="text/babel">
 
-  // Création de composant en créant des classes
-  class App extends React.Component {
+    // Création de composant en créant des classes
+    class App extends React.Component {
 
-    render() {
+        render() {
 
-      const personnes = [
-        {
-          name: "Charly",
-          age: 66,
-          job: {
-            name: "Styliste",
-            since: "29 Avril 2020",
-          },
-        },
-        {
-          name: "Charly",
-          age: 25,
-          job: {
-            name: "Barman",
-          },
-        },
-        {
-          name: "Bobby",
-          age: null,
-          job: null,
-        },
-      ];
+            const chat = "Ronron";
 
-      const panierDeCourses = [
-        {
-          name: "Concombre",
-          type: "Legume",
-          magasin: {
-            name: "MisterEpices",
-            taille: "petit",
-          }
-        },
-        {
-          name: "Courgette",
-          type: "Legume",
-          magasin: {
-            name: "MisterEpices",
-            taille: "petit",
-          }
-        },
-        {
-          name: "Endive",
-          type: "Beurk",
-          magasin: {
-            name: "Parking Souterrain",
-            taille: "Grand",
-          }
-        },
-        {
-          name: "Steak",
-          type: "Frais",
-        },
-        {
-          name: "Sanglier",
-          type: null,
-          magasin: null,
+            const personnes = [
+                {
+                    name: "Charly",
+                    age: 66,
+                    job: {
+                        name: "Styliste",
+                        since: "29 Avril 2020",
+                    },
+                },
+                {
+                    name: "Charly",
+                    age: 25,
+                    job: {
+                        name: "Barman",
+                        since: "29 Avril 5050",
+                    },
+                }
+            ];
+
+            const panierDeCourses = [
+                {
+                    name: "Concombre",
+                    type: "Legume",
+                    magasin: {
+                        name: "MisterEpices",
+                        taille: "petit",
+                    }
+                },
+                {
+                    name: "Courgette",
+                    type: "Legume",
+                    magasin: {
+                        name: "MisterEpices",
+                        taille: "petit",
+                    }
+                },
+                {
+                    name: "Endive",
+                    type: "Beurk",
+                    magasin: {
+                        name: "Parking Souterrain",
+                        taille: "Grand",
+                    }
+                },
+                {
+                    name: "Steak",
+                    type: "Frais",
+                },
+                {
+                    name: "Sanglier",
+                    type: null,
+                    magasin: null,
+                }
+            ];
+
+            return (
+                <div className="App">
+                    <p>
+                        <a href="https://fr.reactjs.org/docs/conditional-rendering.html#inline-if-with-logical--operator">
+                            Documentation sur le rendu conditionnel à la volée en JSX
+                        </a>
+                    </p>
+                    <p>
+                        Après avoir consulté la documentation, afficher chat de manière conditionnelle seulement
+                        si son nom est différent de "Ronron" et qu'il n'est pas nul et avec la notation &&
+                    </p>
+                    <div>
+                        <h2>Chat</h2>
+                        <p>{chat === "Ronron" && chat}</p>
+                    </div>
+                    <p>
+                        Afficher les propriétés de chaque personne à l'aide de map
+                        Pour chaque personne afficher son âge de manière conditionnelle en utilisant ? et :
+                    </p>
+                    <p>
+                        Indications sur l'utilisation des conditions ternaires en React : <a href="https://fr.reactjs.org/docs/conditional-rendering.html#inline-if-with-logical--operator">Ici</a>
+                    </p>
+                    <ul>
+                        <li>
+                            Si l'âge de la personne est supérieur à 65, alors afficher "Senior"
+                        </li>
+                        <li>
+                            Sinon, afficher l'âge de la personne
+                        </li>
+                    </ul>
+                    <div>
+                        {personnes.map((personne, index) => (
+                            <div key={index}>
+                                <p>{personne.name}</p>
+                                <p>{personne.job.name}</p>
+                                <p>{personne.job.since}</p>
+                                <p>{personne.age > 65 ? 'Senior' : personne.age}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <p>Afficher tous les légumes dans une boucle map</p>
+                    <p>Pour chaque légume, afficher son magasin de manière conditionnelle avec && </p>
+                    <div>
+                        {panierDeCourses.map((article, index) => (
+                            <div style={{border: "solid"}}>
+                                <p>{article.name}</p>
+                                <p>{article.type}</p>
+                                <p>{article.magasin && article.magasin.name}</p>
+                                <p>{article.magasin?.taille}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )
         }
-      ];
-
-      const chat = "RonronOa";
-
-      return (
-        <div className="App">
-          {chat === 'Ronron' ? null : <h2>{chat}</h2>}
-          {chat !== 'Ronron' && <h2>{chat}</h2>}
-          <p>
-            <a href="https://fr.reactjs.org/docs/conditional-rendering.html#inline-if-with-logical--operator">
-              Documentation sur le rendu conditionnel à la volée en JSX
-            </a>
-          </p>
-          <p>
-            Après avoir consulté la documentation, afficher chat de manière conditionnelle seulement
-            si son nom est différent de "Ronron" et qu'il n'est pas nul et avec la notation &&
-          </p>
-          <p>
-            Afficher les propriétés de chaque personne à l'aide de map
-            Pour chaque personne afficher son âge de manière conditionnelle en utilisant ? et :
-          </p>
-          {personnes.map((personne, index) => (
-            <div key={index}>
-              <p>{personne.name}</p>
-              <p>{personne.age > 65 ? "Senior" : (personne.age || 'Non renseigné')}</p>
-              {personne.job && (
-                <div>
-                  <p>{personne.job.name}</p>
-                  <p>{personne.job.since}</p>
-                </div>
-              )}
-            </div>
-          ))}
-          <p>
-            Afficher les propriétés de chaque personne à l'aide de map
-            Pour chaque personne afficher son âge de manière conditionnelle en utilisant ||
-          </p>
-          <ul>
-            <li>
-              Si l'âge de la personne est supérieur à 65, alors afficher "Senior"
-            </li>
-            <li>
-              Sinon, afficher l'âge de la personne
-            </li>
-          </ul>
-          <p>Afficher tous les légumes dans une boucle map</p>
-          <p>Pour chaque légume, afficher son magasin de manière conditionnelle avec && </p>
-          {panierDeCourses.map(aliment => (
-            <div>
-              <p>{aliment.name} - {aliment.type || 'Non renseigné'}</p>
-              {aliment.magasin && (
-                <div>
-                    <p>{aliment.magasin.name}</p>
-                    <p>{aliment.magasin.taille}</p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )
     }
-  }
 
-  // Rendu dans le DOM
-  ReactDOM.render(
-    <App/>,
-    document.getElementById('root')
-  );
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
 </script>
 </body>
 

@@ -161,7 +161,6 @@
         const [draftNote, setDraftNote] = React.useState("");
 
         const average = array => {
-            console.log(array);
             return (
                 array.reduce(
                     (accumulateur, valeurCourante) => accumulateur + valeurCourante
@@ -170,7 +169,7 @@
         }
 
         const handleNewNote = event => {
-            const newDraftNotes = event.currentTarget.value;
+            const newDraftNotes = parseInt(event.currentTarget.value, 10);
             setDraftNote(newDraftNotes);
         }
 

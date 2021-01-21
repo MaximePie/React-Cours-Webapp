@@ -17,39 +17,15 @@
 <div id="root"></div>
 <script type="text/babel">
 
-    function Clicker(props) {
-        const [isClicked, setIsClickedState] = React.useState(false); // False est la valeur par défaut du state isClicked
-        let displayedText = "Cliquez-moi !";
-
-        if (isClicked) {
-            displayedText = props.text;
-        }
-
-        /**
-         * Update the state isClicked and set it to true
-         */
-        function handleButtonClick() {
-            setIsClickedState(true); // True est la nouvelle valeur du state isClicked
-        }
-
-        return (
-            <div style={{border: "solid", padding: "8px", margin: "8px 0"}}>
-                <button onClick={handleButtonClick}>
-                    {displayedText}
-                </button>
-            </div>
-        )
-    }
-
     /**
-     * Dispose d'un state User utilisant le hook d'état, avec null comme valeur par défaut
+     * Dispose d'un state User utilisant le hook d'état, avec un objet vide {} comme valeur par défaut
      * User est un objet avec deux propriétés : firstname, et mail
      * User est mis à jour à travers une méthode setUser
      * Le composant affiche les informations de l'utilisateur et un formulaire
      * Le formulaire propose de changer les informations de l'utilisateur (firstname et mail).
      */
     function EditProfile() {
-        const [user, setUser] = React.useState(null);
+
     }
 
     /**
@@ -79,6 +55,32 @@
         render() {
             return (
                 <div className="App">
+                    <h3>Attention à bien utiliser le Spread opérator <pre>...</pre> pour ré-assigner vos objets et arrays !</h3>
+                    <div>
+                        <p><a href="https://medium.com/@thejasonfile/using-the-spread-operator-in-react-setstate-c8a14fc51be1">Article sur le Spread opérator</a></p>
+
+                        <p>Incorrect : </p>
+                        <pre>
+                            const updatedNotes = notes;
+                            /* Manipulation des notes */
+                            this.setNotes(updatedNotes);
+                        </pre>
+
+                        <p>Correct</p>
+                        <pre>
+                            const updatedNotes = [...notes];
+                            /* Manipulation des notes */
+                            this.setNotes(updatedNotes);
+                        </pre>
+
+                        <p>Pour les objets</p>
+                        <p>Correct : </p>
+                        <pre>
+                            const updatedUser = {'{...User}'};
+                            /* Manipulation de updatedUser */
+                            this.setUser(updatedUser);
+                        </pre>
+                    </div>
                     <div>
                         <p>Remplir le composant EditProfile</p>
                         <p>Remplir le composant AnimalsList</p>

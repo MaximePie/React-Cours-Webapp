@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    class Consigne extends React.Component {
+        render() {
+
+            // Notez que la balise div est indispensable. Il ne faut renvoyer qu'un seul composant parent, ou bien utiliser un fragment
+            return (
+                <div>
+                    <p><a href="https://fr.reactjs.org/docs/faq-functions.html">Documentation pour passer des fonctions
+                        à des
+                        props </a></p>
+                </div>
+            )
+        }
+    }
+
+    class PrimaryButton extends React.Component {
+        render() {
+            return (
+                <button onClick={this.props.onTrigger}>{this.props.text}</button>
+            )
+        }
+    }
+
+    class SecondaryButton extends React.Component {
+        render() {
+            return (
+                <button onClick={this.props.onPress}>{this.props.textValue}</button>
+            )
+        }
+    }
+
+    class TextField extends React.Component {
+        render() {
+            return (
+                <input type="text" value={this.props.value} onChange={(event) => this.props.onUpdate(event.target.value)}/>
+            )
+        }
+    }
+
+    class CreateTask extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                newTask: "",
+            }
+
+            this.updateTaskName = this.updateTaskName.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+        render() {
+            return (
+                <form onSubmit={this.handleSubmit}>
+                    <input type="text" value={this.state.newTask} onChange={this.updateTaskName}/>
+                    <button>Sauvegarder</button>
+                </form>
+            )
+        }
+
+        /**
+         * Sauvegarder la nouvelle tâche
+         */
+        handleSubmit(event) {
+            event.preventDefault();
+            this.props.onSave(this.state.newTask)
+        }
+
+        /**
+         * Mettre à jour le state de la nouvelle tâche
+         */
+        updateTaskName(event) {
+            this.setState({
+                newTask: event.target.value
+            })
+        }
+    }
+
+    // Création de composant en créant des classes
+    class Hello extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                textValue: "",
+                tasks: [
+                    "Faire la vaisselle",
+                    "Ne pas manger de chips",
+                ]
+            };
+
+            this.updateTextValue = this.updateTextValue.bind(this);
+            this.addTask = this.addTask.bind(this);
+        }
+
+        render() {
+            return (
+                <div>
+                    <Consigne/>
+                    <ul>
+                        <li>Créer un composant PrimaryButton qui va prendre en props un texte à afficher et la fonction
+                            alertClick
+                        </li>
+                        <li>Depuis le composant PrimaryButton, lier la méthode reçue en props à son attribut onClick.
+                            Quand on
+                            clique sur le bouton, l'alerte devrait s'afficher
+                        </li>
+                    </ul>
+                    <PrimaryButton text="Dada" onTrigger={this.alertClick}/>
+                    <ul>
+                        <li>Dans le composant Hello, créer une méthode alertPress</li>
+                        <li>Créer un composant SecondaryButton qui va prendre en props un texte à afficher et la
+                            nouvelle fonction alertPress
+                        </li>
+                        <li>Depuis le composant SecondaryButton, lier la méthode reçue en props à son attribut
+                            onClick.
+                        </li>
+                    </ul>
+                    <SecondaryButton textValue="Ronron" onPress={this.alertPress} />
+                    <ul>
+                        <li>Dans le composant Hello il y a un state "textValue" et une méthode updateTextValue</li>
+                        <li>Créer un compoant TextField qui va rendre un input, et lui envoyer comme props la textValue,
+                            ainsi que la méthode updateTextValue
+                        </li>
+                        <li>Dans le composant TextField, attribuer la props textValue à la value de l'input</li>
+                        <li>Dans le composant TextField, lier le déclencheur onChange à la méthode reçue en props de
+                            manière à lui
+                            envoyer la valeur de cet input.
+                        </li>
+                        <li>Vérifier ici que la textValue se mette correctement à jour : {this.state.textValue}</li>
+                    </ul>
+                    <TextField value={this.state.textValue} onUpdate={this.updateTextValue}/>
+                    <SecondaryButton textValue={this.state.textValue}/>
+
+                    <ul>
+                        <li>Créer un composant CreateTask de manière à ce que quand on clique sur son bouton, une
+                            nouvelle tâche est créée dans le state de Hello
+                        </li>
+                        {this.state.tasks.map(task => <li>{task}</li>)}
+                    </ul>
+                    <CreateTask onSave={this.addTask}/>
+                </div>
+            )
+        }
+
+        /**
+         * Ajouter la tâche reçue en paramètre à la liste des tâches
+         */
+        addTask(task) {
+            const tasks = this.state.tasks;
+            tasks.push(task);
+            this.setState({
+                tasks,
+            })
+        }
+
+        /**
+         * Déclenche une alerte qui dit Cliqué
+         */
+        alertClick() {
+            alert("Cliqué !");
+        }
+
+
+        /**
+         * Déclenche une alerte qui dit Pressé
+         */
+        alertPress() {
+            alert("Pressé !");
+        }
+
+        /**
+         * Met à jour le state de textValue
+         */
+        updateTextValue(value) {
+            this.setState({
+                textValue: value
+            })
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <Hello/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

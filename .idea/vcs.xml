@@ -4,6 +4,7 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/9 - Router/routerdemo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/9 - Router/routertraining" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Projets/ReactCodeurClicker" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Projets/Semaine2/labo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Projets/deploiement" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Projets/projet-Cookie-ClickerElise" vcs="Git" />

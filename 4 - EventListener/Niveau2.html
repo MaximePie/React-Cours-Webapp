@@ -30,22 +30,19 @@
                     age: 51
                 },
             };
-
-            this.afficheAge = this.afficheAge.bind(this);
-            this.changeText = this.changeText.bind(this);
         }
 
         render() {
             return (
                 <div>
-                    <a href="https://stackoverflow.com/questions/29810914/react-js-onclick-cant-pass-value-to-method">Documentation
-                        pour envoyer des paramètres à une méthode</a>
                     <ul>
                         <li>Créer une méthode afficheAge qui affiche l'âge dans la console de la personne contenue dans
                             le state
                         </li>
                         <li>Créer un bouton qui appelle cette méthode lorsque l'on clique dessus.</li>
                     </ul>
+                    <a href="https://stackoverflow.com/questions/29810914/react-js-onclick-cant-pass-value-to-method">Documentation
+                        pour envoyer des paramètres à une méthode</a>
                     <p>Voici un bouton qui envoie comme paramètre "hello" à la méthode "afficher"</p>
                     <button onClick={() => this.afficher("hello")}>Dire Hello</button>
                     <ul>
@@ -65,6 +62,14 @@
                     </ul>
                 </div>
             )
+        }
+
+        /**
+         * Affiche le texte reçu en paramètre
+         * @param text String | Number
+         */
+        afficher(text) {
+            console.log(text);
         }
     }
 

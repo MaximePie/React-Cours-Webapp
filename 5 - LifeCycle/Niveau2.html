@@ -2,126 +2,158 @@
 <html>
 
 <head>
-    <meta charset="UTF-8"/>
-    <title>Hello React</title>
-    <!-- Library -->
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
 
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
-    <!-- babel => compilation du JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="./style.css"/>
 </head>
 
 <body>
 <div id="root"></div>
 <script type="text/babel">
 
-    const ERROR_ADULT = "Désolé, c'est interdit aux adultes ici !";
-    const ERROR_DEAD = 'Désolé, c\'est interdit aux bébés ici!';
+  const ERROR_ADULT = "Désolé, c'est interdit aux adultes ici !";
+  const ERROR_DEAD = 'Désolé, c\'est interdit aux bébés ici!';
 
-    // Création de composant en créant des classes
-    class App extends React.Component {
+  // Création de composant en créant des classes
+  class App extends React.Component {
 
-        constructor() {
-            super();
-            this.state = {
-                errorMessage: "",
-                age: 0,
-                degrees: 0,
-            };
+    constructor() {
+      super();
+      this.state = {
+        errorMessage: "",
+        age: 0,
+        degrees: 0,
+      };
 
-            this.incrementAge = this.incrementAge.bind(this);
-            this.incrementTemperature = this.incrementTemperature.bind(this);
-            this.decrementTemperature = this.decrementTemperature.bind(this);
-        }
-
-        /**
-         * Cette méthode est appelée à la création du composant
-         */
-        componentDidMount() {
-        }
-
-        /**
-         * Cette méthode est appelée dès qu'un setState est effectué.
-         * PrevState contient l'objet state de la classe avant le setState
-         * Pour rappel, pour accéder à l'état courant, utiliser this.state.
-         */
-        componentDidUpdate(previousProps, previousState) {
-        }
-
-        render() {
-            return (
-                <div className="App">
-                    <div>
-                        <h3>Age : {this.state.age}</h3>
-                        <p>Voici un bouton qui va augmenter l'âge de 1</p>
-                        <button onClick={this.incrementAge}>Age +1</button>
-                        <p>
-                            Si le nouvel âge est supérieur ou égal à 18, alors mettre à jour le state de errorMessage
-                            pour qu'il contienne le texte suivant : "Désolé, c'est interdit aux adultes ici !".
-                        </p>
-                        <p>
-                            Si le nouvel âge est inférieur ou égal à 5, alors mettre à jour le state de errorMessage
-                            pour qu'il contienne le texte suivant : "Désolé, c'est interdit aux bébés ici!"
-                        </p>
-                        <p>Afficher le contenu du message d'erreur dans cette balise</p>
-                        <h4></h4>
-                    </div>
-                    <div>
-                        <h3>Degrés {this.state.degrees}</h3>
-                        <p>Voici deux boutons qui permettent de changer la température</p>
-                        <div>
-                            <button onClick={this.incrementTemperature}> Plus chaud</button>
-                            <button onClick={this.decrementTemperature}> Plus froid</button>
-                        </div>
-                        <p>
-                            Remplir la méthode componentDidUpdate de manière à ce que quand la température passe en
-                            dessous de
-                            0, la console affiche "Trop froid !" et que quand la température passe au dessus de 0, la
-                            console
-                            affiche "Trop chaud !"
-                        </p>
-                        <p>Si il fait déjà trop chaud quand on incrémente la température, ne rien afficher</p>
-                        <p>Si il fait déjà trop froid quand on décrémente la température, ne rien afficher</p>
-                    </div>
-                </div>
-            )
-        }
-
-        /**
-         * Augmente l'âge de 1 dans le state
-         */
-        incrementAge() {
-            this.setState({
-                age: this.state.age + 1,
-            })
-        }
-
-        /**
-         * Augmente de 1 la temperature dans le state
-         */
-        incrementTemperature() {
-            this.setState({
-                degrees: this.state.degrees + 1,
-            })
-        }
-
-        /**
-         * Diminue de 1 la temperature dans le state
-         */
-        decrementTemperature() {
-            this.setState({
-                degrees: this.state.degrees - 1,
-            })
-        }
+      this.incrementAge = this.incrementAge.bind(this);
+      this.incrementTemperature = this.incrementTemperature.bind(this);
+      this.decrementTemperature = this.decrementTemperature.bind(this);
     }
 
-    // Rendu dans le DOM
-    ReactDOM.render(
-        <App/>,
-        document.getElementById('root')
-    );
+    /**
+     * Cette méthode est appelée à la création du composant
+     */
+    componentDidMount() {
+    }
+
+    /**
+     * Cette méthode est appelée dès qu'un setState est effectué.
+     * PrevState contient l'objet state de la classe avant le setState
+     * Pour rappel, pour accéder à l'état courant, utiliser this.state.
+     */
+    componentDidUpdate(previousProps, previousState) {
+    }
+
+    render() {
+      return (
+        <div className="App">
+          <div className="Exercice">
+            <div>
+              <h2>Exercice 1</h2>
+              <h3>Age : {this.state.age}</h3>
+              <p>Voici un bouton qui va augmenter l'âge de 1</p>
+              <button onClick={this.incrementAge}>Age +1</button>
+            </div>
+            <Consignes exercice={1}/>
+            <h4></h4>
+          </div>
+          <div className="Exercice">
+            <div>
+              <h2>Exercice 2</h2>
+              <h3>Degrés {this.state.degrees}</h3>
+              <p>Voici deux boutons qui permettent de changer la température</p>
+              <div>
+                <button onClick={this.incrementTemperature}> Plus chaud</button>
+                <button onClick={this.decrementTemperature}> Plus froid</button>
+              </div>
+            </div>
+            <Consignes exercice={2}/>
+          </div>
+        </div>
+      )
+    }
+
+    /**
+     * Augmente l'âge de 1 dans le state
+     */
+    incrementAge() {
+      this.setState({
+        age: this.state.age + 1,
+      })
+    }
+
+    /**
+     * Augmente de 1 la temperature dans le state
+     */
+    incrementTemperature() {
+      this.setState({
+        degrees: this.state.degrees + 1,
+      })
+    }
+
+    /**
+     * Diminue de 1 la temperature dans le state
+     */
+    decrementTemperature() {
+      this.setState({
+        degrees: this.state.degrees - 1,
+      })
+    }
+  }
+
+  class Consignes extends React.Component {
+    render() {
+      return (
+        <div className="Consignes">
+          {this.props.exercice === 1 && (
+            <>
+              <p>
+                Remplir la méthode componentDidUpdate de manière à ce que :
+              </p>
+              <p>
+                Si le nouvel âge est supérieur ou égal à 18, alors mettre à jour le state de
+                errorMessage pour qu'il contienne le texte suivant : "Désolé, c'est interdit aux adultes ici !".
+              </p>
+              <p>
+                Si le nouvel âge est inférieur ou égal à 5, alors mettre à jour le state de errorMessage
+                pour qu'il contienne le texte suivant : "Désolé, c'est interdit aux bébés ici!"
+              </p>
+              <p>
+                Sinon, mettre à jour le state de errorMessage pour qu'il contienne un texte vide.
+              </p>
+            </>
+          )}
+          {this.props.exercice === 2 && (
+            <>
+              <p>
+                Remplir la méthode componentDidUpdate de manière à ce que quand la température passe en
+                dessous de 0, la console affiche "Trop froid !" et que quand la température passe au
+                dessus de 0, la console affiche "Trop chaud !"
+              </p>
+              <p>Si il fait déjà trop chaud quand on incrémente la température, ne rien afficher</p>
+              <p>Si il fait déjà trop froid quand on décrémente la température, ne rien afficher</p>
+              <p className="Note">
+                Vous pouvez manipuler prevState pour connaître l'ancienne température et la comparer avec la nouvelle.
+              </p>
+            </>
+          )}
+        </div>
+      )
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
 </script>
 </body>
 

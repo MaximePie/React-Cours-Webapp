@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <!-- https://cdnjs.com/libraries/babel-standalone -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    // Création de composant en créant des classes
+    class App extends React.Component {
+
+        render() {
+            const baba = 'Maxime';
+            const age = 15;
+            const button = <button>haha</button>
+            const animaux = ['sandwwich', 'loup', 'froamge'];
+
+            return ( // Ceci est ce qui va s'afficher.
+                <div>
+                    <h2>
+                        Haha
+                    </h2>
+                    <p>
+                        {baba}
+                    </p>
+                    <p>
+                        {age}
+                    </p>
+                    <p>
+                        {button}
+                    </p>
+                    {animaux.map(animal => <p>{animal}</p>)}
+                </div>
+            )
+        }
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root') // Point d'ancrage : la div d'id "root"
+    );
+</script>
+</body>
+
+</html>

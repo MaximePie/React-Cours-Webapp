@@ -17,87 +17,60 @@
 <div id="root"></div>
 <script type="text/babel">
 
-  class Consigne extends React.Component {
-    render() {
-
-      // Notez que la balise div est indispensable. Il ne faut renvoyer qu'un seul composant parent, ou bien utiliser un fragment
-      return (
-        <div>
-          <p><a href="https://fr.reactjs.org/docs/faq-functions.html">Documentation pour passer des fonctions à des
-            props </a></p>
-        </div>
-      )
-    }
-  }
-
   // Création de composant en créant des classes
   class Hello extends React.Component {
 
     constructor() {
       super();
-      this.state = {
-        textValue: "",
-        tasks: [
-          "Faire la vaisselle",
-          "Ne pas manger de chips",
-        ]
-      };
 
-      this.updateTextValue = this.updateTextValue.bind(this);
+      this.state = {
+        legumes: [
+          {
+            name: "Courgette",
+            draftName: "", // DraftName contient la valeur de l'input destiné à faire changer de nom à l'aliment.
+            prix: 5,
+          },
+          {
+            name: "Popotiron",
+            draftName: "",
+            prix: 155,
+          },
+          {
+            name: "Baba",
+            draftName: "",
+            prix: 99,
+          },
+          {
+            name: "Carotte",
+            draftName: "",
+            prix: 1,
+          }
+        ],
+      };
     }
 
     render() {
       return (
         <div>
-          <Consigne/>
-          <ul>
-            <li>Créer un composant PrimaryButton qui va prendre en props un texte à afficher et la fonction alertClick
-            </li>
-            <li>Depuis le composant PrimaryButton, lier la méthode reçue en props à son attribut onClick. Quand on
-              clique sur le bouton, l'alerte devrait s'afficher
-            </li>
-          </ul>
-          <ul>
-            <li>Dans le composant Hello, créer une méthode alertPress</li>
-            <li>Créer un composant SecondaryButton qui va prendre en props un texte à afficher et la nouvelle fonction
-              alertPress
-            </li>
-            <li>Depuis le composant SecondaryButton, lier la méthode reçue en props à son attribut onClick.</li>
-          </ul>
-          <ul>
-            <li>Dans le composant Hello il y a un state "textValue" et une méthode updateTextValue</li>
-            <li>Créer un compoant TextField qui va rendre un input, et lui envoyer comme props la textValue, ainsi que
-              la méthode updateTextValue
-            </li>
-            <li>Dans le composant TextField, attribuer la props textValue à la value de l'input</li>
-            <li>Dans le composant TextField, lier le déclencheur onChange à la méthode reçue en props de manière à lui
-              envoyer la valeur de cet input.
-            </li>
-            <li>Vérifier ici que la textValue se mette correctement à jour : {this.state.textValue}</li>
-          </ul>
-
-          <ul>
-            <li>Créer un composant CreateTask de manière à ce que quand on clique sur son bouton, une nouvelle tâche est créée dans le state de Hello</li>
-            {this.state.tasks.map(task => <li>{task}</li>)}
-          </ul>
+            <p>Je vous invite à lire ceci : <a href="https://www.robinwieruch.de/react-state-array-add-update-remove">Comment gérer les états avec les tableaux en React</a></p>
+            <ul>
+                <li>Afficher la liste des légumes. Pour chaque légume, afficher son nom et son prix</li>
+                <li>Pour chaque légume, afficher un input de type texte qui prendra comme valeur sa draftName</li>
+                <li>créer un mécanisme qui permette de mettre à jour le draftName de la personne désignée. </li>
+            </ul>
+            <ul>
+                <li>Créer une méthode deleteVegetable, qui prend en paramètre un index de tableau, et qui supprime cet élément du tableau en mettant le state à jour</li>
+                <li>Pour chaque légume, créer un bouton "supprimer" qui va appeler la méthode deleteVegetable, en lui envoyant comme paramètre l'index du légume</li>
+            </ul>
+            <ul>
+                <li>Créer deux propriétés de state : Une propriété 'newVegetableName' de type String, et une propriété 'newVegetablePrice' de type String</li>
+                <li>Créer une méthode addVegetable qui va créer un nouveau légume en se basant sur la valeur de ces deux propriétés </li>
+                <li>Créer un petit formulaire composé de deux input, un input pour le nom du légume, et un autre pour le prix du légume. </li>
+                <li>Chaque input doit être lié au state correspondant. L'input pour le nom du légume doit être lié à newVegetableName et l'input pour le type à newVegetablePrice</li>
+                <li>Créer un bouton qui déclenche la fonction addVegetable</li>
+            </ul>
         </div>
       )
-    }
-
-    /**
-     * Déclenche une alerte
-     */
-    alertClick() {
-      alert("Cliqué !");
-    }
-
-    /**
-     * Met à jour le state de textValue
-     */
-    updateTextValue(value) {
-      this.setState({
-        textValue: value
-      })
     }
   }
 
