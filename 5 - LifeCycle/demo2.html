@@ -18,6 +18,38 @@
 <div id="root"></div>
 <script type="text/babel">
 
+    class Title extends React.Component {
+
+        constructor() {
+            super();
+            this.state = {
+                title: 0,
+            }
+        }
+
+        componentDidMount() {
+            this.setState({
+                title: this.props.text,
+            })
+        }
+
+        /**
+         * Ici vous pouvez :
+         * Interrompre les différentes intervales en cours
+         * Interrompre les requêtes en cours
+         * Fermer les streams en cours
+         */
+        componentWillUnMount() {
+
+        }
+
+        render() {
+            return (
+              <h1>{this.state.title}</h1>
+            )
+        }
+    }
+
     // Création de composant en créant des classes
     class App extends React.Component {
 
@@ -27,9 +59,11 @@
             this.state = {
                 password: "",
                 errorMessage: "",
+                counter: 0,
             };
 
             this.updatePassword = this.updatePassword.bind(this);
+            this.incrementCounter = this.incrementCounter.bind(this);
         }
 
         /**
@@ -40,15 +74,9 @@
          * https://fr.reactjs.org/docs/state-and-lifecycle.html
          */
         componentDidUpdate(previousProps, previousState) {
-            if (this.state.password.length < 8 && this.state.errorMessage !== "Mot de passe trop court !") {
+            if (this.state.counter >= 10 && this.state.errorMessage === '') {
                 this.setState({
-                    errorMessage: "Mot de passe trop court !",
-                })
-            }
-
-            if (this.state.password.length >= 8 && this.state.errorMessage !== "") {
-                this.setState({
-                    errorMessage: "",
+                    errorMessage: "Erreur",
                 })
             }
         }
@@ -56,14 +84,30 @@
         render() {
             return (
                 <div className="App">
-                    <h2>Mot de passe {this.state.password}</h2>
-                    <h2>{this.state.errorMessage}</h2>
-                    <label>
-                        Mot de passe
-                        <input type="text" value={this.state.password} onChange={this.updatePassword}/>
-                    </label>
+                    <h2>{this.state.counter}</h2>
+                    {this.state.errorMessage}
+                    <button onClick={this.incrementCounter}>Incrementer</button>
+                    <Title text={"Baba"}/>
+                    <Title text={"Cookie"}/>
                 </div>
             )
+        }
+
+        /**
+         * Mettre à jour le compteur en lui augmentant de 1
+         */
+        incrementCounter() {
+            this.setState({
+                counter: this.state.counter + 1,
+            })
+
+            /* Pas bien
+            if (this.state.counter > 10) {
+                this.setState({
+                    errorMessage: "Erreur",
+                })
+            }
+            */
         }
 
         /**

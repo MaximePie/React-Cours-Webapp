@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root">
+
+</div>
+<script type="text/babel">
+
+  class App extends React.Component {
+
+    constructor() {
+      super();
+      this.state = {
+        counter: 0,
+        upgrades: [
+          {
+            name: "Grand mère",
+            nombre: 0,
+            cost: 10,
+          },
+          {
+            name: "Four",
+            nombre: 0,
+            cost: 12,
+          },
+        ]
+      };
+
+      this.onIncrement = this.onIncrement.bind(this);
+      this.recruitMother = this.recruitMother.bind(this);
+      this.refresh = this.refresh.bind(this);
+      this.recruitFour = this.recruitFour.bind(this);
+
+      this.interval = setInterval(this.refresh, 100);
+    }
+
+    render() {
+      return (
+        <div>
+          <h2>Compteur : {Math.round(this.state.counter)}</h2>
+          <button onClick={this.onIncrement}>Augmenter le compteur</button>
+
+          {this.state.upgrades.map((upgrade, index) => (
+            <div key={index}>
+              {upgrade.name}
+              {/*
+                <button disabled={this.state.counter < this.state.grandMere.cost} onClick={this.recruitMother}>
+                  Recruter la grand-mère ({this.state.grandMere.cost})
+                </button>
+              */}
+            </div>
+          ))}
+        </div>
+      )
+    }
+
+    /**
+     * Ajouter le nombre de grands mères au compteur actuel
+     */
+    refresh() {
+
+      // const fourIncome = (this.state.four.nombre * 2 / 10)
+
+      this.setState({
+        // counter: this.state.counter + this.state.grandMere.nombre / 10 + fourIncome,
+        counter: this.state.counter
+      })
+    }
+
+    /**
+     * Recruter un Four
+     */
+    recruitFour() {
+      const { four } = this.state;
+
+      if (this.state.counter > four.cost) {
+        this.setState({
+          counter: this.state.counter - four.cost,
+          four: {
+            cost: Math.round(four.cost * 1.2),
+            nombre: four.nombre + 1,
+          },
+        })
+      }
+    }
+
+
+    /**
+     * Recruter une grand-mère
+     */
+    recruitMother() {
+      const { grandMere } = this.state;
+
+      if (this.state.counter > grandMere.cost) {
+        this.setState({
+          counter: this.state.counter - grandMere.cost,
+          grandMere: {
+            cost: Math.round(grandMere.cost * 1.2),
+            nombre: grandMere.nombre + 1,
+          },
+        })
+      }
+    }
+
+    /**
+     * Incrémenter le counter du state
+     */
+    onIncrement() {
+      this.setState({
+        counter: this.state.counter + 1,
+      })
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

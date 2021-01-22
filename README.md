@@ -8,6 +8,9 @@ N'oubliez pas que vous pouvez consulter les **vidéos** de correction détaillé
 [Tous les exercices](https://drive.google.com/drive/folders/1qE--R0VygPz_VWzdUWMIcOjItXx2NsKu?usp=sharing)
 
 ## Sommaire 
+- [State](#State)
+    - [Créer un state](#Creer State)
+    - [Modifier un state](#Modifier un state)
 
 - [EventListeners](#EventListeners)
     - [onClick](#onClick)
@@ -18,10 +21,18 @@ N'oubliez pas que vous pouvez consulter les **vidéos** de correction détaillé
     - [useState](#useState)
     - [useEffect](#useEffect)
     - [useContext](#useContext)
+
 - [Router](#Router)
     - [Structure de base](#Structure de base)
     - [Router avec historique](#Utiliser l'historique)
     - [Utiliser les paramètres](#Utiliser des paramètres)
+
+- [Redux](#Redux)
+
+## State
+[Documentation]()
+### Creer State
+### Modifier un state
 
 ## EventListeners
 
@@ -435,3 +446,8 @@ function User() {
 
 
 
+## Redux
+
+Cette session est encore en travaux
+
+[Ressources d'apprentissage](https://redux.js.org/introduction/learning-resources)
