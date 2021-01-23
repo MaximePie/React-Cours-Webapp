@@ -1,5 +1,6 @@
-import './style.scss';
+import './style/style.scss';
 import * as React from "react";
+import Upgrade from "./components/molecules/Upgrade";
 
 export default class App extends React.Component {
 
@@ -80,17 +81,12 @@ export default class App extends React.Component {
         <button className="App__increment-button" onClick={this.onIncrement}>Augmenter le compteur</button>
 
         {this.state.upgrades.map((upgrade, index) => (
-          <div key={index}>
-            {upgrade.name}
-            <button onClick={() => this.recruit(index)} disabled={this.state.counter < upgrade.cost}>
-              Acheter
-            </button>
-            {/*
-                <button disabled={this.state.counter < this.state.grandMere.cost} onClick={this.recruitMother}>
-                  Recruter la grand-mère ({this.state.grandMere.cost})
-                </button>
-              */}
-          </div>
+          <Upgrade
+            key={index}
+            upgrade={upgrade}
+            onPurchase={() => this.recruit(index)}
+            counter={this.state.counter}
+          />
         ))}
       </div>
     )

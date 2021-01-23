@@ -1,0 +1,31 @@
+@import "mixins";
+@import "variables";
+@import "colors";
+@import "Upgrade";
+
+.App {
+  border: solid;
+
+  margin: $mediumSpacing;
+  padding: $mediumSpacing;
+
+  &__title {
+    color: $dark;
+
+    @include for-phone {
+      color: red;
+    }
+  }
+
+  &__subtitle {
+    color: $dark;
+
+    &-text {
+      color: $dark;
+    }
+  }
+
+  &__increment-button {
+    color: green;
+  }
+}
