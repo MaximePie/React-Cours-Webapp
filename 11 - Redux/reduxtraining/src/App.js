@@ -1,24 +1,26 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+// ...
+// Redux
+import { createStore } from 'redux';
+// Provider pour globaliser le store
+import { Provider } from 'react-redux';
+
+import reducer from './calculatrice';
+import Counter from "./Counter";
+
+const store = createStore(reducer);
 
 function App() {
+  console.log(store.getState());
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <div className="App">
+        <h1>State depuis App</h1>
+        <Counter/>
+      </div>
+    </Provider>
   );
 }
 

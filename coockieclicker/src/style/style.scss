@@ -1,31 +1,37 @@
+// Import variables
 @import "mixins";
 @import "variables";
 @import "colors";
+
+// Molecules
 @import "Upgrade";
+@import "Upgrades";
+@import "Counter";
+
+// Atoms
+@import "Button";
+
+body {
+  height: 100vh;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: $color2;
+}
 
 .App {
-  border: solid;
-
-  margin: $mediumSpacing;
   padding: $mediumSpacing;
+  box-shadow: $elevated;
+  border-radius: $mediumRadius;
 
-  &__title {
-    color: $dark;
+  width: 500px;
+  height: 400px;
+  margin: auto;
 
-    @include for-phone {
-      color: red;
-    }
-  }
-
-  &__subtitle {
-    color: $dark;
-
-    &-text {
-      color: $dark;
-    }
-  }
-
-  &__increment-button {
-    color: green;
-  }
+  background-color: $color4;
+  display: grid;
+  grid-template-columns: 40% 1fr;
 }

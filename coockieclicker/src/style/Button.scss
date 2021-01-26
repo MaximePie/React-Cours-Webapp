@@ -1,0 +1,23 @@
+.Button {
+  color: $color4;
+  background-color: $color2;
+  border: none;
+  outline: none;
+  padding: 4px;
+  height: 32px;
+  border-radius: 4px;
+
+  cursor: pointer;
+  transition: $shortTransition ease-in background-color;
+
+  &:hover {
+    background-color: $color2Dark;
+    transition: $shortTransition ease-in background-color;
+  }
+
+  &:disabled {
+    background-color: $color3;
+    transition: $shortTransition ease-in background-color;
+    cursor: initial;
+  }
+}

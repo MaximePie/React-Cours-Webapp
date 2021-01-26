@@ -1,7 +1,12 @@
 .Upgrade {
-  color: red;
-  box-shadow: $elevated;
-  margin: $mediumSpacing;
+  margin: $mediumSpacing 0;
   padding: $mediumSpacing;
-  width: 200px;
+  text-align: center;
+
+  display: grid;
+  grid-template-columns: 40px 100px 1fr;
+
+  &--header {
+    border-bottom: 1px $grey solid;
+  }
 }

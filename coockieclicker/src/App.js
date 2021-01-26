@@ -1,13 +1,14 @@
 import './style/style.scss';
 import * as React from "react";
 import Upgrade from "./components/molecules/Upgrade";
-import Button from "./components/atoms/Button";
+import Counter from "./components/molecules/Counter";
+import Upgrades from "./components/molecules/Upgrades";
 
 export default function App() {
 
   const [counter, setCounter] = React.useState({
     amount: 0,
-    cookiesPerSecond: 0,
+    notesPerSeconds: 0,
   });
   const [upgrades, setUpgrades] = React.useState(generateUpgrades());
 
@@ -23,40 +24,30 @@ export default function App() {
 
 
   React.useEffect(() => {
-    let cookiesPerSecond = 0;
+    let notesPerSeconds = 0;
 
     upgrades.forEach(upgrade => {
-      cookiesPerSecond += upgrade.income * upgrade.nombre;
+      notesPerSeconds += upgrade.income * upgrade.amount;
     });
 
-    setCounter({...counter, cookiesPerSecond});
+    setCounter({...counter, notesPerSeconds});
   }, [upgrades])
 
   return (
     <div className="App">
-      <h2 className="App__title">Compteur : {Math.round(counter.amount)}</h2>
-      <h4 className="App__subtitle">Apport /s : {counter.cookiesPerSecond}</h4>
-      <Button onClick={onIncrement} text="Augmenter le compteur"/>
-
-      {upgrades.map((upgrade, index) => (
-        <Upgrade
-          key={index}
-          upgrade={upgrade}
-          onPurchase={() => recruit(index)}
-          counter={counter.amount}
-        />
-      ))}
+      <Counter counter={counter} onIncrement={onIncrement}/>
+      <Upgrades upgrades={upgrades} recruit={recruit} counter={counter}/>
     </div>
   );
 
   /**
-   * Ajouter le nombre de grands mères au compteur actuel
+   * Ajouter le amount de grands mères au compteur actuel
    */
   function refresh() {
     setCounter(counter => {
       return {
         ...counter,
-        amount: counter.amount + counter.cookiesPerSecond / 10,
+        amount: counter.amount + counter.notesPerSeconds / 10,
       }
     })
   }
@@ -76,7 +67,7 @@ export default function App() {
       const expense = counter.amount - upgrade.cost;
 
       upgrade.cost = Math.round(upgrade.cost * 1.2);
-      upgrade.nombre++;
+      upgrade.amount++;
 
       upgradesList[index] = upgrade;
 
@@ -103,20 +94,20 @@ export default function App() {
   function generateUpgrades() {
     return [
       {
-        name: "Grand mère",
-        nombre: 0,
+        name: "Triangle",
+        amount: 0,
         cost: 10,
         income: 1,
       },
       {
-        name: "Four",
-        nombre: 0,
+        name: "Tambour",
+        amount: 0,
         cost: 12,
         income: 2,
       },
       {
-        name: "Petit biscuit",
-        nombre: 0,
+        name: "Sifflet",
+        amount: 0,
         cost: 20,
         income: 10,
       },
