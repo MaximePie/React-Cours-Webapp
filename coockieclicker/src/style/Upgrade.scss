@@ -4,9 +4,14 @@
   text-align: center;
 
   display: grid;
-  grid-template-columns: 40px 100px 1fr;
+  align-items: center;
+  grid-template-columns: 32px 1fr 50px 80px;
 
   &--header {
     border-bottom: 1px $grey solid;
+  }
+
+  &__image {
+    height: 32px;
   }
 }

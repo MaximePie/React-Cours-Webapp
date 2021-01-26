@@ -1,6 +1,6 @@
 import './style/style.scss';
 import * as React from "react";
-import Upgrade from "./components/molecules/Upgrade";
+import upgradesData from './data/upgrades'
 import Counter from "./components/molecules/Counter";
 import Upgrades from "./components/molecules/Upgrades";
 
@@ -10,7 +10,7 @@ export default function App() {
     amount: 0,
     notesPerSeconds: 0,
   });
-  const [upgrades, setUpgrades] = React.useState(generateUpgrades());
+  const [upgrades, setUpgrades] = React.useState(upgradesData());
 
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -86,32 +86,6 @@ export default function App() {
    */
   function onIncrement() {
     setCounter({...counter, amount: counter.amount + 1});
-  }
-
-  /**
-   * Générer la liste des améliorations
-   */
-  function generateUpgrades() {
-    return [
-      {
-        name: "Triangle",
-        amount: 0,
-        cost: 10,
-        income: 1,
-      },
-      {
-        name: "Tambour",
-        amount: 0,
-        cost: 12,
-        income: 2,
-      },
-      {
-        name: "Sifflet",
-        amount: 0,
-        cost: 20,
-        income: 10,
-      },
-    ]
   }
 }
 

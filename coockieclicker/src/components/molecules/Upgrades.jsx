@@ -11,7 +11,6 @@ export default function Upgrades({upgrades, recruit, counter}) {
 
   return (
     <div className="Upgrades">
-      <Upgrade upgrade={headerUpgrade} isHeader/>
       {upgrades.map((upgrade, index) => (
         <Upgrade
           key={index}
