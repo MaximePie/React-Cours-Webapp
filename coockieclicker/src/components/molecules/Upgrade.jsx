@@ -1,14 +1,15 @@
 import React from 'react';
+import Button from "../atoms/Button";
 
-export default class Upgrade extends React.Component {
-  render() {
-    return (
-      <div className="Upgrade">
-        {this.props.upgrade.name}
-        <button onClick={this.props.onPurchase} disabled={this.props.counter < this.props.upgrade.cost}>
-          Acheter
-        </button>
-      </div>
-    )
-  }
+export default function Upgrade(props) {
+  return (
+    <div className="Upgrade">
+      {props.upgrade.name}
+      <Button
+        text="Acheter"
+        onClick={props.onPurchase}
+        isDisabled={props.counter < props.upgrade.cost}
+      />
+    </div>
+  )
 }

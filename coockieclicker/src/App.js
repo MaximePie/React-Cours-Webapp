@@ -1,103 +1,63 @@
 import './style/style.scss';
 import * as React from "react";
 import Upgrade from "./components/molecules/Upgrade";
+import Button from "./components/atoms/Button";
 
-export default class App extends React.Component {
+export default function App() {
 
-  constructor() {
-    super();
-    this.state = {
-      counter: 0,
-      cookiesPerSeconds: 0,
-      upgrades: [
-        {
-          name: "Grand mère",
-          nombre: 0,
-          cost: 10,
-          income: 1,
-        },
-        {
-          name: "Four",
-          nombre: 0,
-          cost: 12,
-          income: 2,
-        },
-        {
-          name: "Petit biscuit",
-          nombre: 0,
-          cost: 20,
-          income: 10,
-        },
-      ]
+  const [counter, setCounter] = React.useState({
+    amount: 0,
+    cookiesPerSecond: 0,
+  });
+  const [upgrades, setUpgrades] = React.useState(generateUpgrades());
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      refresh();
+    }, 100);
+
+    return () => {
+      clearInterval(interval);
     };
+  }, []);
 
-    this.onIncrement = this.onIncrement.bind(this);
-    this.recruitMother = this.recruitMother.bind(this);
-    this.refresh = this.refresh.bind(this);
-    this.recruitFour = this.recruitFour.bind(this);
 
-    this.interval = setInterval(this.refresh, 100);
-  }
+  React.useEffect(() => {
+    let cookiesPerSecond = 0;
 
-  componentDidUpdate(previousProps, previousState) {
-    // Déclencher la fonction quand upgrades change
+    upgrades.forEach(upgrade => {
+      cookiesPerSecond += upgrade.income * upgrade.nombre;
+    });
 
-    if (this.areDifferentArrays(previousState.upgrades, this.state.upgrades)) {
+    setCounter({...counter, cookiesPerSecond});
+  }, [upgrades])
 
-      let cookiesPerSecond = 0;
+  return (
+    <div className="App">
+      <h2 className="App__title">Compteur : {Math.round(counter.amount)}</h2>
+      <h4 className="App__subtitle">Apport /s : {counter.cookiesPerSecond}</h4>
+      <Button onClick={onIncrement} text="Augmenter le compteur"/>
 
-      this.state.upgrades.forEach(upgrade => {
-        cookiesPerSecond += upgrade.income * upgrade.nombre;
-      });
-
-      console.log(cookiesPerSecond);
-
-      // Mettre à jour les cookies par seconde en fonction du state des upgrades
-      this.setState({
-        cookiesPerSeconds: cookiesPerSecond
-      })
-    }
-  }
-
-  /**
-   * Comparer les deux tableaux, renvoie true s'ils sont différents, et false s'ils sont équivalents.
-   */
-  areDifferentArrays(array1, array2) {
-    for (let i = 0; i < array1.length; i ++) {
-      // Si jamais les nombres ne sont pas les mêmes, renvoyer true
-      if (array1[i].nombre !== array2[i].nombre) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <h2 className="App__title">Compteur : {Math.round(this.state.counter)}</h2>
-        <h4 className="App__subtitle">Apport /s : {this.state.cookiesPerSeconds}</h4>
-        <button className="App__increment-button" onClick={this.onIncrement}>Augmenter le compteur</button>
-
-        {this.state.upgrades.map((upgrade, index) => (
-          <Upgrade
-            key={index}
-            upgrade={upgrade}
-            onPurchase={() => this.recruit(index)}
-            counter={this.state.counter}
-          />
-        ))}
-      </div>
-    )
-  }
+      {upgrades.map((upgrade, index) => (
+        <Upgrade
+          key={index}
+          upgrade={upgrade}
+          onPurchase={() => recruit(index)}
+          counter={counter.amount}
+        />
+      ))}
+    </div>
+  );
 
   /**
    * Ajouter le nombre de grands mères au compteur actuel
    */
-  refresh() {
-    this.setState({
-      counter: this.state.counter + this.state.cookiesPerSeconds / 10
+  function refresh() {
+    setCounter(counter => {
+      return {
+        ...counter,
+        amount: counter.amount + counter.cookiesPerSecond / 10,
+      }
     })
   }
 
@@ -105,74 +65,62 @@ export default class App extends React.Component {
    * Recruter une amélioration dont la position est passée via l'index
    * @param index Number
    */
-  recruit(index) {
+  function recruit(index) {
     // Identifier l'amélioration à acheter
-    const upgradesList = [...this.state.upgrades];
+    const upgradesList = [...upgrades];
     const upgrade = {...upgradesList[index]};
 
     // Vérifier si on a assez d'argent
-    if (this.state.counter >= upgrade.cost) {
+    if (counter.amount >= upgrade.cost) {
 
-      const expense = this.state.counter - upgrade.cost;
+      const expense = counter.amount - upgrade.cost;
 
       upgrade.cost = Math.round(upgrade.cost * 1.2);
-      upgrade.nombre ++;
+      upgrade.nombre++;
 
       upgradesList[index] = upgrade;
 
       // Mettre à jour le state pour :
       // Dépenser les cookies
       // Mettre à jour notre tableau d'améliorations.
-      this.setState({
-        counter: expense,
-        upgrades: upgradesList,
-      })
+
+      setUpgrades(upgradesList);
+      setCounter({...counter, amount: expense});
     }
 
-  }
-
-  /**
-   * Recruter un Four
-   */
-  recruitFour() {
-    const {four} = this.state;
-
-    if (this.state.counter > four.cost) {
-      this.setState({
-        counter: this.state.counter - four.cost,
-        four: {
-          cost: Math.round(four.cost * 1.2),
-          nombre: four.nombre + 1,
-        },
-      })
-    }
-  }
-
-
-  /**
-   * Recruter une grand-mère
-   */
-  recruitMother() {
-    const {grandMere} = this.state;
-
-    if (this.state.counter > grandMere.cost) {
-      this.setState({
-        counter: this.state.counter - grandMere.cost,
-        grandMere: {
-          cost: Math.round(grandMere.cost * 1.2),
-          nombre: grandMere.nombre + 1,
-        },
-      })
-    }
   }
 
   /**
    * Incrémenter le counter du state
    */
-  onIncrement() {
-    this.setState({
-      counter: this.state.counter + 1,
-    })
+  function onIncrement() {
+    setCounter({...counter, amount: counter.amount + 1});
+  }
+
+  /**
+   * Générer la liste des améliorations
+   */
+  function generateUpgrades() {
+    return [
+      {
+        name: "Grand mère",
+        nombre: 0,
+        cost: 10,
+        income: 1,
+      },
+      {
+        name: "Four",
+        nombre: 0,
+        cost: 12,
+        income: 2,
+      },
+      {
+        name: "Petit biscuit",
+        nombre: 0,
+        cost: 20,
+        income: 10,
+      },
+    ]
   }
 }
 
