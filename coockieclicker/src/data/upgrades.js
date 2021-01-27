@@ -39,6 +39,7 @@ export default function generateUpgrades() {
       amount: 0,
       cost: 100,
       income: 15,
+      image: sifflet,
     },
     {
       name: "Banjo",

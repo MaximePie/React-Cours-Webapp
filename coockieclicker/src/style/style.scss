@@ -9,6 +9,7 @@
 @import "Counter";
 
 // Atoms
+@import "MysteryNote";
 @import "Button";
 
 body {
@@ -26,6 +27,8 @@ body {
   padding: $mediumSpacing;
   box-shadow: $elevated;
   border-radius: $mediumRadius;
+
+  position: relative;
 
   width: 500px;
   height: 400px;
