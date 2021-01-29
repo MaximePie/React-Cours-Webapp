@@ -1,0 +1,8 @@
+.QuantityButtons {
+  display: flex;
+  justify-content: space-between;
+
+  &__button {
+    width: 50px;
+  }
+}

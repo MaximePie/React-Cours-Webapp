@@ -6,13 +6,14 @@ import Upgrades from "./components/molecules/Upgrades";
 import MysteryNote from "./components/atoms/MysteryNote";
 
 import config from "./data/config";
+import multiply from "./helper/costCalculator";
 
 const {MYSTERY_NOTE_RATIO, MYSTERY_NOTE_LENGTH, MYSTERY_NOTE_MULTIPLIER} = config();
 
 export default function App() {
 
   const [counter, setCounter] = React.useState({
-    amount: 0,
+    amount: 500,
     notesPerSeconds: 0,
   });
   const [upgrades, setUpgrades] = React.useState(upgradesData());
@@ -77,8 +78,9 @@ export default function App() {
   /**
    * Recruter une amélioration dont la position est passée via l'index
    * @param index Number
+   * @param purchaseInfo Object cost, maximumQuantity
    */
-  function recruit(index) {
+  function recruit(index, purchaseInfo) {
     // Identifier l'amélioration à acheter
     const upgradesList = [...upgrades];
     const upgrade = {...upgradesList[index]};
@@ -86,10 +88,9 @@ export default function App() {
     // Vérifier si on a assez d'argent
     if (counter.amount >= upgrade.cost) {
 
-      const expense = counter.amount - upgrade.cost;
-
-      upgrade.cost = Math.round(upgrade.cost * 1.2);
-      upgrade.amount++;
+      const expense = counter.amount - purchaseInfo.cost;
+      upgrade.cost = multiply(upgrade.cost, upgrade.cost, purchaseInfo.quantity);
+      upgrade.amount += purchaseInfo.quantity;
 
       upgradesList[index] = upgrade;
 

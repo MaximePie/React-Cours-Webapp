@@ -10,7 +10,6 @@ export default (state = initialState, action = {}) => {
   switch (action.type) {
 
     case 'INCREMENT':
-      console.log(action.payload);
       return { ...state, counter: state.counter + 1 }
 
     default:
