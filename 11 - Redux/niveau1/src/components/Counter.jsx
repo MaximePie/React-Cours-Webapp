@@ -5,7 +5,7 @@ import {
 } from 'react-redux';
 
 
-export default function Counter() {
+export default function Additionner() {
   const { counter } = useSelector(state => state);
   const dispatchMethod = useDispatch();
 

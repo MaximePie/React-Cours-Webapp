@@ -17,7 +17,7 @@
 <div id="root"></div>
 <script type="text/babel">
 
-    function Clicker(props) {
+    function Form(props) {
         const [isClicked, setIsClickedState] = React.useState(false); // False est la valeur par défaut du state isClicked
         let displayedText = "Cliquez-moi !";
 
@@ -48,7 +48,7 @@
      * Affiche un bouton qui déclenche une fonction handleClick
      * La fonction handleClick doit incrémenter le counter
      */
-    function Counter() {
+    function Additionner() {
         const [counter, setCounter] = React.useState(0);
 
         return (
@@ -132,7 +132,7 @@
                 <div className="App">
                     <div>
                         <p>
-                            Voici un composant Clicker qui change de texte quand on clique dessus
+                            Voici un composant Form qui change de texte quand on clique dessus
                         </p>
                         <Clicker text="Je suis changé !"/>
                     </div>
@@ -144,7 +144,7 @@
                         </p>
                     </div>
                     <div>
-                        <p>Remplir le composant Counter</p>
+                        <p>Remplir le composant Additionner</p>
                         <div>
                             <Counter/>
                         </div>

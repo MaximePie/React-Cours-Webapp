@@ -18,7 +18,7 @@
         const TIME_COUNTER = 1000;
         const CONTAINER = document.getElementById('root');
 
-        const Counter = () => {
+        const Additionner = () => {
             const [count, setCount] = React.useState(0);
             const [active, setActive] = React.useState(false);
 
@@ -39,7 +39,7 @@
 
             }, [active]);
 
-            // juste avant la destruction du composant Counter dans App 
+            // juste avant la destruction du composant Additionner dans App
             // ne pas écouter de changement sur les states 
             React.useEffect(() => {
 
@@ -55,7 +55,7 @@
 
             return (
                 <React.Fragment>
-                    <div>Counter : {count} </div>
+                    <div>Additionner : {count} </div>
                     <p>{active ? 'start' : 'stop'}</p>
                     <div><button onClick={startStop}>Start/stop</button></div>
                 </React.Fragment>

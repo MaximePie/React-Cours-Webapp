@@ -1,17 +1,16 @@
 import './App.css';
 import React from 'react';
 
-import Counter from "./Counter";
-import {useSelector} from "react-redux";
+import Counter from "./components/Counter";
+import Consignes from "./components/Consignes";
 
 
 function App() {
-  const { counter } = useSelector(state => state);
-
   return (
       <div className="App">
-        <h1>State depuis App {counter}</h1>
+        <h1>Afficher le compteur ici </h1>
         <Counter/>
+        <Consignes/>
       </div>
   );
 }

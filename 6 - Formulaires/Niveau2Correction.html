@@ -169,7 +169,7 @@
          * Affiche "Trop long" si l'animal du state fait plus de 8 caractères de long
          */
         showAnimal(event) {
-            event.preventDefault(); // Empêche le formulaire d'avoir un comportement normal, c'est-à-dire qu'on empêche qu'il s'actualise
+            event.preventDefault(); // Empêche le formulaire d'avoir un comportement normal, components'est-à-dire qu'on empêche qu'il s'actualise
             if (this.state.animal.length > 8) {
                 console.log("Trop long !");
             }
