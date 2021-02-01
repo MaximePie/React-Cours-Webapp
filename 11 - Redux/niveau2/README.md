@@ -1,3 +1,13 @@
+# Installation du projet 
+
+Lancer les commandes `yarn install && yarn start`. 
+
+Si `yarn` n'est pas reconnu en tant que commande interne, écrivez d'abord `npm install --global yarn`. 
+
+Pour plus d'informations sur Yarn, consultez [cette page](https://classic.yarnpkg.com/en/docs/install/#windows-stable)
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
