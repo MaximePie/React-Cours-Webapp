@@ -11,7 +11,7 @@ Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correc
 [Tous les exercices](https://drive.google.com/drive/folders/1qE--R0VygPz_VWzdUWMIcOjItXx2NsKu?usp=sharing)
 
 ## Sommaire 
-- [Comment s'entraîner ?](#Comment-s'entraîner ?)
+- [Comment s'entraîner ?](#Comment-pratiquer)
 - [State](#State)
     - [Créer un state](#Creer-State)
     - [Modifier un state](#Modifier-un-state)
@@ -33,9 +33,9 @@ Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correc
 
 - [Redux](#Redux)
     - [Installation et documentation](#Redux-en-général)
-    - [Example basique] (#Example-basique)
+    - [Exemple basique] (#Exemple-basique)
 --- 
-## Comment s'entraîner
+## Comment pratiquer
 
 1.  Téléchargez la liste des exercices complète en cliquant [ici](https://drive.google.com/drive/folders/1qE--R0VygPz_VWzdUWMIcOjItXx2NsKu?usp=sharing)
 2.  Ouvrez l'exercice dans un navigateur pour afficher la consigne. 
