@@ -11,7 +11,7 @@ Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correc
 [Tous les exercices](https://drive.google.com/drive/folders/1qE--R0VygPz_VWzdUWMIcOjItXx2NsKu?usp=sharing)
 
 ## Sommaire 
-- [Comment s'entraîner ?](#Comment s'entraîner)
+- [Comment s'entraîner ?](#Comment s'entraîner ?)
 - [State](#State)
     - [Créer un state](#Creer State)
     - [Modifier un state](#Modifier un state)
