@@ -11,10 +11,10 @@ Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correc
 [Tous les exercices](https://drive.google.com/drive/folders/1qE--R0VygPz_VWzdUWMIcOjItXx2NsKu?usp=sharing)
 
 ## Sommaire 
-- [Comment s'entraîner ?](#Comment s'entraîner ?)
+- [Comment s'entraîner ?](#Comment-pratiquer)
 - [State](#State)
-    - [Créer un state](#Creer State)
-    - [Modifier un state](#Modifier un state)
+    - [Créer un state](#Creer-State)
+    - [Modifier un state](#Modifier-un-state)
 
 - [EventListeners](#EventListeners)
     - [onClick](#onClick)
@@ -27,14 +27,15 @@ Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correc
     - [useContext](#useContext)
 
 - [Router](#Router)
-    - [Structure de base](#Structure de base)
-    - [Router avec historique](#Utiliser l'historique)
-    - [Utiliser les paramètres](#Utiliser des paramètres)
+    - [Structure de base](#Structure-de-base)
+    - [Router avec historique](#Utiliser-l'historique)
+    - [Utiliser les paramètres](#Utiliser-des-paramètres)
 
 - [Redux](#Redux)
-    - [Installation et documentation](#Redux en général)
-
-## Comment s'entraîner
+    - [Installation et documentation](#Redux-en-général)
+    - [Exemple basique] (#Exemple-basique)
+--- 
+## Comment pratiquer
 
 1.  Téléchargez la liste des exercices complète en cliquant [ici](https://drive.google.com/drive/folders/1qE--R0VygPz_VWzdUWMIcOjItXx2NsKu?usp=sharing)
 2.  Ouvrez l'exercice dans un navigateur pour afficher la consigne. 
@@ -51,6 +52,7 @@ Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correc
 
 5-2. Depuis ce dossier, ouvrir le fichier README.md et suivez les instructions à l'intérieur 
 
+---
 ## State
 [Documentation]()
 ### Creer State
@@ -168,6 +170,7 @@ function Card() {
 ```
 
 
+---
 ## Hooks 
 
 ### UseState
@@ -343,6 +346,7 @@ function App() {
 }
 ```
 
+---
 ## Router
 
 ### Prérequis 
@@ -467,7 +471,7 @@ function User() {
 ```
 
 
-
+---
 ## Redux
 Cette section est encore en travaux
 
@@ -492,7 +496,7 @@ Pour installer Redux avec NPM
 `npm install redux && npm install react-redux`
 
 
-## Example basique
+### Example basique
 
 - Créer un fichier  `reducer.js` qui contiendra la "notice" de notre state global. 
 
