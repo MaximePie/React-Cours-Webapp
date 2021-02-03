@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 import Additionner from "./components/Additionner";
-import Substractor from "./components/Substractor";
+import Subtractor from "./components/Subtractor";
 import Consignes from "./components/Consignes";
 
 function App() {
   return (
     <div className="App">
       <Additionner/>
-      <Substractor/>
+      <Subtractor/>
       <Consignes/>
     </div>
   );

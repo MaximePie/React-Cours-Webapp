@@ -11,12 +11,14 @@
 
     <!-- babel => compilation du JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="../prism.css" rel="stylesheet" />
 </head>
 
 <body>
 <div id="root">
 
 </div>
+<script src="../prism.js"></script>
 <script type="text/babel">
 
     class PrimaryButton extends React.Component {
@@ -38,6 +40,13 @@
           <div>
               <h2>Bonjour React</h2>
               <p>Contenu</p>
+              <div class="container">
+                  <pre>
+                      <code class="language-scss">
+                          color: red;
+                      </code>
+                  </pre>
+              </div>
               <PrimaryButton text="Bouton1" dada={15}/>
               <PrimaryButton text="Bouton2" bolino={{haha: "text", age: 15}}/>
           </div>

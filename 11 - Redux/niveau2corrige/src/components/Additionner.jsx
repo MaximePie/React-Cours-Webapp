@@ -6,25 +6,20 @@ import {
 
 
 export default function Additionner() {
-  const dispatch = useDispatch();
-  const state = useSelector(function(state) {
-    return state;
-  });
+  const dispatchMethod = useDispatch();
+  const currentState = useSelector(state => state);
 
   /**
    * Triggers the "ADD" event on Reducer
    * Sends the amount as a data key
    */
   function add(amount) {
-    dispatch({
-      type: 'ADD',
-      number: amount,
-    })
+    dispatchMethod({type: 'ADD', data: amount}) // Envoie la valeur 100 à notre reducer. Il pourra la récupérer grâce à action.data.
   }
 
   return (
     <div className="Additionner">
-      <h2>State depuis le composant Additionner {state.counter}</h2>
+      <h2>State depuis le composant Additionner : {currentState.counter}</h2>
       <button onClick={() => add(1)}>+ 1</button>
       <button onClick={() => add(2)}>+ 2</button>
       <button onClick={() => add(3)}>+ 3</button>
