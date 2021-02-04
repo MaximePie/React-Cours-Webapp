@@ -5,6 +5,8 @@
 [Axios](https://github.com/axios/axios) permet d'échanger des données avec une API. Elle permet de récupérer des données de cette API avec 
 `get`, ou bien d'envoyer des données à l'API avec `post`. 
 
+Consultez toutes les API publiques [ici](https://github.com/public-apis/public-apis)
+
 ### Installation 
 
 Consulter [cette page](https://www.npmjs.com/package/axios) pour plus d'informations.
