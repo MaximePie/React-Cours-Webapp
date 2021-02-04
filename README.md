@@ -481,6 +481,8 @@ Cette section est encore en travaux
 
 [Comprendre Redux par le dessin](https://code-cartoons.com/a-cartoon-intro-to-redux-3afb775501a6)
 
+[Résumé en carte mentale](https://mind42.com/public/8134952c-a3d8-4e27-804b-c761072d10f4)
+
 
 ### Installation 
 
