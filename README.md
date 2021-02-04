@@ -34,6 +34,8 @@ Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correc
 - [Redux](#Redux)
     - [Installation et documentation](#Redux-en-général)
     - [Exemple basique] (#Exemple-basique)
+
+- [Axios et API](https://github.com/MaximePie/react-entrainement/tree/master/12%20-%20Axios%20et%20API)
 --- 
 ## Comment pratiquer
 
