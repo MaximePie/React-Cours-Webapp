@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+<script>
+  const operations = "1+2*3/4+5-6".split("");
+  const operators = ["+", "-", "/", "*"];
+
+  let numbers = operations.filter(
+    (character) => !operators.find((operator) => operator === character)
+  );
+  numbers = numbers.map(number => parseInt(number));
+
+  let operatorsList = operations.filter((character) =>
+    operators.find((operator) => operator === character)
+  );
+
+  // Scanning for "*";
+  while (operatorsList.indexOf("*") !== -1) {
+    operate('*');
+  }
+
+  // Scanning for "*";
+  while (operatorsList.indexOf("/") !== -1) {
+    operate('/');
+  }
+
+  while (operatorsList.length) {
+    operate(operatorsList[0]);
+  }
+
+  function operate(operator) {
+    let operatorIndex = operatorsList.indexOf(operator);
+    operatorsList = [
+      ...operatorsList.filter((operator, index) => index !== operatorIndex)
+    ];
+    let result;
+    switch (operator) {
+      case "*":
+        result = numbers[operatorIndex] * numbers[operatorIndex + 1];
+        break;
+      case "/":
+        result = numbers[operatorIndex] / numbers[operatorIndex + 1];
+        break;
+      case "+":
+        result = numbers[operatorIndex] + numbers[operatorIndex + 1];
+        break;
+      case "-":
+        result = numbers[operatorIndex] - numbers[operatorIndex + 1];
+        break;
+    }
+    numbers[operatorIndex] = result;
+    numbers = [...numbers.filter((number, index) => index !== operatorIndex + 1)];
+  }
+</script>
+</body>
+</html>
