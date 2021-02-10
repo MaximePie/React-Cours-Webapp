@@ -10,30 +10,19 @@ Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correc
 
 [Tous les exercices](https://drive.google.com/drive/folders/1qE--R0VygPz_VWzdUWMIcOjItXx2NsKu?usp=sharing)
 
-## Sommaire 
+## Liens 
 - [Comment s'entraîner ?](#Comment-pratiquer)
 - [State](#State)
     - [Créer un state](#Creer-State)
     - [Modifier un state](#Modifier-un-state)
 
-- [EventListeners](#EventListeners)
-    - [onClick](#onClick)
-    - [onChange](#onChange)
-    - [Paramètres](#Paramètres)
+- [EventListeners](https://github.com/MaximePie/react-entrainement/tree/master/4%20-%20EventListener)
 
-- [Hooks](#Hooks)
-    - [useState](#useState)
-    - [useEffect](#useEffect)
-    - [useContext](#useContext)
+- [Hooks](https://github.com/MaximePie/react-entrainement/tree/master/8%20-%20Hooks)
 
-- [Router](#Router)
-    - [Structure de base](#Structure-de-base)
-    - [Router avec historique](#Utiliser-l'historique)
-    - [Utiliser les paramètres](#Utiliser-des-paramètres)
+- [Router](https://github.com/MaximePie/react-entrainement/tree/master/9%20-%20Router)
 
-- [Redux](#Redux)
-    - [Installation et documentation](#Redux-en-général)
-    - [Exemple basique] (#Exemple-basique)
+- [Redux](https://github.com/MaximePie/react-entrainement/tree/master/11%20-%20Redux)
 
 - [Axios et API](https://github.com/MaximePie/react-entrainement/tree/master/12%20-%20Axios%20et%20API)
 --- 
