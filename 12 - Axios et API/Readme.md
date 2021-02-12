@@ -45,7 +45,7 @@ L'endpoint dépend de l'API.
 
 ##### Charger des données au lancement de l'application
 ```js
-import './App.css';
+import './App.scss';
 import axios from 'axios';
 import * as React from "react";
 
@@ -101,7 +101,7 @@ Exemple avec le gestionnaire de tâches :
 
 ```js
 
-import './App.css';
+import './App.scss';
 import axios from "axios";
 import * as React from "react";
 

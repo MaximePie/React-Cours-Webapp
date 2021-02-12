@@ -87,7 +87,7 @@ Il est possible de ne sélectionner que le `counter` du state si on le souhaite.
 ```js
 // App.js
 
-import './App.css';
+import './App.scss';
 import Counter from './components/Counter'
 import * as React from "react";
 import {useSelector} from "react-redux";
