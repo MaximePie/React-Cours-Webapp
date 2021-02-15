@@ -1,5 +1,5 @@
 import React from "react";
-import './App.css';
+import './App.scss';
 import {useSelector} from "react-redux";
 import {Route, BrowserRouter, Switch, NavLink} from "react-router-dom";
 
@@ -11,34 +11,33 @@ function App() {
   const desserts = products.filter(product => product.category === 'Dessert');
   const boissons = products.filter(product => product.category === 'Boisson');
 
-  console.log(sandwiches);
   return (
     <BrowserRouter>
       <div className="Header">
-        <NavLink to="/" activeClassName="Header__link--active">Accueil</NavLink>
-        <NavLink to="/sandwich" activeClassName="Header__link--active">Sandwich</NavLink>
-        <NavLink to="/dessert" activeClassName="Header__link--active">Desserts</NavLink>
-        <NavLink to="/boisson" activeClassName="Header__link--active">Boisson</NavLink>
+        <NavLink exact={true} to="/" className="Header__link" activeClassName="Header__link--active">Accueil</NavLink>
+        <NavLink to="/sandwich" className="Header__link" activeClassName="Header__link--active">Sandwich</NavLink>
+        <NavLink to="/dessert" className="Header__link" activeClassName="Header__link--active">Desserts</NavLink>
+        <NavLink to="/boisson" className="Header__link" activeClassName="Header__link--active">Boisson</NavLink>
       </div>
       <div className="App">
         <Switch>
           <Route path='/sandwich'>
-            {sandwiches.map(sandwich => (
-              <div>
-                <p>
-                  {sandwich.name}
-                </p>
-                <p>
-                  {sandwich.price}
-                </p>
-                <p>
-                  {sandwich.category}
-                </p>
-                <p>
-                  {sandwich.quantity}
-                </p>
-              </div>
-            ))}
+            <div className="Products">
+              {sandwiches.map(sandwich => (
+                <div className="Product">
+                  <p>
+                    {sandwich.name}
+                  </p>
+                  <p>
+                    {sandwich.unitPrice}€
+                  </p>
+                  <p>
+                    {sandwich.quantity}
+                  </p>
+                  <button className="Product__action">+</button>
+                </div>
+              ))}
+            </div>
           </Route>
           <Route path='/boisson'>
             {boissons.map(boisson => (

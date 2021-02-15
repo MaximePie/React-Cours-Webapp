@@ -17,156 +17,138 @@
 <div id="root"></div>
 <script type="text/babel">
 
-    function Form(props) {
-        const [isClicked, setIsClickedState] = React.useState(false); // False est la valeur par défaut du state isClicked
-        let displayedText = "Cliquez-moi !";
+  function Clicker(props) {
+    const [isClicked, setIsClickedState] = React.useState(false); // False est la valeur par défaut du state isClicked
+    let displayedText = "Cliquez-moi !";
 
-        if (isClicked) {
-            displayedText = props.text;
-        }
-
-        return (
-            <div style={{border: "solid", padding: "8px", margin: "8px 0"}}>
-                <button onClick={handleButtonClick}>
-                    {displayedText}
-                    {/*props.text || "Cliquez-moi"*/}
-                </button>
-            </div>
-        )
-
-        /**
-         * Update the state isClicked and set it to true
-         */
-        function handleButtonClick() {
-            setIsClickedState(true); // True est la nouvelle valeur du state isClicked
-        }
+    if (isClicked) {
+      displayedText = props.text;
     }
 
     /**
-     * Dispose d'un state counter, qui est mis à jour avec setCounter.
-     * Affiche la valeur du state de counter
-     * Affiche un bouton qui déclenche une fonction handleClick
-     * La fonction handleClick doit incrémenter le counter
+     * Update the state isClicked and set it to true
      */
-    function Additionner() {
-        const [counter, setCounter] = React.useState(0);
-
-        return (
-            <div>
-                <p>Compteur : {counter /* Equivalent à this.state.counter */}</p>
-                <button onClick={handleClick}>Incrémenter</button>
-            </div>
-        )
-
-        /**
-         * Mettre à jour le state de counter avec setCounter
-         */
-        function handleClick() {
-            setCounter(counter + 1);
-        }
+    function handleButtonClick() {
+      setIsClickedState(true); // True est la nouvelle valeur du state isClicked
     }
+
+    return (
+      <div style={{border: "solid", padding: "8px", margin: "8px 0"}}>
+        <button onClick={handleButtonClick}>
+          {displayedText}
+        </button>
+      </div>
+    )
+  }
+
+  /**
+   * Dispose d'un state counter, qui est mis à jour avec setCounter.
+   * Affiche la valeur du state de counter
+   * Affiche un bouton qui déclenche une fonction handleClick
+   * La fonction handleClick doit incrémenter le counter
+   */
+  function Additionner() {
+    const [counter, setCounter] = React.useState(0);
+
+    return (
+      <>
+        <p>Compteur : {counter}</p>
+        <button onClick={handleClick}>Incrémenter</button>
+      </>
+    )
 
     /**
-     * Dispose d'un state firstname qui est mis à jour avec setFirstname
-     * Affiche la valeur de firstname
-     * Affiche un champ de texte qui contient la valeur de firstname et dont le onChange déclenche une fonction updateName
-     * La fonction updateName doit mettre à jour le state de firstname avec la nouvelle valeur contenue dans l'Input
+     * Mettre à jour le state de counter, avec setCounter.
      */
-    function FirstnameInput() {
-        const [firstname, setFirstname] = React.useState('');
-
-        return (
-            <div>
-                <h2>Contenu : {firstname}</h2>
-                <label htmlFor="">
-                    Firstname
-                    <input type="text" value={firstname} onChange={updateName}/>
-                </label>
-            </div>
-        )
-
-        /**
-         * Mettre à jour le state de firstname avec setFirstname
-         */
-        function updateName(event) {
-            setFirstname(event.target.value)
-        }
+    function handleClick() {
+      console.log(counter);
+      setCounter(counter + 1);
+      // this.setState({
+      //   counter: this.state.counter + 1,
+      // })
     }
 
+  }
+
+  /**
+   * Dispose d'un state firstname qui est mis à jour avec setFirstname
+   * Affiche la valeur de firstname
+   * Affiche un champ de texte qui contient la valeur de firstname et dont le onChange déclenche une fonction updateName
+   * La fonction updateName doit mettre à jour le state de firstname avec la nouvelle valeur contenue dans l'Input
+   */
+  function FirstnameInput() {
+    const [firstname, setFirstname] = React.useState("");
+
+    return (
+      <>
+        <p>Firstname : {firstname}</p>
+        <input type="text" value={firstname} onChange={updateName}/>
+      </>
+    )
 
     /**
-     * Dispose d'un state email qui est mis à jour avec setEmail
-     * Affiche la valeur de email
-     * Affiche un champ de texte qui contient la valeur de email et dont le onChange déclenche une fonction updateEmail
-     * La fonction updateEmail doit mettre à jour le state de email avec la nouvelle valeur contenue dans l'Input
+     * Mettre à jour le state de firstname avec setFirstname en lui passant le nom reçu en paramètre.
      */
-    function EmailInput() {
-        const [email, setEmail] = React.useState('');
-
-        return (
-            <div>
-                <h2>Valeur de l'email : {email}</h2>
-                <label>
-                    Email
-                    <input type="text" value={email} onChange={updateEmail}/>
-                </label>
-            </div>
-        )
-
-        /**
-         * Mettre à jour le state email avec setEmail
-         */
-        function updateEmail(event) {
-            // Crée une constante qui s'appelle value, et qui est égale à value de l'objet event.target
-            const { value } = event.target; // Destructuration d'objet
-
-            // const value = event.target.value;
-            setEmail(value);
-        }
+    function updateName(event) {
+      console.log(event.target.value);
+      setFirstname(event.target.value);
     }
+  }
 
-    // Création de composant en créant des classes
-    class App extends React.Component {
-        render() {
-            return (
-                <div className="App">
-                    <div>
-                        <p>
-                            Voici un composant Form qui change de texte quand on clique dessus
-                        </p>
-                        <Clicker text="Je suis changé !"/>
-                    </div>
-                    <div>
-                        <p>
-                            <a href="https://fr.reactjs.org/docs/hooks-state.html">
-                                Documentation sur le changement de state en composant fonctionnel
-                            </a>
-                        </p>
-                    </div>
-                    <div>
-                        <p>Remplir le composant Additionner</p>
-                        <div>
-                            <Counter/>
-                        </div>
-                        <p>Remplir le composant FirstnameInput</p>
-                        <div>
-                            <FirstnameInput/>
-                        </div>
-                        <p>Remplir le composant EmailInput</p>
-                        <div>
-                            <EmailInput/>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
+
+  /**
+   * Dispose d'un state email qui est mis à jour avec setEmail
+   * Affiche la valeur de email
+   * Affiche un champ de texte qui contient la valeur de email et dont le onChange déclenche une fonction updateEmail
+   * La fonction updateEmail doit mettre à jour le state de email avec la nouvelle valeur contenue dans l'Input
+   */
+  function EmailInput() {
+    const [email, setEmail] = React.useState("");
+
+    return (
+      <>
+        <p>Mail : {email}</p>
+        <input value={email} type="text" onChange={(event) => setEmail(event.target.value)}/>
+      </>
+    )
+  }
+
+  // Création de composant en créant des classes
+  class App extends React.Component {
+    render() {
+      return (
+        <div className="App">
+          <div>
+            <p>
+              Voici un composant Form qui change de texte quand on clique dessus
+            </p>
+            <Clicker text="Je suis changé !"/>
+          </div>
+          <div>
+            <p>
+              <a href="https://fr.reactjs.org/docs/hooks-state.html">
+                Documentation sur le changement de state en composant fonctionnel
+              </a>
+            </p>
+          </div>
+          <div>
+            <p>Remplir le composant Additionner</p>
+            <p>Remplir le composant FirstnameInput</p>
+            <p>Remplir le composant EmailInput</p>
+          </div>
+          <Additionner/>
+          <FirstnameInput/>
+          <EmailInput/>
+        </div>
+      )
     }
+  }
 
-    // Rendu dans le DOM
-    ReactDOM.render(
-        <App/>,
-        document.getElementById('root')
-    );
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
 </script>
 </body>
 
