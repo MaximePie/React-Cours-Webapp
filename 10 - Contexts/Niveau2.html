@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="../style.css"/>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  function UserAge() {
+    return (
+      <p>Voici l'âge de l'utilisateur</p>
+    )
+  }
+
+
+  function Profil() {
+    return (
+      <div>
+        <p>Ceci est un profil. Afficher l'âge ici : </p>
+        <div>
+          <UserAge/>
+        </div>
+      </div>
+    )
+  }
+
+
+  // Créer le contexte ici
+
+  /**
+   * Ce composant retourne le userContext.Provider ainsi que ses enfants (children) reçus via les props
+   * State : User, mis à jour avec setUser, valeur par défaut : {isConnected: false, firstname: 'Bobby'}
+   * Ce composant possède une méthode login qui va modifier la valeur de user, de manière à ce que user.isConnected = true.
+   */
+  function UserContextProvider() {
+
+  }
+
+  function App() {
+    return (
+      <div>
+        <a href="https://fr.reactjs.org/docs/context.html">Documentation sur l'utilisation des Contextes</a>
+        <div className="Exercice">
+          <p>Le but de l'exercice est d'apprendre à modifier une valeur de notre contexte.</p>
+          <div className="Consignes">
+            <p>Créer un contexte <code>userContext</code>.</p>
+            <p>Remplir le composant <code>UserContextProvider</code></p>
+            <p>Envelopper l'application dans le composant <code>UserContextProvider</code></p>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

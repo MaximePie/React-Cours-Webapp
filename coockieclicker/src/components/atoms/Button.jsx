@@ -3,11 +3,9 @@ import classnames from "classnames";
 
 export default function Button(props) {
 
-  const { isDisabled, onClick, text, className, isInactive } = props;
+  const {isDisabled, onClick, text, className, isInactive} = props;
 
-  const buttonClasses = classnames(
-    "Button",
-    {
+  const buttonClasses = classnames("Button", {
       [className]: className !== undefined,
       'Button--inactive': isInactive,
     }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- babel => compilation du JSX -->
+  <!-- https://cdnjs.com/libraries/babel-standalone -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  function Counter() {
+    const {temperature, updateTemperature} = React.useContext(temperatureContext);
+
+    return (
+      <div>
+        Haha
+        <p>
+          Temperature : {temperature}
+        </p>
+        <button onClick={() => updateTemperature(temperature + 1)}> + </button>
+      </div>
+    )
+  }
+
+  const temperatureContext = React.createContext({
+    value: 0,
+    update: () => {
+    }
+  });
+
+  function TemperatureProvider({children}) {
+    const [temperature, setTemperature] = React.useState(0);
+
+    return (
+      <temperatureContext.Provider className="Provider" value={{
+        temperature,
+        updateTemperature,
+      }}>
+        {children}
+      </temperatureContext.Provider>
+    );
+
+    function updateTemperature(temperature) {
+      setTemperature(temperature)
+    }
+  }
+
+  // Création de composant en créant des classes
+  function App() {
+
+    return (
+      <div>
+        <TemperatureProvider>
+          <Counter/>
+        </TemperatureProvider>
+      </div>
+    );
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root') // Point d'ancrage : la div d'id "root"
+  );
+</script>
+</body>
+
+</html>

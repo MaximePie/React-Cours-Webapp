@@ -61,10 +61,6 @@ export default function Upgrades({upgrades, recruit, counter}) {
     };
   }
 
-  /**
-   * Changer le multiplicateur actif
-   * @param multiplier La nouvelle valeur du multiplicateur
-   */
   function toggleQuantity(multiplier) {
     setCurrentMultiplier(multiplier);
   }

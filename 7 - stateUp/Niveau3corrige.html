@@ -17,6 +17,35 @@
 <div id="root"></div>
 <script type="text/babel">
 
+    class PrimaryButton extends React.Component {
+        
+        constructor() {
+            super();
+            this.triggerButton = this.triggerButton.bind(this);
+        }
+        
+        render() {
+            return (
+              <button onClick={this.triggerButton}>PrimaryButton</button>
+            )
+        }
+
+        triggerButton() {
+            this.props.onClick("Bababababa");
+        }
+    }
+
+    class TextField extends React.Component {
+        render() {
+            return (
+              <label htmlFor="">
+                  Input
+                  <input type="text" onChange={(event) => this.props.onChange(event.target.value)}/>
+              </label>
+            )
+        }
+    }
+
     // Création de composant en créant des classes
     class App extends React.Component {
 
@@ -34,15 +63,16 @@
                     <div>
                         <p>Créer un composant PrimaryButton qui va déclencher la méthode triggerAlert via une props.</p>
                         <p>En déclenchant triggerAlert, donner un paramètre text depuis PrimaryButton de manière à ce
-                            que l'alerte
-                            affiche "Bababababa"</p>
+                            que l'alerte affiche "Bababababa"
+                        </p>
+                        <PrimaryButton onClick={this.triggerAlert} />
                     </div>
                     <div>
                         <p>
                             Créer un composant TextField qui contiendra un input de type texte, et qui va déclencher la
-                            méthode displayText via une props à chaque fois que sa
-                            valeur change
+                            méthode displayText via une props à chaque fois que sa valeur change
                         </p>
+                        <TextField onChange={this.displayText}/>
                         <p>
                             En déclanchant displayText, envoyer un paramètre text depuis TextField qui sera égal à la
                             valeur de l'input.
@@ -50,6 +80,10 @@
                     </div>
                 </div>
             )
+        }
+
+        displayText(text) {
+            console.log(text);
         }
 
         /**

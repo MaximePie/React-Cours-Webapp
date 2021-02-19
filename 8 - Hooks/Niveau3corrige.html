@@ -2,256 +2,221 @@
 <html>
 
 <head>
-    <meta charset="UTF-8"/>
-    <title>Hello React</title>
-    <!-- Library -->
-    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
 
-    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
-    <!-- babel => compilation du JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
 
 <body>
 <div id="root"></div>
 <script type="text/babel">
 
-    /**
-     * Dispose d'un state User utilisant le hook d'état, avec un objet vide {} comme valeur par défaut
-     * User est mis à jour à travers une méthode setUser
-     * User est un objet avec deux propriétés : firstname, et mail
-     * Le composant affiche les informations de l'utilisateur et un formulaire
-     * Le formulaire propose de changer les informations de l'utilisateur (firstname et mail).
-     */
-    function EditProfile() {
+  /**
+   * Dispose d'un state User utilisant le hook d'état, avec un objet vide {} comme valeur par défaut
+   * User est un objet avec deux propriétés : firstname, et mail
+   * User est mis à jour à travers une méthode setUser
+   * Le composant affiche les informations de l'utilisateur et un formulaire
+   * Le formulaire propose de changer les informations de l'utilisateur (firstname et mail).
+   */
+  function EditProfile() {
+    const [user, setUser] = React.useState({});
+    return (
+      <div>
+        <div>
+          <p>Firstname : {user.firstname}</p>
+          <p>Mail : {user.mail}</p>
+          <p>Age : {user.age}</p>
+        </div>
+        <form>
+          <label>
+            Firstname
+            <input type="text" value={user.firstname || ''} onChange={handleFirstnameChange}/>
+          </label>
+          <label>
+            Mail
+            <input type="text" name="mail" value={user.mail || ''} onChange={handleMailChange}/>
+          </label>
+          <label>
+            Age
+            <input type="text" name="age" value={user.age || ''} onChange={handleFieldChange}/>
+          </label>
+        </form>
+      </div>
+    )
 
-        const [User, setUser] = React.useState({});
-
-        // Si user.firstname existe, alors user.firstname, sinon, ''
-        // Ecriture ternaire des conditions en Javascript Ligne 43
-
-        return (
-            <div>
-                <div>
-                    <p>Firstname: {User.firstname}</p>
-                    <p>Mail: {User.mail}</p>
-                </div>
-                <div>
-                    <label>
-                        Firstname
-                        <input type={"text"} value={User.firstname || ''} onChange={updateFirstname}/>
-                    </label>
-                    <label>
-                        Mail
-                        <input type={"text"} value={User.mail || ''} onChange={updateMail}/>
-                    </label>
-                </div>
-            </div>
-        );
-
-        /**
-         * Mettre à jour le state User.mail avec setUser
-         */
-        function updateMail(event) {
-            setUser({...User, mail: event.target.value});
-        }
-
-        /**
-         * Mettre à jour le state User.firstname avec setUser
-         */
-        function updateFirstname(event) {
-            // Créer une copie de l'utilisateur
-            const updatedUser = {...User};
-
-            // Manipuler cette copie et son firstname
-            updatedUser.firstname = event.target.value;
-
-            // Mettre à jour l'utilisateur avec la nouvelle
-            setUser(updatedUser);
-        }
+    function handleFieldChange(event) {
+      setUser({
+        ...user,
+        [event.target.name]: event.target.value,
+      });
     }
 
-    /**
-     * Dispose d'un state animals mis à jour avec setAnimals
-     * animals est un tableau de chaîne de caractères, vide par défaut
-     * Le composant affiche la liste des animaux et un formulaire.
-     * Devant chaque animal, afficher un bouton "Supprimer" qui permettra de supprimer un animal
-     * Le formulaire propose d'ajouter un nouvel animal à la liste
-     */
-    function AnimalsList() {
-        const [animals, setAnimals] = React.useState(['Boubou', 'Bibi', 'Petit chien d"Afrique du Sud']);
-        const [newAnimalName, setNewAnimalName] = React.useState('');
-
-
-        /**
-         * Retirer l'animal à la position reçue en paramètre
-         */
-        function deleteAnimal(index) {
-            setAnimals([...animals].filter((animal, currentIndex) => currentIndex !== index));
-        }
-
-        return (
-            <div>
-                <div>
-                    {animals.map((animal, index) => (
-                        <div key={index}>
-                            <span>{animal}</span>
-                            <button onClick={() => deleteAnimal(index)}>Supprimer</button>
-                        </div>
-                    ))}
-                </div>
-                <div>
-                    <h2>Draft : {newAnimalName}</h2>
-                    <label>
-                        Animal :
-                        <input type={"text"} value={newAnimalName} onChange={updateNewAnimalName}/>
-                        <button onClick={addAnimal}>Sauvegarder</button>
-                    </label>
-                </div>
-            </div>
-        );
-
-
-        /**
-         * Ajouter un nouvel animal
-         */
-        // function addAnimal() {
-        //     // Créer un clone du tableau animals
-        //     const updatedAnimals = [...animals];
-        //
-        //     // Mettre à jour le clone
-        //     updatedAnimals.push(newAnimalName)
-        //
-        //     // Mettre à jour animals avec setAnimals avec le clone.
-        //     setAnimals(updatedAnimals);
-        // }
-
-        /**
-         * Ajouter un nouvel animal
-         */
-        function addAnimal() {
-            setAnimals([
-                ...animals,
-                newAnimalName
-            ]);
-            // setNewAnimalName(''); Mauvaise pratique, utiliser useEffect à la place.
-        }
-
-        /**
-         * Mettre à jour le state newAnimalName avec setnewAnimalName
-         */
-        function updateNewAnimalName(event) {
-            setNewAnimalName(event.target.value);
-        }
+    function handleMailChange(event) {
+      setUser({
+        ...user,
+        mail: event.target.value,
+      });
     }
 
+    function handleFirstnameChange(event) {
+      // Récupérer une copie de l'user
+      const updatedUser = {...user};
+
+      // Mettre à jour cette copie
+      updatedUser.firstname = event.target.value;
+
+      // Mettre à jour le state avec la nouvelle valeur de la copie
+      setUser(updatedUser);
+    }
+  }
+
+  /**
+   * Dispose d'un state animals mis à jour avec setAnimals
+   * animals est un tableau de chaîne de caractères, vide par défaut
+   * Le composant affiche la liste des animaux et un formulaire.
+   * Devant chaque animal, afficher un bouton "Supprimer" qui permettra de supprimer un animal
+   * Le formulaire propose d'ajouter un nouvel animal à la liste
+   */
+  function AnimalsList() {
+    const [animals, setAnimals] = React.useState(["Ronron", "Rara", "Couscous"]);
+
+
+    return (
+      <div style={{border: "solid"}}>
+        Liste
+        {animals.map((animal, index) => (
+          <p key={index}>{animal} <button onClick={() => deleteAnimal(index)}>Supprimer</button></p>
+        ))}
+      </div>
+    )
 
     /**
-     * Dispose d'un state notes, mis à jour avec setNotes
-     * notes est un tableau d'entiers positifs, vide par défaut
-     * Le composant affiche la liste des notes, ainsi que la moyenne des notes, et un formulaire
-     * Le formulaire propose d'ajouter une nouvelle note à la liste en utilisant setNotes
+     * Supprimer l'animal ciblé par l'index reçu en paramètre.
      */
-    function Notes() {
-        const [notes, setNotes] = React.useState([10, 20]);
-        const [newNote, setNewNote] = React.useState(0);
+    function deleteAnimal(index) {
+      // Créer une copie de notre tableau
+      let updatedAnimals = [...animals];
 
-        return (
-            <div>
-                <h2>Moyenne : {averageNotes()}</h2>
-                <div>
-                    {notes.map((note, index) => <p key={index}>{note}</p>)}
-                </div>
-                <div>
-                    <label>
-                        <input type={"text"} value={newNote} onChange={changeNewNote}/>
-                    </label>
-                    <button onClick={saveNote}>Enregistrer</button>
-                </div>
-            </div>
-        )
+      // Filtre notre copie de tableau
+      updatedAnimals = updatedAnimals.filter((animal, currentIndex) => currentIndex !== index);
 
-        /**
-         * Calcule la moyenne des notes du state et la renvoie.
-         */
-        function averageNotes() {
-            const reducer = (accumulator, currentValue) => accumulator + currentValue;
-            let totalSum = notes.reduce(reducer);
-            return totalSum / notes.length;
-        }
+      // Met à jour le state
+      setAnimals(updatedAnimals);
+    }
+  }
 
-        /**
-         * Mettre à jour le state de notes avec setNotes
-         */
-        function saveNote() {
-            const convertedNewNote = parseInt(newNote, 10);
-            setNotes([...notes, convertedNewNote]);
-        }
 
-        /**
-         * Mettre à jour le state de newNote avec setNewnote
-         */
-        function changeNewNote(event) {
-            setNewNote(event.target.value);
-        }
+  /**
+   * Dispose d'un state notes, mis à jour avec setNotes
+   * notes est un tableau d'entiers positifs, vide par défaut
+   * Le composant affiche la liste des notes, ainsi que la moyenne des notes, et un formulaire
+   * Le formulaire propose d'ajouter une nouvelle note à la liste en utilisant setNotes
+   */
+  function Notes() {
+    const [notes, setNotes] = React.useState([10, 20, 15]);
+    const [newNote, setNewNote] = React.useState('');
+
+    return (
+      <div style={{border: "solid"}}>
+        <h3>Moyenne : {average()}</h3>
+        <div>
+          {notes.map((note, index) => (
+            <p key={index}>
+              {note}
+            </p>
+          ))}
+        </div>
+        <form>
+          <label>
+            Nouvelle note
+            <input type="text" value={newNote} onChange={handleNoteChange}/>
+          </label>
+        </form>
+        <button onClick={addNewNote}>Ajouter</button>
+      </div>
+    )
+
+    function addNewNote() {
+      const updatedNotes = [...notes];
+
+      updatedNotes.push(parseFloat(newNote));
+
+      setNotes(updatedNotes);
+      setNewNote('');
     }
 
-    // Création de composant en créant des classes
-    class App extends React.Component {
-        render() {
-            return (
-                <div className="App">
-                    <h3>Attention à bien utiliser le Spread opérator <pre>...</pre> pour ré-assigner vos objets et arrays !</h3>
-                    <div>
-                        <p><a href="https://medium.com/@thejasonfile/using-the-spread-operator-in-react-setstate-c8a14fc51be1">Article sur le Spread opérator</a></p>
+    function handleNoteChange(event) {
+      setNewNote(event.target.value);
+    }
 
-                        <p>Incorrect : </p>
-                        <pre>
+    function average() {
+      const sumReducer = (totalSum, currentNote) => totalSum + currentNote;
+      const sum = notes.reduce(sumReducer);
+      const result = sum / notes.length;
+      console.log(result); // 15
+
+      return result;
+    }
+  }
+
+  // Création de composant en créant des classes
+  class App extends React.Component {
+    render() {
+      return (
+        <div className="App">
+
+          <EditProfile/>
+          <AnimalsList/>
+          <Notes/>
+
+          <h3>Attention à bien utiliser le Spread opérator <pre>...</pre> pour ré-assigner vos objets et arrays !</h3>
+          <div>
+            <p><a href="https://medium.com/@thejasonfile/using-the-spread-operator-in-react-setstate-c8a14fc51be1">Article
+              sur le Spread opérator</a></p>
+
+            <p>Incorrect : </p>
+            <pre>
                             const updatedNotes = notes;
                             /* Manipulation des notes */
                             this.setNotes(updatedNotes);
                         </pre>
 
-                        <p>Correct</p>
-                        <pre>
+            <p>Correct</p>
+            <pre>
                             const updatedNotes = [...notes];
                             /* Manipulation des notes */
                             this.setNotes(updatedNotes);
                         </pre>
 
-                        <p>Pour les objets</p>
-                        <p>Correct : </p>
-                        <pre>
+            <p>Pour les objets</p>
+            <p>Correct : </p>
+            <pre>
                             const updatedUser = {'{...User}'};
                             /* Manipulation de updatedUser */
                             this.setUser(updatedUser);
                         </pre>
-                    </div>
-                    <div>
-                        <p>Remplir le composant EditProfile</p>
-                        <div>
-                            <EditProfile/>
-                        </div>
-                        <p>Remplir le composant AnimalsList</p>
-                        <div>
-                            <AnimalsList/>
-                        </div>
-                        <p>Remplir le composant Notes</p>
-                        <div>
-                            <Notes/>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
+          </div>
+          <div>
+            <p>Remplir le composant EditProfile</p>
+            <p>Remplir le composant AnimalsList</p>
+            <p>Remplir le composant Notes</p>
+          </div>
+        </div>
+      )
     }
+  }
 
-    // Rendu dans le DOM
-    ReactDOM.render(
-        <App/>,
-        document.getElementById('root')
-    );
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
 </script>
 </body>
 

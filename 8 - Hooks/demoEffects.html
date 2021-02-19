@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  function App () {
+    const [main, setMain] = React.useState('');
+    const [mamanCrie, setMaman] = React.useState(false);
+
+    React.useEffect(function() {
+      if (main === 'Tatouée') {
+        setMaman(true);
+      }
+    }, []);
+
+    return (
+      <div>
+        {mamanCrie && ("Aaaaaah!")}
+        <p>Main : {main}</p>
+        <button onClick={handleTatoo}>Se tatouer</button>
+      </div>
+    )
+
+    function handleTatoo() {
+      setMain('Tatouée');
+    }
+  }
+
+  const rootElement = document.getElementById("root");
+  ReactDOM.render(
+    <React.StrictMode>
+      <App/>
+    </React.StrictMode>,
+    rootElement
+  );
+</script>
+</body>
+
+</html>
