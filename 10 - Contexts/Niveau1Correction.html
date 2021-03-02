@@ -18,16 +18,22 @@
 <script type="text/babel">
 
     function UserAge() {
+
+        const age = React.useContext(ageContext);
+
         return (
-            <p>Voici l'âge de l'utilisateur</p>
+            <p>Voici l'âge de l'utilisateur {age}</p>
         )
     }
 
 
     function Profil() {
+
+        const age = React.useContext(ageContext);
+
         return (
             <div>
-                <p>Ceci est un profil. Afficher l'âge ici : </p>
+                <p>Ceci est un profil. Afficher l'âge ici : {age}</p>
                 <div>
                     <UserAge/>
                 </div>
@@ -35,9 +41,14 @@
         )
     }
 
+    const ageContext = React.createContext(0);
 
     function App() {
+
+        const [age, setAge] = React.useState(48);
+
         return (
+          <ageContext.Provider value={age}>
             <div>
                 <a href="https://fr.reactjs.org/docs/context.html">Documentation sur l'utilisation des Contextes</a>
                 <p>Créer un contexte qui contient l'âge de l'utilisateur et qui est accessible à tous les composants enfants</p>
@@ -48,7 +59,12 @@
 
                 <p>Créer un formulaire dans App de manière à ce qu'il modifie un state age de App</p>
                 <p>Quand le state age de l'App change, alors l'âge s'affiche correctement dans tous les composants qui l'utilisent</p>
+                <label>
+                    Age
+                    <input type="text" onChange={(event) => setAge(event.target.value)} />
+                </label>
             </div>
+          </ageContext.Provider>
         )
     }
 

@@ -2,17 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/12 - ReactNative/demo" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/12 - ReactNative/intro" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/13 - ReactNative/demo" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/13 - ReactNative/intro" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/9 - Router/routerdemo" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/9 - Router/routertraining" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Projets/ReactCodeurClicker" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Projets/Semaine2/labo" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Projets/deploiement" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Projets/mokotasks" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Projets/projet-Cookie-ClickerElise" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/portfoliogatsby" vcs="Git" />
   </component>
 </project>

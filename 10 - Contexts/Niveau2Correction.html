@@ -19,16 +19,25 @@
 <script type="text/babel">
 
   function UserAge() {
+
+    const { age, setAge } = React.useContext(userContext);
+
     return (
-      <p>Voici l'âge de l'utilisateur</p>
+      <div>
+        <p>Voici l'âge de l'utilisateur {age}</p>
+        <button onClick={() => setAge("-")}>-</button>
+      </div>
     )
   }
 
 
   function Profil() {
+
+    const userContextValue = React.useContext(userContext);
     return (
       <div>
-        <p>Ceci est un profil. Afficher l'âge ici : </p>
+        <p>Ceci est un profil. Afficher l'âge ici : { userContextValue.age }</p>
+        <button onClick={() => userContextValue.setAge("+")}>+</button>
         <div>
           <UserAge/>
         </div>
@@ -39,18 +48,41 @@
 
   // Créer le contexte ici
 
+  const userContext = React.createContext({
+    age: 0,
+    setAge: () => {}
+  });
+
   /**
    * Ce composant retourne le userContext.Provider ainsi que ses enfants (children) reçus via les props
    * State : User, mis à jour avec setUser, valeur par défaut : {isConnected: false, firstname: 'Bobby'}
    * Ce composant possède une méthode login qui va modifier la valeur de user, de manière à ce que user.isConnected = true.
    */
-  function UserContextProvider() {
+  function UserContextProvider(props) {
+    const [age, setAgeValue] = React.useState(0);
 
+    return (
+      <userContext.Provider value={{
+        age,
+        setAge: updateAge
+      }}>
+        {props.children}
+      </userContext.Provider>
+    );
+
+    function updateAge(symbol) {
+      if (symbol === '+') {
+        setAgeValue(age + 1);
+      }
+      else if (symbol === '-') {
+        setAgeValue(age - 1);
+      }
+    }
   }
 
   function App() {
     return (
-      <div>
+      <UserContextProvider>
         <h1>Contextes, partie 2</h1>
         <a href="https://fr.reactjs.org/docs/context.html">Documentation sur l'utilisation des Contextes</a>
         <div className="Exercice">
@@ -62,7 +94,8 @@
             <p></p>
           </div>
         </div>
-      </div>
+        <Profil/>
+      </UserContextProvider>
     )
   }
 
