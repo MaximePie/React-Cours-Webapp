@@ -7,7 +7,9 @@ import {
 
 export default function Additionner() {
   const dispatchMethod = useDispatch();
-  const currentState = useSelector(state => state);
+  const currentState = useSelector(function(state){
+    return state
+  });
 
   /**
    * Triggers the "ADD" event on Reducer
@@ -19,7 +21,7 @@ export default function Additionner() {
 
   return (
     <div className="Additionner">
-      <h2>State depuis le composant Additionner : {currentState.counter}</h2>
+      <h2>State depuis le composant Additionner {currentState.counter}</h2>
       <button onClick={() => add(1)}>+ 1</button>
       <button onClick={() => add(2)}>+ 2</button>
       <button onClick={() => add(3)}>+ 3</button>

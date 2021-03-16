@@ -1,0 +1,42 @@
+@import "Cart";
+@import "Header";
+
+.App {
+  display: grid;
+  grid-template-columns: 60% 1fr;
+}
+
+#root {
+  height: 100vh;
+}
+
+.Products {
+  border: solid;
+  margin: 8px;
+  padding: 8px;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-column-gap: 24px;
+  grid-row-gap: 16px;
+}
+
+.Product {
+  color: black;
+  border: solid 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0;
+
+  &__action {
+    border: none;
+    padding: 4px 8px;
+    width: 40px;
+    font-size: 1.25em;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: cornflowerblue;
+  }
+}

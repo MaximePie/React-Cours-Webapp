@@ -91,5 +91,24 @@ const initialState = {
 // Comportement
 
 export default function(state = initialState, action = {}) {
+
+  if (action.type === 'ADD') {
+    const cart = [...state.cart];
+
+    const otherProducts = cart.filter(product => product.category !== action.value.category);
+
+    // Isoler le produit à ajouter.
+    const targetProducts = cart.filter(product => product.category === action.value.category);
+    targetProducts[action.value.index].quantity ++;
+
+    return {
+      ...state,
+      cart: [
+        ...targetProducts,
+        ...otherProducts,
+      ]
+    };
+  }
+
   return state;
 }

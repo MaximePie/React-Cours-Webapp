@@ -1,0 +1,25 @@
+.Header {
+  display: flex;
+  justify-content: space-around;
+  padding: 8px;
+
+  &__link {
+    border: solid 1px;
+    color: black;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    background-color: aliceblue;
+    transition: 250ms background-color ease;
+
+    &:hover {
+      transition: 250ms background-color ease;
+      background-color: #dce4eb;
+    }
+
+    &--active {
+      background-color: #dce4eb;
+      transition: 250ms background-color ease;
+    }
+  }
+}

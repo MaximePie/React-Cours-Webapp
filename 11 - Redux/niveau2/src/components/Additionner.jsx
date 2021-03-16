@@ -13,7 +13,7 @@ export default function Additionner() {
    * Sends the amount as a data key
    */
   function add(amount) {
-    // dispatchMethod({type: 'ADD', data: 100}) -- Envoie la valeur 100 à notre reducer. Il pourra la récupérer grâce à action.data.
+    // dispatchMethod({type: 'ADD', number: 100}) -- Envoie la valeur 100 à notre reducer. Il pourra la récupérer grâce à action.data.
   }
 
   return (
