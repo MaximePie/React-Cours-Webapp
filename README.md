@@ -3,14 +3,8 @@
 Attention, Avant de poursvuire la lecture, n'oubliez pas de prendre une pause pour consulter ce fichier 
 avec les idées claires, parce que vous l'avez bien méritée !
 
-### [Videos de correction](https://www.youtube.com/playlist?list=PLxPhnioBp0U15Q3HOkrvgpU_e2aL3PAh3)
 
-Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correction à votre rythme, accessibles [ici](https://www.youtube.com/playlist?list=PLxPhnioBp0U15Q3HOkrvgpU_e2aL3PAh3)
-![image](https://user-images.githubusercontent.com/16031936/105520768-678fc280-5cdb-11eb-9434-2f5cf83c70f4.png)
-
-[Tous les exercices](https://drive.google.com/drive/folders/1qE--R0VygPz_VWzdUWMIcOjItXx2NsKu?usp=sharing)
-
-## Liens 
+## Sommaire 
 - [Comment s'entraîner ?](#Comment-pratiquer)
 - [State](#State)
     - [Créer un state](#Creer-State)
@@ -26,9 +20,10 @@ Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correc
 
 - [Axios et API](https://github.com/MaximePie/react-entrainement/tree/master/12%20-%20Axios%20et%20API)
 --- 
+
+
 ## Comment pratiquer
 
-### Avec Google Drive 
 1. (Avec Drive) Téléchargez la liste des exercices complète en cliquant [ici](https://drive.google.com/drive/folders/1qE--R0VygPz_VWzdUWMIcOjItXx2NsKu?usp=sharing)
 2. (Avec Github) Clonez le projet : `git clone https://github.com/MaximePie/react-entrainement.git`
 3.  Ouvrez l'exercice dans un navigateur pour afficher la consigne. 
@@ -47,11 +42,11 @@ Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correc
 
 ---
 
-1. Clonez ce projet : `git clone `
+### [Videos de correction](https://www.youtube.com/playlist?list=PLxPhnioBp0U15Q3HOkrvgpU_e2aL3PAh3)
 
----
-## State
-[Documentation]()
-### Creer State
-### Modifier un state
+Tous les exercices sont corrigés en vidéo, vous pourrez ainsi suivre la correction à votre rythme, accessibles [ici](https://www.youtube.com/playlist?list=PLxPhnioBp0U15Q3HOkrvgpU_e2aL3PAh3)
+![image](https://user-images.githubusercontent.com/16031936/105520768-678fc280-5cdb-11eb-9434-2f5cf83c70f4.png)
+
+[Tous les exercices](https://drive.google.com/drive/folders/1qE--R0VygPz_VWzdUWMIcOjItXx2NsKu?usp=sharing)
+
 
