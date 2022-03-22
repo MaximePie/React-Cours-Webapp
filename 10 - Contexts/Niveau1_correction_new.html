@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+    function UserAge() {
+        return (
+            <p>Voici l'âge de l'utilisateur</p>
+        )
+    }
+
+
+    function Profil() {
+        return (
+            <div>
+                <p>Ceci est un profil. Afficher l'âge ici : </p>
+                <div>
+                    <UserAge/>
+                </div>
+            </div>
+        )
+    }
+
+
+    function App() {
+        return (
+            <div>
+                <a href="https://fr.reactjs.org/docs/context.html">Documentation sur l'utilisation des Contextes</a>
+                <p>Créer un contexte qui contient l'âge de l'utilisateur et qui est accessible à tous les composants enfants</p>
+
+                <p>Récupérer et afficher la valeur de l'âge de l'utilisateur dans le composant Profil</p>
+                <p>Récupérer et afficher la valeur de l'âge de l'utilisateur dans le composant UserAge</p>
+                <Profil/>
+
+                <p>Créer un formulaire dans App de manière à ce qu'il modifie un state age de App</p>
+                <p>Quand le state age de l'App change, alors l'âge s'affiche correctement dans tous les composants qui l'utilisent</p>
+            </div>
+        )
+    }
+
+    // Rendu dans le DOM
+    ReactDOM.render(
+        <App/>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+
+</html>

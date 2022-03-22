@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    img {
+      width: 200px;
+      height: 200px;
+      max-height: 200px;
+      overflow-y: hidden;
+    }
+
+    .CatsList {
+      display: grid;
+      grid-template-columns: 200px 200px 200px;
+      grid-column-gap: 1rem;
+      margin-bottom: 1rem
+    }
+  </style>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  function Error(props) {
+    return (
+      <p style={{color: "red", fontWeight: "bold"}}>
+        {props.text}
+      </p>
+    )
+  }
+
+  // Pour filtrer par race
+
+  // Déclencher une requête pour récupérer les races, et les ranger dans un state
+  // Boucler sur le state avec .map pour remplir un <select>
+  // Créer un state qui contient la race sélectionnée par l'utilisateur
+  // Enfin re-déclencher la requête.
+
+  function App() {
+    // const [image, setImage] = React.useState(undefined);
+    // Images List
+    const [images, setImages] = React.useState([]);
+
+    // Number of images
+    const [catsNumber, setCatsNumber] = React.useState(5);
+
+    // Images types
+    const [isGifsSelected, setGifsSelectionState] = React.useState(true);
+    const [isPngSelected, setPngSelectionState] = React.useState(true);
+
+    // Breeds
+    const [breeds, setBreeds] = React.useState([]);
+    const [selectedBreed, setSelectedBreed] = React.useState("");
+
+    React.useEffect(function() {
+      fetchPicture();
+      fetchBreeds();
+    }, []);
+
+    // Déclencher fetchPicture à chaque fois qu'on change catsNumber
+    // React.useEffect(fetchPicture, [catsNumber]);
+
+    return (
+      <div className="App">
+        <h3>Nombre de photos affichées : {catsNumber}</h3>
+        {/* Vérifier que image existe bien et est bien remplie avant de l'afficher */}
+        {/* image !== undefined && <img src={image}/> */}
+        <div className="CatsList">
+          {images.map(function (image) {
+            return (
+              <img src={image.url}/>
+            )
+          })}
+        </div>
+        <div>
+          <button onClick={fetchPicture}>Fetch</button>
+          <label>
+            Nombre de chats à récupérer :
+            <input
+              type="number"
+              value={catsNumber}
+              onChange={(event) => setCatsNumber(event.target.value)}
+            />
+            {catsNumber > 10 && <Error text="Erreur, on ne peut pas afficher plus de 10 photos de chat en même temps"/>}
+          </label>
+          <div>
+            <label>
+              Gifs {isGifsSelected ? "Oui" : "Non"}
+              <input
+                type="checkbox"
+                onChange={(event) => {
+                  setGifsSelectionState(event.target.checked)
+                }}
+                checked={isGifsSelected}
+              />
+            </label>
+            <label>
+              PNG {isPngSelected ? "Oui" : "Non"}
+              <input
+                type="checkbox"
+                onChange={(event) => {
+                  setPngSelectionState(event.target.checked)
+                }}
+                checked={isPngSelected}
+              />
+            </label>
+          </div>
+          <div>
+            <select
+              onChange={(event) => setSelectedBreed(event.target.value)}
+              value={selectedBreed}
+            >
+              <option value={""}>--</option>
+              {breeds.map(breed => (
+                <option value={breed.id}>{breed.name}</option>
+              ))}
+              {/* Pour chaque race disponible, afficher une option, dont le contenu est le nom de la race (name) et la value est l'id de la race (code de 4 lettres)*/}
+            </select>
+          </div>
+        </div>
+      </div>
+    )
+
+    function fetchBreeds() {
+      fetch("https://api.thecatapi.com/v1/breeds")
+      .then(response => response.json())
+      .then(data => {
+        setBreeds(data);
+      })
+    }
+
+    function fetchPicture() {
+      let fileTypes = "";
+
+      if (isPngSelected) {
+        fileTypes += "png";
+      }
+      if (isGifsSelected) {
+        fileTypes += "gif";
+      }
+
+      // Remplir le fetch pour signaler le breedIds.
+      // https://docs.thecatapi.com/example-by-breed
+      fetch(`https://api.thecatapi.com/v1/images/search?limit=${catsNumber}&mime_types=${fileTypes}&breed_ids=${selectedBreed}`)
+        .then(response => response.json())
+        .then(data => {
+          // setImage(data[0].url);
+          setImages(data);
+        })
+
+      /*
+        https://www.npmjs.com/package/axios
+        axios.get("https://api.thecatapi.com/v1/images/search?limit=5")
+        .then(data => {
+          setImages(data);
+        })
+        .catch(error => {
+          if (error.status !== 200) {
+              // Gestion de l'erreur
+          }
+        })
+      */
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

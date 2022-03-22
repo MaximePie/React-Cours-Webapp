@@ -64,8 +64,6 @@
         }
     }
 
-    const loupe = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
     /**
      * Dispose d'un state mail mis à jour avec setMail
      * mail est une chaîne de caractères
@@ -76,33 +74,6 @@
      * Affiche une erreur si le mail n'a pas de format mail
      */
     function MailField() {
-        const [mail, setMail] = React.useState('');
-        const [isValid, setValidationState] = React.useState(false);
-
-        React.useEffect(function() {
-            const isMailValid = loupe.test(mail);
-            if (isMailValid) {
-                setValidationState(true);
-            }
-            else {
-                setValidationState(false);
-            }
-        }, [mail])
-
-        return (
-          <div>
-              <h3>Mail :  {mail}</h3>
-              {!isValid && (
-                <p>
-                    L'email est invalide.
-                </p>
-              )}
-              <label>
-                  Mail
-                  <input type="text" onChange={(event) => setMail(event.target.value)}/>
-              </label>
-          </div>
-        )
 
     }
 
@@ -113,30 +84,7 @@
      * Si l'âge est supérieur à 18, afficher "Wow, interdit aux mineurs ici !".
      */
     function AgeField() {
-        const [age, setAge] = React.useState('');
-        const [isAgeValid, setValidationState] = React.useState(false);
 
-        React.useEffect(ageEffect, [age]);
-
-        return (
-          <div>
-              <h3>Age:  {age}</h3>
-              {!isAgeValid && <p>Wow, interdit aux mineurs ici !</p>}
-              <label>
-                  Age :
-                  <input type='text' value={age} onChange={(event) => setAge(event.target.value)}/>
-              </label>
-          </div>
-        )
-
-        function ageEffect() {
-            if (age >= 18) {
-                setValidationState(true);
-            }
-            else {
-                setValidationState(false);
-            }
-        }
     }
 
     // Création de composant en créant des classes
@@ -155,12 +103,12 @@
                     <div>
                         <p>
                             En vous inspirant du dernier exemple, remplir le composant MailField
-                            https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
                         </p>
+                        <a href="https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript">
+                            Vérifier si un email est au bon format
+                        </a>
                         <p>En vous inspirant du dernier exemple, Remplir le composant AgeField</p>
                     </div>
-                    <MailField/>
-                    <AgeField/>
                 </div>
             )
         }

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Hello React</title>
+    <!-- Library -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <!-- babel => compilation du JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  class Counter extends React.Component {
+
+    constructor() {
+      super();
+      this.state = {
+        counter: 0,
+      };
+
+      this.incrementCounter = this.incrementCounter.bind(this);
+    }
+
+    render() {
+      return (
+        <div>
+          <p> Counter : {this.state.counter}</p>
+          <button onClick={this.incrementCounter}>Augmenter</button>
+        </div>
+      )
+    }
+
+    incrementCounter() {
+      this.setState({
+        counter: this.state.counter + 1,
+      })
+    }
+  }
+
+  class Title extends React.Component {
+    render() {
+      return (
+        <h2>Titre de classe</h2>
+      )
+    }
+  }
+
+  function TitleFunction(props) {
+    return <h2>Titre de fonction {props.text}</h2>
+  }
+
+  function CounterFunction() {
+    // this.state = {
+    //   counter: 0,
+    //   firstname: 'Bobby',
+    // }
+    const [counter, setCounter] = React.useState(0);
+    // const [firstname, setFirstname] = React.useState("Bobby");
+
+    return (
+      <div>
+        <p> Counter : {counter}</p>
+        <button onClick={increment}>Augmenter</button>
+      </div>
+    )
+
+    /**
+     * Mettre à jour le state de counter
+     */
+    function increment() {
+      setCounter(counter + 1);
+    }
+  }
+
+  class App extends React.Component {
+    render() {
+      return (
+        <div>
+          <div>
+            <h3>Composants de classe </h3>
+            <Title></Title>
+            <Counter/>
+          </div>
+          <div>
+            <h3>Composants de fonction</h3>
+            <TitleFunction text={"Baba"}/>
+            <CounterFunction/>
+          </div>
+        </div>
+      )
+    }
+  }
+
+  const rootElement = document.getElementById("root");
+  ReactDOM.render(
+    <React.StrictMode>
+      <App/>
+    </React.StrictMode>,
+    rootElement
+  );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="./style.css"/>
+</head>
+
+<body>
+<div>
+  <div class="Exercice">
+    <div class="Consignes">
+      <p>Créer un gestionnaire de tâches de manière à ce que : </p>
+      <ul>
+        <li>
+          L'utilisateur peut saisir une tâche dans un champ texte et l'enregistrer en cliquant sur le bouton
+          "Enregistrer".
+          Utilisez les <code>hooks</code> d'état de React pour les stocker, et stocker le nom de la nouvelle tâche.
+        </li>
+        <li>
+          L'utilisateur peut consulter ses tâches sous forme de liste.
+          Affichez les tâches facilement avec <code>.map</code>.
+        </li>
+        <li>Chaque tâche comporte un bouton "Supprimer" qui permet à l'utilisateur de supprimer la tâche quand il clique
+          dessus.
+        </li>
+        <li>
+          Si la tâche mesure plus de <code>24</code> caracètres de long, afficher un message en dessous du champ de
+          texte.
+          Pour le gérer efficacement, vous pouvez utiliser <code>useEffect</code>
+        </li>
+      </ul>
+      <div class="Note">
+        <h4>Ressources</h4>
+        <ul>
+          <li><a href="https://fr.reactjs.org/docs/hooks-state.html">Hook d'état</a></li>
+          <li><a href="https://fr.reactjs.org/docs/lists-and-keys.html">Afficher avec map</a></li>
+          <li><a href="https://stackoverflow.com/questions/36326612/how-to-delete-an-item-from-state-array">Supprimer un
+            élément d'un tableau</a></li>
+          <li><a href="https://fr.reactjs.org/docs/hooks-effect.html">Détecter un changement d'état et déclencher un
+            effet de bord</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="root"></div>
+<script type="text/babel">
+
+  function App() {
+    const [newTaskValue, setNewTaskValue] = React.useState("");
+    const [tasksList, setTasksList] = React.useState([]);
+    return (
+      <div>
+        <label>
+          Nouvelle tâche
+          <input
+            type="text"
+            onChange={(event) => setNewTaskValue(event.target.value)}
+            value={newTaskValue}
+          />
+        </label>
+        <button onClick={saveTask}>Enregistrer</button>
+        <div>
+          <h4>Liste des tâches</h4>
+          {/*[0,1,2,3,4, 1, 2, 15].map((note, index) => <p>{note} : {index}</p>)*/}
+          {tasksList.map(function(task, index) {
+            return (
+              <div key={index}>
+                <p>Position : {index}</p>
+                <p>{task}</p>
+                <button onClick={() => deleteTask(index)}>Supprimer</button>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    )
+
+    /**
+     * Cette fonction supprime la tâche reçue en paramètre
+     *
+     * On peut recevoir un index dans la fonction pour indiquer quelle est la tâche
+     * à supprimer.
+     *
+     *
+     */
+    function deleteTask(toDeleteIndex) {
+      console.log(toDeleteIndex);
+      // Récupérer le tableau des tâches en le clonant
+
+      // Mettre à jour le tableau en retirant l'élément désiré
+
+      // Mettre à jour le state de TasksList
+    }
+
+    /**
+     * Récupère la valeur du state de newTaskValue,
+     * Créer une nouvelle tâche
+     * et l'ajouter au tableau des tâches
+     * Mettre à jour le tableau des tâches.
+     */
+    function saveTask() {
+
+      // Récupérer le state newTaskValue
+      // console.log(newTaskValue);
+
+      // Récupérer la liste des tâches
+      // Spread operator avec des array en JS
+      const updatedTasksList = [...tasksList];
+
+      // Ajouter le state à la liste
+      updatedTasksList.push(newTaskValue);
+
+      // Mettre à jour la liste tasksList
+      setTasksList(updatedTasksList);
+
+      // Vider le state newTaskValue
+      setNewTaskValue("");
+    }
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

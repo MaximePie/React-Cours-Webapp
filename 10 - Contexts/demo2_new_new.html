@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  function Thermostat() {
+    const temperatureContextValue = React.useContext(temperatureContext);
+
+    console.log(temperatureContextValue);
+    return (
+      <div>
+        <h3>Thermostat</h3>
+        <button onClick={decrementTemperature}>-</button>
+        <button onClick={incrementTemperature}>+</button>
+      </div>
+    );
+
+    function decrementTemperature() {
+      temperatureContextValue.setTemperature(temperatureContextValue.temperature - 1);
+    }
+
+    function incrementTemperature() {
+      temperatureContextValue.setTemperature(temperatureContextValue.temperature + 1);
+    }
+  }
+
+  function Frigo(props) {
+    let { temperature } = React.useContext(temperatureContext);
+
+    if (props.isFromTerrasse) {
+      temperature += 2;
+    }
+
+    return (
+      <div>
+        <h3>Ceci est le frigo dans le jardin</h3>
+        <p>Il fait actuellement {temperature} degrés.</p>
+        <Thermostat/>
+      </div>
+    )
+  }
+
+  function Jardin() {
+    const { temperature }  = React.useContext(temperatureContext);
+
+    return (
+      <div>
+        <h2>Ceci est le jardin.</h2>
+        <p>Il fait actuellement {temperature}</p>
+        <Frigo/>
+      </div>
+    )
+  }
+
+  function Terrasse() {
+    const { temperature } = React.useContext(temperatureContext);
+
+    return (
+      <div>
+        <h2>Ceci est la terrasse</h2>
+        <p>Température : {temperature + 2}</p>
+        <Frigo isFromTerrasse/>
+      </div>
+    )
+  }
+
+  /**
+   * {
+   *   temperature: 0,
+   *   setTemperature: () => {}
+   * }
+   */
+  const temperatureContext = React.createContext({
+    temperature: 0,
+    setTemperature: () => {}
+  });
+
+  function TemperatureContextMystere(props) {
+    const [temperature, setTemperature] = React.useState(0);
+
+    return (
+      <temperatureContext.Provider value={{
+        temperature,
+        setTemperature: handleTemperatureChange
+      }}>
+        <button onClick={() => handleTemperatureChange(temperature + 1)}>Augmenter</button>
+        <button onClick={() => handleTemperatureChange(temperature - 1)}>Diminuer</button>
+        {props.children}
+      </temperatureContext.Provider>
+    );
+
+    /**
+     * Cette méthode reçoit une température et l'assigne au state de temperature.
+     * @param temperature
+     */
+    function handleTemperatureChange(temperature) {
+      setTemperature(temperature);
+    }
+  }
+
+  function App() {
+
+    return (
+      <TemperatureContextMystere>
+        <div style={{display: "flex"}}>
+          Bonjour !
+          <Jardin/>
+          <Terrasse/>
+        </div>
+      </TemperatureContextMystere>
+    );
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- Axios pour récupérer les données chez une API -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js"></script>
+
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <link rel="stylesheet" href="../6%20-%20Formulaires/style.css"/>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  // Création de composant en créant des classes
+  class App extends React.Component {
+
+    constructor() {
+      super();
+      this.state = {
+        factsOnCats: [],
+      };
+
+      this.fetchFacts = this.fetchFacts.bind(this);
+    }
+
+    componentDidMount() {
+    }
+
+    /**
+     * Cette méthode est appelée dès qu'un setState est effectué.
+     * PrevState contient l'objet state de la classe avant le setState
+     * Pour rappel, pour accéder à l'état courant, utiliser this.state.
+     * PreviousProps n'est pas utilisé dans cet exercice
+     */
+    componentDidUpdate(previousProps, previousState) {
+
+    }
+
+    render() {
+      return (
+        <div className="App">
+          <div className="Exercice">
+            <h1>Fetch their soul !</h1>
+            <Consignes/>
+          </div>
+        </div>
+      )
+    }
+
+    /**
+     * Interroge l'API via axios pour récupérer les chats
+     * On ne récupère que les 20 premiers résultats parce qu'il y en a beaucoup trop sinon
+     */
+    fetchFacts() {
+      axios.get('https://cat-fact.herokuapp.com/facts').then(response => {
+        const facts = response.data.slice(0, 10); // On ne récupère que les 10 premiers résultats
+        this.setState({
+          factsOnCats: facts,
+        })
+      })
+    }
+  }
+
+  function Consignes() {
+    return (
+      <div className="Consignes">
+        <p>
+          Dans le code se trouve une méthode fetchFacts
+        </p>
+        <p>Cette méthode va récupérer des faits sur les chats et les mettre dans le state
+          factsOnCats </p>
+        <p>Afficher le contenu de factsOnCats</p>
+        <p>Pour chaque fait, ajouter un bouton qui permet de retirer ce fait du tableau de
+          factsOnCats</p>
+        <p>Remplir componentDidUpdate de manière à ce que si factsOnCats est vide, alors on retourne
+          automatiquement charger des chats. </p>
+      </div>
+    )
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

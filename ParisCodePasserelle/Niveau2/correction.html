@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="./style.css"/>
+</head>
+
+<body>
+<div>
+  <div class="Exercice">
+    <div class="Consignes">
+      <p>Créer un système de thermostat de manière à ce que : </p>
+      <ul>
+        <li>L'utilisateur peut augmenter la température de 1, 2, ou 3 (Créer des boutons)</li>
+        <li>L'utilisateur peur diminuer la température de 1,2, ou 3 (Créer des boutons)</li>
+        <li>L'utilisateur peur voir la température s'afficher sur l'écran après avoir effectué une opération</li>
+        <li>Si la température descend en dessous de <code>-10</code>, afficher sur la page "Héé, trop froid !"</li>
+      </ul>
+      <div class="Note">
+        <h4>Ressources</h4>
+        <p>
+          <a href="https://fr.reactjs.org/docs/handling-events.html">
+            Gestion des événements onClick en React
+          </a>
+        </p>
+        <p>
+          <a href="https://fr.reactjs.org/docs/conditional-rendering.html">
+            Affichage conditionnel
+          </a>
+        </p>
+        <p>
+          <a href="https://fr.reactjs.org/docs/hooks-state.html">
+            Hooks states
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="root"></div>
+<script type="text/babel">
+
+  function Thermostat() {
+    const [temperature, setTemperature] = React.useState(0);
+    // const possibleTemperatures = [-3, -2, -1, 1, 2, 3, 5, 10, 100]; Idée d'amélioration pour la suite : Afficher les boutons pour chaque élément présent dans le tableau.
+
+    // Si jamais la température est au dessous de -10, on affiche un message d'erreur.
+
+    let errorMessage = null;
+
+    if (temperature < -10) {
+      errorMessage = <h4>Attention, il fait trop froid</h4>
+    }
+
+    // Conditions ternaires en JS
+    // X = Condition respectée ? Si oui, c'est ça : Sinon, c'est ça
+    // const ternaryErrorMessage = temperature < -10 ? <h4>Attention, il fait trop froid</h4> : null;
+    // Si condition est vraie && on lui donne cette valeur.
+    // const ternaryErrorMessage = temperature < -10 && <h4>Attention, il fait trop froid</h4>;
+
+
+    return (
+      <div>
+        <h3>Température : {temperature}°C</h3>
+        {errorMessage}
+        {/* ternaryErrorMessage */ }
+        {/* temperature < -10 && <h4>Attention, il fait trop froid</h4> */}
+        <div>
+          <button onClick={incrementTemperature}>+1</button>
+          <button onClick={() => {setTemperature(temperature + 2)}}>+2</button>
+          <button onClick={() => {setTemperature(temperature + 3)}}>+3</button>
+          <button onClick={() => {setTemperature(temperature - 1)}}>-1</button>
+          <button onClick={() => {setTemperature(temperature - 2)}}>-2</button>
+          <button onClick={() => {setTemperature(temperature - 3)}}>-3</button>
+        </div>
+      </div>
+    )
+
+    /**
+     * Cette fonction va augmenter le state temperature de 1
+     * Et afficher la température actuelle.
+     */
+    function incrementTemperature() {
+      console.log("Coucou j'incrémente et il fait " + temperature + "degrés");
+      // temperature = temperature + 1; ATTENTION, NE FAITES PAS çA, sinon React n'aime pas
+      // Mais plutôt
+      setTemperature(temperature + 1);
+    }
+  }
+
+  function App() {
+    return (
+      <div>
+        <Thermostat/>
+      </div>
+    )
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>

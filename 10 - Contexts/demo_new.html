@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+  function Frigo() {
+
+    return (
+      <div>
+        <h3>Ceci est le frigo dans le jardin</h3>
+        <p>Il fait actuellement degrés.</p>
+      </div>
+    )
+  }
+
+  function Jardin() {
+    return (
+      <div>
+        <h2>Ceci est le jardin.</h2>
+        <p>Il fait actuellement</p>
+        <Frigo/>
+      </div>
+    )
+  }
+
+  function Terrasse() {
+    return (
+      <div>
+        <h2>Ceci est la terrasse</h2>
+        <p>Température : </p>
+        <Frigo/>
+      </div>
+    )
+  }
+
+  function App() {
+    return (
+      <>
+        <div style={{display: "flex"}}>
+          Bonjour !
+          <Jardin/>
+          <Terrasse/>
+        </div>
+      </>
+    )
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
+</body>
+
+</html>
