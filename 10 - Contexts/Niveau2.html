@@ -18,36 +18,6 @@
 <div id="root"></div>
 <script type="text/babel">
 
-  function UserAge() {
-    return (
-      <p>Voici l'âge de l'utilisateur</p>
-    )
-  }
-
-
-  function Profil() {
-    return (
-      <div>
-        <p>Ceci est un profil. Afficher l'âge ici : </p>
-        <div>
-          <UserAge/>
-        </div>
-      </div>
-    )
-  }
-
-
-  // Créer le contexte ici
-
-  /**
-   * Ce composant retourne le userContext.Provider ainsi que ses enfants (children) reçus via les props
-   * State : User, mis à jour avec setUser, valeur par défaut : {isConnected: false, firstname: 'Bobby'}
-   * Ce composant possède une méthode login qui va modifier la valeur de user, de manière à ce que user.isConnected = true.
-   */
-  function UserContextProvider() {
-
-  }
-
   function App() {
     return (
       <div>
@@ -59,7 +29,6 @@
             <p>Créer un contexte <code>userContext</code>.</p>
             <p>Remplir le composant <code>UserContextProvider</code></p>
             <p>Envelopper l'application dans le composant <code>UserContextProvider</code></p>
-            <p></p>
           </div>
         </div>
       </div>

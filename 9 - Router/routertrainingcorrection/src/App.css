@@ -1,3 +1,11 @@
+.App__navlink {
+  margin-right: 0.5em;
+}
+
+.active {
+  color: #00d6b2;
+}
+
 .App {
   text-align: center;
 }

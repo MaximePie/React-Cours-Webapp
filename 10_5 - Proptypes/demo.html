@@ -1,10 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+  <meta charset="UTF-8"/>
+  <title>Hello React</title>
+  <!-- Library -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.min.js"></script>
+
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+  <!-- babel => compilation du JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
+
 <body>
-$END$
+<div id="root"></div>
+<script type="text/babel">
+
+  Profile.propTypes = {
+    age: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    isConnected: PropTypes.boolean
+  };
+
+  Profile.defaultProps = {
+    isConnected: false,
+  }
+
+  function Profile(props) {
+    return (
+      <div>
+        <h4>Profile</h4>
+        <p>{props.name}</p>
+        <p>{props.age}</p>
+        <p>{props.isConnected}</p>
+      </div>
+    )
+  }
+
+  function App() {
+    return (
+      <div>
+        <Profile age={10} isConnected={true} name={"Omar"}/>
+        <Profile age={10} name={"Omar"}/>
+      </div>
+    )
+  }
+
+  // Rendu dans le DOM
+  ReactDOM.render(
+    <App/>,
+    document.getElementById('root')
+  );
+</script>
 </body>
+
 </html>

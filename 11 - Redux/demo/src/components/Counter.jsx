@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
-export default function Counter({onClick}) {
+export default function Counter() {
 
   const dispatcher = useDispatch();
   const { counter } = useSelector(state => state);

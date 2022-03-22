@@ -17,7 +17,7 @@ function App() {
         <div>
           <div className="Calculator__numbers">
             {operations.map((operator, index) => (
-              <button className="Button" index={index} onClick={() => triggerOperation(operator)}>
+              <button className="Button" key={index} onClick={() => triggerOperation(operator)}>
                 {operator}
               </button>
             ))}

@@ -1,5 +1,7 @@
 import './App.css';
 import {BrowserRouter, Route, Routes, NavLink, useNavigate, useParams} from "react-router-dom";
+import Profil from "./components/pages/Profil";
+import PageParametre from "./components/pages/PageParametre";
 
 function Home() {
   return (
@@ -38,10 +40,23 @@ function Home() {
 function App() {
 
   return (
-    <div className="App">
-      <h4>Router</h4>
-      <Home/>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <h4>Router</h4>
+        <div>
+          <NavLink to={"/profil"}>Profil</NavLink>
+          <NavLink to={"/home"}>Home</NavLink>
+          <NavLink to={"/parametre/1"}>1</NavLink>
+          <NavLink to={"/parametre/2"}>2</NavLink>
+          <NavLink to={"/parametre/Anaïs"}>Anaïs</NavLink>
+        </div>
+        <Routes>
+          <Route path={"/profil"} element={<Profil/>}/>
+          <Route path={"/parametre/:dada"} element={<PageParametre/>}/>
+          <Route path={"/home"} element={<Home/>}/>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
