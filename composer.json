@@ -1,0 +1,5 @@
+{
+    "require": {
+        "symfony/webpack-encore-bundle": "^1.14"
+    }
+}

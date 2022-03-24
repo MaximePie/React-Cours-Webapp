@@ -8,21 +8,3 @@
     margin: auto;
     justify-content: space-between;
 }
-
-.Calculator__numbers {
-    display: grid;
-    grid-template-columns: 40px 40px 40px 40px;
-    justify-content: center;
-    grid-column-gap: 14px;
-    grid-row-gap: 4px;
-}
-
-.Button {
-    width: 48px;
-    height: 40px;
-    border-radius: 2px;
-    border: none;
-    margin: 4px;
-
-    cursor: pointer;
-}

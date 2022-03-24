@@ -1,56 +1,68 @@
 import {useDispatch, useSelector} from "react-redux";
 
 export default function Calculator() {
-
-  const {screenContent, result, history} = useSelector(state => state);
+  const symbols = ["1","2","3","4","5","6","7","8","9","0","+","-","*","/"];
   const dispatch = useDispatch();
 
-  const symbols = ['1','2','3','4','5','6','7','8','9', '*', '/', '+', '-'];
+  const {screenContent, result, history} = useSelector(state => state);
 
-  return (
-    <div className="Calculator">
-      <h4>Calculatrice</h4>
-      <div className="Calculator__result">
-        <h4>Résultat</h4>
-        {result}
-      </div>
-      <div className="Calculator__display">
-        <h4>Cadran</h4>
-        {screenContent}
-      </div>
-      <div className="Calculator__buttons">
-        {symbols.map(symbol => (
-          <button onClick={() => numberClick(symbol)}>
-            {symbol}
-          </button>
-        ))}
-        <button onClick={calculate}>=</button>
-        <button onClick={reset}>C</button>
-      </div>
-      <div className="Calculator__history">
-        <h4>Historique</h4>
-        {/* Afficher chaque opération présente dans l'historique */}
-        {history.map((operation, index) => <p key={index}>{operation}</p>)}
-      </div>
-    </div>
-  );
+  /**
+   * Dispatcher un événement ADD_SYMBOl
+   * Et envoyer symbol en data
+   *
+   * @param symbol - Un caractère à ajouter à l'écran
+   */
+  function addSymbol(symbol) {
+    dispatch({
+      type: "ADD_SYMBOL",
+      symbol
+    })
+  }
 
+  /**
+   * Dispatcher un événement "CALCULATE" au reducer
+   */
+  function calculate() {
+    dispatch({
+      type: "CALCULATE"
+    })
+  }
+
+  /**
+   * Dispatch "RESET"
+   */
   function reset() {
     dispatch({
       type: "RESET",
     })
   }
 
-  function calculate() {
-    dispatch({
-      type: "CALCULATE",
-    })
-  }
-
-  function numberClick(number) {
-    dispatch({
-      type: "BUTTON_CLICK",
-      content: number,
-    })
-  }
+  return (
+    <div className="Calculator">
+      <h4>Voici le Calculator 2022</h4>
+      <div className="Calculator__screen">
+        {screenContent}
+      </div>
+      <div className="Calculator__result">
+        {result}
+      </div>
+      <div className="Calculator__buttons">
+        {symbols.map(
+          (symbol, key) => (
+            <button
+              onClick={() => addSymbol(symbol)}
+              key={key}
+            >
+              {symbol}
+            </button>
+          )
+        )}
+        <button onClick={calculate}>=</button>
+        <button onClick={reset}>C</button>
+      </div>
+      <div className="Calculator__history">
+        {history.map((operation, index) => <p key={index}>{operation}</p>)}
+      </div>
+    </div>
+  )
 }
