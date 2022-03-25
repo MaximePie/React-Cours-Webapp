@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 
 const BookCard = (props) => {
-  const  book  = props.book;
+  const book  = props.book;
 
   return(
     <div className="card-container">
