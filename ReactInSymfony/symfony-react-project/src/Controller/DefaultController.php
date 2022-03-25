@@ -65,4 +65,14 @@ class DefaultController extends AbstractController
 
         return $response;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getSubscribedServices(): array
+    {
+        // TODO: Implement getSubscribedServices() method.
+
+        return [];
+    }
 }
